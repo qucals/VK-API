@@ -1,0 +1,4 @@
+D:/C++ Projects/VKAPI/build/CMakeFiles/vkapi.dir
+D:/C++ Projects/VKAPI/build/CMakeFiles/INSTALL.dir
+D:/C++ Projects/VKAPI/build/CMakeFiles/ALL_BUILD.dir
+D:/C++ Projects/VKAPI/build/CMakeFiles/ZERO_CHECK.dir
