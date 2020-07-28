@@ -44,16 +44,16 @@ Steps:
 2. Open terminal in a directory where you copied the repository;
 3. Enter the following command: `cd build && cmake .. && cmake --build .`;
 4. If installing is ended successfully you can see in the directory `build` the following files:
-  • `include/` - the directory with include's files;
-  • `lib/` - the static libs.
+    `include/` - the directory with include's files;    
+    `lib/` - the static libs.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
+The library using 2 additional dependencies:
+1. [curlpp](https://www.curlpp.org/) - A library for working with requests;
+2. [json](https://github.com/nlohmann/json) - A library for working with json.
 
-```
-Give examples
-```
+Note that you also can install it by `vcpkg` on Windows.
 
 ### Installing
 

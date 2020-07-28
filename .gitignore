@@ -1027,7 +1027,7 @@ Mkfile.old
 dkms.conf
 
 # CURL
-/include/curl
+/include/curl/*
 
 # NLOHMANN
-/include/nlohmann
+/include/nlohmann/*

@@ -16,7 +16,6 @@ elseif(UNIX)
     target_link_libraries(vkapi INTERFACE "${CURL_LIB_PATH}/libcurl.a")
 endif()
 
-
 # Include json
 target_link_directories(vkapi PUBLIC ${NLOHMANN_JSON_PATH})
 
