@@ -42,10 +42,9 @@ These instructions will get you a copy of the project up and running on your loc
 Steps:
 1. Copy this repository to your computer;
 2. Open terminal in a directory where you copied the repository;
-3. Enter the following command: `cd build && cmake .. && cmake --build .`;
-4. If installing is ended successfully you can see in the directory `build` the following files:
-  `include/` - the directory with include's files;
-  `lib/` - the static libs.
+3. Change a main directory: `cd build`;
+4. Enter the following command with your replacements: `cmake -DNLOHMANN_JSON_PATH=PATH:*path* -DCURL_INCLUDE_PATH=PATH:*path* -DCURL_LIB_PATH=PATH:*path*..`. Replace the `*path*` inserts with the corresponding paths;
+6. If installing is ended successfully you can see in the directory `build` include's files and libs;
 
 ### Prerequisites
 
