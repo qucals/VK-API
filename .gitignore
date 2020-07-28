@@ -1026,11 +1026,5 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# CURL
-/include/curl/*
-
-# NLOHMANN
-/include/nlohmann/*
-
 # VS code
 .vscode/*

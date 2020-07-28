@@ -9,7 +9,7 @@ The output was:
 Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
-Сборка начата 26.07.2020 21:23:21.
+Сборка начата 29.07.2020 1:09:00.
 Проект "D:\C++ Projects\VKAPI\build\CMakeFiles\3.17.0\CompilerIdCXX\CompilerIdCXX.vcxproj" в узле 1 (целевые объекты по умолчанию).
 PrepareForBuild:
   Создание каталога "Debug\".
@@ -39,7 +39,7 @@ FinalizeBuildStatus:
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:01.57
+Прошло времени 00:00:04.24
 
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -51,28 +51,28 @@ The CXX compiler identification is MSVC, found in "D:/C++ Projects/VKAPI/build/C
 Determining if the CXX compiler works passed with the following output:
 Change Dir: D:/C++ Projects/VKAPI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):D:/Visual Studio/MSBuild/Current/Bin/MSBuild.exe cmTC_553cf.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
+Run Build Command(s):D:/Visual Studio/MSBuild/Current/Bin/MSBuild.exe cmTC_28df6.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.26.28806 для x64
   testCXXCompiler.cxx
   (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
-  cl /c /I"C:\vcpkg\installed\x64-windows\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_553cf.dir\Debug\\" /Fd"cmTC_553cf.dir\Debug\vc142.pdb" /Gd /TP /errorReport:queue "D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
-  cmTC_553cf.vcxproj -> D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\Debug\cmTC_553cf.exe
+  cl /c /I"C:\vcpkg\installed\x64-windows\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_28df6.dir\Debug\\" /Fd"cmTC_28df6.dir\Debug\vc142.pdb" /Gd /TP /errorReport:queue "D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  cmTC_28df6.vcxproj -> D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\Debug\cmTC_28df6.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: D:/C++ Projects/VKAPI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):D:/Visual Studio/MSBuild/Current/Bin/MSBuild.exe cmTC_d49d2.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
+Run Build Command(s):D:/Visual Studio/MSBuild/Current/Bin/MSBuild.exe cmTC_3f61e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.26.28806 для x64
-  CMakeCXXCompilerABI.cpp
   (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
-  cl /c /I"C:\vcpkg\installed\x64-windows\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_d49d2.dir\Debug\\" /Fd"cmTC_d49d2.dir\Debug\vc142.pdb" /Gd /TP /errorReport:queue "C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCXXCompilerABI.cpp"
-  cmTC_d49d2.vcxproj -> D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\Debug\cmTC_d49d2.exe
+  CMakeCXXCompilerABI.cpp
+  cl /c /I"C:\vcpkg\installed\x64-windows\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_3f61e.dir\Debug\\" /Fd"cmTC_3f61e.dir\Debug\vc142.pdb" /Gd /TP /errorReport:queue "C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCXXCompilerABI.cpp"
+  cmTC_3f61e.vcxproj -> D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\Debug\cmTC_3f61e.exe
 
 
 

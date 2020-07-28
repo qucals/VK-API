@@ -12,7 +12,7 @@ namespace VK {
 
 constexpr auto APPLY_CURLOPT = 1L;
 constexpr auto NO_APPLY_CURLOPT = 0L;
-constexpr auto MAXREDIGS = 50L;
+constexpr auto MAXREGIDS = 50L;
 constexpr auto USERAGENT = "VK API Client";
 
 /**
@@ -26,9 +26,9 @@ public:
     Request& operator=(const Request&) = delete;
 
     /**
-     * @brief Sending your reqeust to the VK server.
+     * @brief Sending your request to the VK server.
      * @param  url: the request in url format.
-     * @param  postData: the additinal parameters which need to add to the request.
+     * @param  postData: the additional parameters which need to add to the request.
      * @retval an answer in a string.
      */
     static std::string Send(const std::string& url,
