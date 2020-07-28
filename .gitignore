@@ -1031,3 +1031,6 @@ dkms.conf
 
 # NLOHMANN
 /include/nlohmann/*
+
+# VS code
+.vscode/*

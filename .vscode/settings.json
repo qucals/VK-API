@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "*.tpp": "cpp",
-        "string": "cpp"
-    },
-    "terminal.integrated.shell.windows": "cmd.exe",
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
-}
