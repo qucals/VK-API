@@ -2,14 +2,14 @@
   <a href="" rel="noopener">
 </p>
 
-<h3 align="center">Project Title</h3>
+<h3 align="center">VK API Library</h3>
 
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![GitHub Issues](https://img.shields.io/github/issues/qucals/VK_API.svg)](https://github.com/qucals/VK_API/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/qucals/VK_API.svg)](https://github.com/qucals/VK_API/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![License](https://img.shields.io/github/license/qucals/VK_API)](/LICENSE)
 
 </div>
 
@@ -29,7 +29,6 @@
 - [TODO](../TODO.md)
 - [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -42,18 +41,18 @@ These instructions will get you a copy of the project up and running on your loc
 Steps:
 1. Copy this repository to your computer;
 2. Open terminal in a directory where you copied the repository;
-3. Enter the following command: `cd build && cmake .. && cmake --build .`;
-4. If installing is ended successfully you can see in the directory `build` the following files:
-  1. `include/` - the directory with include's files;
-  2. 'lib/' - the static libs.
+3. Change a main directory: `cd build`;
+4. Enter the following command with your replacements: `cmake -DNLOHMANN_JSON_PATH=PATH:*path* -DCURL_INCLUDE_PATH=PATH:*path* -DCURL_LIB_PATH=PATH:*path*..`. Replace the `*path*` inserts with the corresponding paths;
+5. Build the project by the command: `cmake --build .`;
+6. If installing is ended successfully you can see in the directory `build` include's files and libs;
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
+The library using 2 additional dependencies:
+1. [curlpp](https://www.curlpp.org/) - A library for working with requests;
+2. [json](https://github.com/nlohmann/json) - A library for working with json.
 
-```
-Give examples
-```
+Note that you also can install it by `vcpkg` on Windows.
 
 ### Installing
 
@@ -108,9 +107,3 @@ Add additional notes about how to deploy this on a live system.
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@qucals](https://github.com/qucals) - Idea & Initial work
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
