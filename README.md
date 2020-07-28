@@ -44,8 +44,8 @@ Steps:
 2. Open terminal in a directory where you copied the repository;
 3. Enter the following command: `cd build && cmake .. && cmake --build .`;
 4. If installing is ended successfully you can see in the directory `build` the following files:
-    `include/` - the directory with include's files;    
-    `lib/` - the static libs.
+  `include/` - the directory with include's files;
+  `lib/` - the static libs.
 
 ### Prerequisites
 
