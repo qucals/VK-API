@@ -15,7 +15,7 @@
 
 ---
 
-<p align="center"> Few lines describing your project.
+<p align="center"> The easiest C++ library to use for working with the VK API.
     <br> 
 </p>
 
