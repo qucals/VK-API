@@ -9,7 +9,7 @@
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![GitHub Issues](https://img.shields.io/github/issues/qucals/VK_API.svg)](https://github.com/qucals/VK_API/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/qucals/VK_API.svg)](https://github.com/qucals/VK_API/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![License](https://img.shields.io/github/license/qucals/VK_API](/LICENSE)
 
 </div>
 
@@ -29,7 +29,6 @@
 - [TODO](../TODO.md)
 - [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -108,9 +107,3 @@ Add additional notes about how to deploy this on a live system.
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@qucals](https://github.com/qucals) - Idea & Initial work
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
