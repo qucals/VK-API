@@ -26,9 +26,9 @@
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
+- [TODO](TODO.md)
 - [Authors](#authors)
-
+  
 ## 🧐 About <a name = "about"></a>
 
 This is a library for easy work with the VK API. It contains all the standard queries that are defined by VK. This makes it easier to access LongPollServer VK.
