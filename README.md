@@ -2,7 +2,7 @@
   <a href="" rel="noopener">
 </p>
 
-<h3 align="center">Project Title</h3>
+<h3 align="center">VK API Library</h3>
 
 <div align="center">
 
@@ -44,8 +44,8 @@ Steps:
 2. Open terminal in a directory where you copied the repository;
 3. Enter the following command: `cd build && cmake .. && cmake --build .`;
 4. If installing is ended successfully you can see in the directory `build` the following files:
-  1. `include/` - the directory with include's files;
-  2. 'lib/' - the static libs.
+  • `include/` - the directory with include's files;
+  • `lib/` - the static libs.
 
 ### Prerequisites
 
