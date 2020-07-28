@@ -3,15 +3,6 @@
 #ifndef INCLUDE_CLIENTBASE_H_
 #define INCLUDE_CLIENTBASE_H_
 
-#ifndef DISABLE_WARNINGS_
-#define DISABLE_WARNINGS_
-
-#pragma warning(disable : 6011)
-#pragma warning(disable : 26495)
-#pragma warning(disable : 26812)
-
-#endif
-
 #include <iostream> // cout, endl
 #include <random> // rand
 #include <set> // set
@@ -63,14 +54,14 @@ enum class VK_REQUEST_ERROR_TYPES : uint16_t {
     INVALID_USER_ID = 113,
     INVALID_TIMESTAMP = 150,
     ACCESS_ALBUM_PROHIBITED = 200,
-    ACCESS_AUDIO_PHOHIBITED = 201,
-    ACCESS_TO_GROUP_PHOHIBITED = 203,
+    ACCESS_AUDIO_PROHIBITED = 201,
+    ACCESS_TO_GROUP_PROHIBITED = 203,
     ALBUM_IS_FULL = 300,
     RECAPTCHA_NEEDED = 3300,
     PHONE_VALIDATION_NEEDED = 3301,
     PASSWORD_VALIDATION_NEEDED = 3302,
     OPT_APP_VALIDATION_NEEDED = 3303,
-    EMAIL_COFIRMATION_NEEDED = 3304,
+    EMAIL_CONFIRMATION_NEEDED = 3304,
     ASSERT_VOTES = 3305,
     TOKEN_EXTENSION_REQUIRED = 3609,
     USER_IS_DEACTIVATED = 3610,
@@ -129,7 +120,7 @@ public:
 protected:
     /**
      * @brief  Convert parameters data to URL format.
-     * @param  parametersData: your pamareters data which need to convert to URL format.
+     * @param  parametersData: your parameters data which need to convert to URL format.
      * @retval a string with parameters in URL format.
      */
     virtual std::string ConvertParametersDataToURL(const json& parametersData);

@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma warnings(disable : 4267)
-
 #ifndef INCLUDE_UTILITIES_HPP_
 #define INCLUDE_UTILITIES_HPP_
 
