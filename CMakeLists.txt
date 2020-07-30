@@ -9,6 +9,7 @@ set(CURL_INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include")
 set(CURL_LIB_PATH "${PROJECT_SOURCE_DIR}/thirdparty")
 
 file(GLOB TARGET_SRC "./src/*.cpp")
+file(GLOB TARGET_HEADERS "./include/*.hpp")
 
 add_library(vkapi STATIC ${TARGET_SRC})
 
@@ -30,9 +31,12 @@ set_target_properties(
 
 install(
     TARGETS vkapi
-    CONFIGURATIONS "${PROJECT_SOURCE_DIR}"
     RUNTIME DESTINATION "${PROJECT_SOURCE_DIR}/bin"
     LIBRARY DESTINATION "${PROJECT_SOURCE_DIR}/lib"
     ARCHIVE DESTINATION "${PROJECT_SOURCE_DIR}/lib/static"
-    INCLUDES DESTINATION "${PROJECT_SOURCE_DIR}/bin/include"
+)
+
+install(
+    FILES
+    ${TARGET_HEADERS} DESTINATION "${PROJECT_SOURCE_DIR}/bin/include"
 )
