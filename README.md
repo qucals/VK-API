@@ -127,7 +127,7 @@ There are other examples of using this library in the `examples` directory.
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-Add additional notes about how to deploy this on a live system.
+In future.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
