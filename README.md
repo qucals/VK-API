@@ -70,11 +70,7 @@ There are two base examples.
 
 Authorization for Bot:
 
-<<<<<<< HEAD
 ```CXX
-=======
-```
->>>>>>> a0eb859d06a3a4b0324a73a4b14b570e762aa067
 #include <iostream>
 
 int main(int argc, const char** argv)
@@ -96,11 +92,7 @@ int main(int argc, const char** argv)
 
 Authorization for User:
 
-<<<<<<< HEAD
 ```CXX
-=======
-```
->>>>>>> a0eb859d06a3a4b0324a73a4b14b570e762aa067
 #include "User.hpp"
 
 int main(int argc, const char** argv)
