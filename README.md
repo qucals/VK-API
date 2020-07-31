@@ -69,7 +69,9 @@ After the above steps you will have a static library and include's files that yo
 There are two base examples.
 
 Authorization for Bot:
-```#include <iostream>
+
+```
+#include <iostream>
 
 int main(int argc, const char** argv)
 {
@@ -85,11 +87,13 @@ int main(int argc, const char** argv)
     }
 
     return 0;
-}```
+}
+```
 
 Authorization for User:
 
-```#include "User.hpp"
+```
+#include "User.hpp"
 
 int main(int argc, const char** argv)
 {
@@ -116,7 +120,8 @@ int main(int argc, const char** argv)
     }
 
     return 0;
-}```
+}
+```
 
 There are other examples of using this library in the `examples` directory.
 
