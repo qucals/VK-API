@@ -13,9 +13,6 @@
     <ClCompile Include="D:\C++ Projects\VKAPI\src\User.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\C++ Projects\VKAPI\src\pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\C++ Projects\VKAPI\CMakeLists.txt" />

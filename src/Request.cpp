@@ -16,7 +16,7 @@ std::string Request::Send(const std::string& url, const std::string& postData)
         curl_easy_setopt(curl, CURLOPT_USERAGENT, USERAGENT);
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, NO_APPLY_CURLOPT);
         curl_easy_setopt(curl, CURLOPT_HTTPGET, NO_APPLY_CURLOPT);
-        curl_easy_setopt(curl, CURLOPT_MAXREDIRS, MAXREDIGS);
+        curl_easy_setopt(curl, CURLOPT_MAXREDIRS, MAXREGIDS);
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Request::CurlWriteData);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &callbackBuf);

@@ -1,2 +1,0 @@
-D:\C++ Projects\VKAPI\build\Debug\vkapi.pdb
-D:\C++ Projects\VKAPI\build\vkapi.dir\Debug\vkapi.pdb

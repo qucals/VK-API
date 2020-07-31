@@ -10,7 +10,7 @@ namespace VK {
 constexpr auto DEFAULT_TIME_WAIT = "25";
 
 /**
- * @brief The class for working ffrom bots by Long Poll Server.
+ * @brief The class for working from bots by Long Poll Server.
  */
 class Bot : virtual public ClientBase {
 public:

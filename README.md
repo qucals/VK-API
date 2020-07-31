@@ -26,9 +26,9 @@
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
+- [TODO](TODO.md)
 - [Authors](#authors)
-
+  
 ## 🧐 About <a name = "about"></a>
 
 This is a library for easy work with the VK API. It contains all the standard queries that are defined by VK. This makes it easier to access LongPollServer VK.
@@ -37,13 +37,12 @@ This is a library for easy work with the VK API. It contains all the standard qu
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
 
-Steps:
+Steps <a name = "steps"></a>:
 1. Copy this repository to your computer;
 2. Open terminal in a directory where you copied the repository;
 3. Change a main directory: `cd build`;
-4. Enter the following command with your replacements: `cmake -DNLOHMANN_JSON_PATH=PATH:*path* -DCURL_INCLUDE_PATH=PATH:*path* -DCURL_LIB_PATH=PATH:*path*..`. Replace the `*path*` inserts with the corresponding paths;
-5. Build the project by the command: `cmake --build .`;
-6. If installing is ended successfully you can see in the directory `build` include's files and libs;
+4. Enter the following command with your replacements: `cmake -DNLOHMANN_JSON_PATH=PATH:*path* -DCURL_INCLUDE_PATH=PATH:*path* -DCURL_LIB_PATH=PATH:*path* ..`. Replace the `*path*` inserts with the corresponding paths;
+5. Build the project by the next command: `cmake --build .`;
 
 ### Prerequisites
 
@@ -55,49 +54,80 @@ Note that you also can install it by `vcpkg` on Windows.
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running.
+For connection this library to yours you need to follow the next steps:
+1. Copy this repository to your computer;
+2. Open terminal in a directory where you copied the repository;
+3. Change a main directory: `cd build`;
+4. Enter the following command with your replacements: `cmake -DNLOHMANN_JSON_PATH=PATH:*path* -DCURL_INCLUDE_PATH=PATH:*path* -DCURL_LIB_PATH=PATH:*path* ..`. Replace the `*path*` inserts with the corresponding paths;
+5. Build and install the project by the next command: `cmake --build . --target install --config Release`;
+6. If building and install is ended successfully you can see there are `include` and `lib`'s directories in `install`'s directory.
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+After the above steps you will have a static library and include's files that you can connection to your project.
 
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+There are two base examples.
+
+Authorization for Bot:
+
+```CXX
+#include <iostream>
+
+int main(int argc, const char** argv)
+{
+    std::string access_token = "your_token_there";
+    std::string group_id = "your_group_id_there";
+
+    VK::Bot bot(group_id);
+
+    if (bot.Auth(access_token) == true) {
+        // The further behaviour
+    } else {
+        // The further behaviour
+    }
+
+    return 0;
+}
+```
+
+Authorization for User:
+
+```CXX
+#include "User.hpp"
+
+int main(int argc, const char** argv)
+{
+    std::string app_id = "your_app_id_there";
+    std::string app_secure_key = "your_app_secure_key_there";
+    std::string login = "your_login_there";
+    std::string password = "your_password_there";
+    std::string access_token = "your_access_token_there";
+
+    VK::User user(app_id, app_secure_key);
+    
+    if(user.Auth(login, password) == true) {
+        // The further behaviour
+    } else {
+        // The further behaviour
+    }
+
+    // or
+
+    if(user.Auth(access_token) == true) {
+        // The further behaviour
+    } else {
+        // The further behaviour
+    }
+
+    return 0;
+}
+```
+
+There are other examples of using this library in the `examples` directory.
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-Add additional notes about how to deploy this on a live system.
+In future.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
