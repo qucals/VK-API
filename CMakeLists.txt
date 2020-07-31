@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.1)
 set(PROJECT_NAME "VKAPI")
 project(${PROJECT_NAME} VERSION 0.0.1 LANGUAGES CXX)
 
-# set(CMAKE_CONFIGURATION_TYPES "Release" CACHE STRING "" FORCE)
-
 set(NLOHMANN_JSON_PATH "${PROJECT_SOURCE_DIR}/include")
 set(CURL_INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include")
 set(CURL_LIB_PATH "${PROJECT_SOURCE_DIR}/thirdparty")
@@ -21,7 +19,10 @@ target_link_directories(vkapi PUBLIC ${NLOHMANN_JSON_PATH})
 # Include curl
 target_link_directories(vkapi PUBLIC ${CURL_INCLUDE_PATH})
 
-target_link_libraries(vkapi INTERFACE "${CURL_LIB_PATH}/libcurl.lib")
+# TODO: Add automatic generation of libcurl
+if(WIN32)
+    target_link_libraries(vkapi INTERFACE "${CURL_LIB_PATH}/libcurl.lib")
+endif()
 
 set_target_properties(
     vkapi PROPERTIES
