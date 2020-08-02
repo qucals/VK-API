@@ -52,7 +52,7 @@ The library using 2 additional dependencies:
 
 Note that you also can install it by `vcpkg` on Windows.
 
-### Installing
+### Installing <a name = "installing"></a>
 
 For connection this library to yours you need to follow the next steps:
 1. Copy this repository to your computer;
@@ -127,7 +127,19 @@ There are other examples of using this library in the `examples` directory.
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-In future.
+### CMake
+
+If you use CMake you make use the `find_package` instruction.
+After [installing](#installing) the project you can find vkapiConfig.cmake in the `lib/cmake` directory. For connection this library to your project you need to add the following code to your cmake file:
+```CMake
+    find_package(vkapi CONFIG REQUIRED)
+    target_link_libraries(*your_target_name* vkapi::vkapi)
+    target_include_directories(*your_target_name* ${vkapi::INSTALL_HEADERS_PATH})
+```
+
+### Others
+
+If you use another building system you need to connection include's files and lib file which is located `bin\include` and `lib` directories.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
