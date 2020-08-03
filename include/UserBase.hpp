@@ -1,14 +1,14 @@
 #pragma once
 
-#ifndef INCLUDE_USER_HPP_
-#define INCLUDE_USER_HPP_
+#ifndef INCLUDE_USERBASE_HPP_
+#define INCLUDE_USERBASE_HPP_
 
 #include "ClientBase.hpp"
 
 namespace VK {
 
 // The class for working from users by Long Poll Server.
-class User : virtual public ClientBase {
+class UserBase : virtual public ClientBase {
 public:
     // There are user's methods, but not all.
     // Description about below methods you can find at https://vk.com/dev/methods
@@ -417,8 +417,8 @@ public:
      * @param  appId: the id of the application.
      * @param  appSecureKey: the secure key of the application.
      */
-    User(const std::string& appId, const std::string& appSecureKey);
-    ~User() = default;
+    UserBase(const std::string& appId, const std::string& appSecureKey);
+    ~UserBase() = default;
 
     /**
      * @brief  The authorization function by login and password.
@@ -465,7 +465,7 @@ public:
      */
     VALIDATION_TYPES GetValidationType(const std::string& descriptionType);
 
-    User& operator=(const User&) = delete;
+    UserBase& operator=(const UserBase&) = delete;
 
 protected:
     /**
@@ -494,4 +494,4 @@ private:
 
 }
 
-#endif // INCLUDE_USER_HPP_
+#endif // INCLUDE_USERBASE_HPP_

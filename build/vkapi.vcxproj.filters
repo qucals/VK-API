@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="D:\C++ Projects\VKAPI\src\Bot.cpp">
+    <ClCompile Include="D:\C++ Projects\VKAPI\src\BotBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\C++ Projects\VKAPI\src\ClientBase.cpp">
@@ -10,12 +10,12 @@
     <ClCompile Include="D:\C++ Projects\VKAPI\src\Request.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\C++ Projects\VKAPI\src\User.cpp">
+    <ClCompile Include="D:\C++ Projects\VKAPI\src\UserBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="D:\C++ Projects\VKAPI\include\Bot.hpp">
+    <ClInclude Include="D:\C++ Projects\VKAPI\include\BotBase.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\C++ Projects\VKAPI\include\ClientBase.hpp">
@@ -24,7 +24,7 @@
     <ClInclude Include="D:\C++ Projects\VKAPI\include\Request.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\C++ Projects\VKAPI\include\User.hpp">
+    <ClInclude Include="D:\C++ Projects\VKAPI\include\UserBase.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\C++ Projects\VKAPI\include\Utilities.hpp">

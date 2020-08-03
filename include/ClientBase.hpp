@@ -69,7 +69,7 @@ enum class VK_REQUEST_ERROR_TYPES : uint16_t {
     OTHERS = 0
 };
 
-// The base-parent class for User & Bot classes.
+// The base-parent class for UserBase & BotBase classes.
 // It has a standard function of Auth and some functions with working with URL scope.
 class ClientBase {
 public:

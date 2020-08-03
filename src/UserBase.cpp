@@ -1,8 +1,8 @@
-#include "User.hpp"
+#include "UserBase.hpp"
 
 namespace VK {
 
-User::User(const std::string& appId, const std::string& appSecureKey)
+UserBase::UserBase(const std::string& appId, const std::string& appSecureKey)
     : appId_(appId)
     , appSecureKey_(appSecureKey)
     , accessToken_("")
@@ -12,7 +12,7 @@ User::User(const std::string& appId, const std::string& appSecureKey)
         throw std::exception("Invalid arguments! The size of argument's symbols cannot equal zero!");
 }
 
-bool User::Auth(std::string& login, std::string& password)
+bool UserBase::Auth(std::string& login, std::string& password)
 {
     if (login.empty() || password.empty())
         throw std::exception("Invalid arguments! The size of argument's symbols cannot equal zero!");
@@ -96,7 +96,7 @@ bool User::Auth(std::string& login, std::string& password)
     return connectedToLongPoll_;
 }
 
-bool User::Auth(const std::string& accessToken)
+bool UserBase::Auth(const std::string& accessToken)
 {
     if (accessToken.empty())
         throw std::exception("Invalid arguments! The size of argument's symbols cannot equal zero!");
@@ -135,7 +135,7 @@ bool User::Auth(const std::string& accessToken)
     return connectedToLongPoll_;
 }
 
-json User::CheckValidationParameters(const json& parametersData)
+json UserBase::CheckValidationParameters(const json& parametersData)
 {
     json cParametersData = parametersData;
 
@@ -148,14 +148,14 @@ json User::CheckValidationParameters(const json& parametersData)
     return cParametersData;
 }
 
-std::string User::GetURLCaptcha(json& parametersData, const json& answerData)
+std::string UserBase::GetURLCaptcha(json& parametersData, const json& answerData)
 {
     parametersData.push_back(
         { "captcha_sid", answerData.at("captcha_sid").get<std::string>() });
     return answerData.at("captcha_img").get<std::string>();
 }
 
-User::VALIDATION_TYPES User::GetValidationType(const std::string& descriptionType)
+UserBase::VALIDATION_TYPES UserBase::GetValidationType(const std::string& descriptionType)
 {
     if (descriptionType == "2fa_sms")
         return VALIDATION_TYPES::TWOFA_SMS;
@@ -165,7 +165,7 @@ User::VALIDATION_TYPES User::GetValidationType(const std::string& descriptionTyp
         return VALIDATION_TYPES::UNKNOWN;
 }
 
-json User::SendRequest(const METHODS method, const json& parametersData)
+json UserBase::SendRequest(const METHODS method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
         throw std::exception("The bot have not connected to the VK yet!");
@@ -179,7 +179,7 @@ json User::SendRequest(const METHODS method, const json& parametersData)
     return answerData;
 }
 
-json User::SendRequest(const std::string& method, const json& parametersData)
+json UserBase::SendRequest(const std::string& method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
         throw std::exception("The bot have not connected to the VK yet!");
@@ -195,7 +195,7 @@ json User::SendRequest(const std::string& method, const json& parametersData)
     return answerData;
 }
 
-std::string User::GetMethodStr(const METHODS method)
+std::string UserBase::GetMethodStr(const METHODS method)
 {
     switch (method) {
     case METHODS::ACCOUNT_BAN:
