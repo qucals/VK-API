@@ -71,7 +71,7 @@ There are two base examples.
 Authorization for Bot:
 
 ```CXX
-#include <iostream>
+#include "Bot.hpp"
 
 int main(int argc, const char** argv)
 {
@@ -132,10 +132,14 @@ There are other examples of using this library in the `examples` directory.
 If you use CMake you make use the `find_package` instruction.
 After [installing](#installing) the project you can find vkapiConfig.cmake in the `lib/cmake` directory. For connection this library to your project you need to add the following code to your cmake file:
 ```CMake
-    find_package(vkapi CONFIG REQUIRED)
-    target_link_libraries(*your_target_name* vkapi::vkapi)
-    target_include_directories(*your_target_name* ${vkapi::INSTALL_HEADERS_PATH})
+    find_package(VKAPI CONFIG REQUIRED HINTS *path_to_directory_lib*)
+    target_link_libraries(*your_target* PRIVATE VKAPI::VKAPI)
+    target_include_directories(*your_target* PRIVATE *path_to_directory_bin_include*)
 ```
+Replace: 
+1. `*path_to_directory_lib_cmake*` to the path to directory `lib/cmake`;
+2. `*your_target*` to your target;
+3. `*path_to_directory_bin_include*`  to the path to directory `bin/include`;
 
 ### Others
 

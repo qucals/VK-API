@@ -16,7 +16,7 @@ set(CMAKE_IMPORT_FILE_VERSION 1)
 set(_targetsDefined)
 set(_targetsNotDefined)
 set(_expectedTargets)
-foreach(_expectedTarget vkapi::vkapi)
+foreach(_expectedTarget VKAPI::VKAPI)
   list(APPEND _expectedTargets ${_expectedTarget})
   if(NOT TARGET ${_expectedTarget})
     list(APPEND _targetsNotDefined ${_expectedTarget})
@@ -49,10 +49,10 @@ if(_IMPORT_PREFIX STREQUAL "/")
   set(_IMPORT_PREFIX "")
 endif()
 
-# Create imported target vkapi::vkapi
-add_library(vkapi::vkapi STATIC IMPORTED)
+# Create imported target VKAPI::VKAPI
+add_library(VKAPI::VKAPI STATIC IMPORTED)
 
-set_target_properties(vkapi::vkapi PROPERTIES
+set_target_properties(VKAPI::VKAPI PROPERTIES
   INTERFACE_LINK_LIBRARIES "D:/C++ Projects/VKAPI/thirdparty/libcurl.lib"
 )
 
@@ -62,7 +62,7 @@ endif()
 
 # Load information for each installed configuration.
 get_filename_component(_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
-file(GLOB CONFIG_FILES "${_DIR}/vkapiConfig-*.cmake")
+file(GLOB CONFIG_FILES "${_DIR}/VKAPIConfig-*.cmake")
 foreach(f ${CONFIG_FILES})
   include(${f})
 endforeach()
