@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.1)
-set(PROJECT_NAME Example1)
+set(PROJECT_NAME Example2)
 project(${PROJECT_NAME} VERSION 0.0.1 LANGUAGES CXX)
 
 set(VKAPI_CONFIG_CMAKE "../../lib/cmake")
+set(VKAPI_INCLUDE_DIRS "../../bin/include")
 
 add_executable(${PROJECT_NAME} main.cpp)
 
@@ -14,4 +15,4 @@ set_target_properties(
 
 find_package(VKAPI CONFIG REQUIRED HINTS ${VKAPI_CONFIG_CMAKE})
 target_link_libraries(${PROJECT_NAME} PRIVATE VKAPI::VKAPI)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/${VKAPI_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME} PRIVATE ${VKAPI_INCLUDE_DIRS})
