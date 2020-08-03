@@ -70,9 +70,17 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="D:\C++ Projects\VKAPI\build\vkapi.vcxproj">
-      <Project>{00E9DB26-25A5-3DB1-8AC6-A60604039A2C}</Project>
-      <Name>vkapi</Name>
+    <ProjectReference Include="D:\C++ Projects\VKAPI\build\examples\1\Example1.vcxproj">
+      <Project>{1281125F-F061-39EA-BCE7-EADE22C442C9}</Project>
+      <Name>Example1</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\C++ Projects\VKAPI\build\examples\2\Example2.vcxproj">
+      <Project>{657418AE-5CB3-322F-A570-19943CD689F5}</Project>
+      <Name>Example2</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\C++ Projects\VKAPI\build\VKAPI.vcxproj">
+      <Project>{222AC4B0-EF3B-3F5C-B848-417DE9E9D868}</Project>
+      <Name>VKAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
