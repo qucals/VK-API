@@ -89,14 +89,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="D:\C++ Projects\VKAPI\src\Bot.cpp" />
+    <ClCompile Include="D:\C++ Projects\VKAPI\src\BotBase.cpp" />
     <ClCompile Include="D:\C++ Projects\VKAPI\src\ClientBase.cpp" />
     <ClCompile Include="D:\C++ Projects\VKAPI\src\Request.cpp" />
-    <ClCompile Include="D:\C++ Projects\VKAPI\src\User.cpp" />
-    <ClInclude Include="D:\C++ Projects\VKAPI\include\Bot.hpp" />
+    <ClCompile Include="D:\C++ Projects\VKAPI\src\UserBase.cpp" />
+    <ClInclude Include="D:\C++ Projects\VKAPI\include\BotBase.hpp" />
     <ClInclude Include="D:\C++ Projects\VKAPI\include\ClientBase.hpp" />
     <ClInclude Include="D:\C++ Projects\VKAPI\include\Request.hpp" />
-    <ClInclude Include="D:\C++ Projects\VKAPI\include\User.hpp" />
+    <ClInclude Include="D:\C++ Projects\VKAPI\include\UserBase.hpp" />
     <ClInclude Include="D:\C++ Projects\VKAPI\include\Utilities.hpp" />
     <ClInclude Include="D:\C++ Projects\VKAPI\include\VKAPI.hpp" />
   </ItemGroup>

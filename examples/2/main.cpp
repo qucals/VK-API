@@ -1,4 +1,4 @@
-#include "User.hpp"
+#include "UserBase.hpp"
 
 int main(int argc, const char** argv)
 {
@@ -8,7 +8,7 @@ int main(int argc, const char** argv)
     std::string password = "your_password_there";
     std::string access_token = "your_access_token_there";
 
-    VK::User user(app_id, app_secure_key);
+    VK::UserBase user(app_id, app_secure_key);
 
     if (user.Auth(login, password) == true) {
         // The further behaviour

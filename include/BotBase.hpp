@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef INCLUDE_BOT_HPP_
-#define INCLUDE_BOT_HPP_
+#ifndef INCLUDE_BOTBASE_HPP_
+#define INCLUDE_BOTBASE_HPP_
 
 #include "ClientBase.hpp"
 
@@ -12,7 +12,7 @@ constexpr auto DEFAULT_TIME_WAIT = "25";
 /**
  * @brief The class for working from bots by Long Poll Server.
  */
-class Bot : virtual public ClientBase {
+class BotBase : virtual public ClientBase {
 public:
     // There are bot methods, but not all.
     // Description about below methods you can find at https://vk.com/dev/methods
@@ -117,8 +117,8 @@ public:
      *  The time of waiting for any event.
      *  In the default timeWait equals DEFAULT_TIME_WAIT ("25").
      */
-    Bot(const std::string groupId, const std::string timeWait = DEFAULT_TIME_WAIT);
-    ~Bot() = default;
+    BotBase(const std::string groupId, const std::string timeWait = DEFAULT_TIME_WAIT);
+    ~BotBase() = default;
 
     /**
      * @brief  The authorization function by the access token
@@ -190,4 +190,4 @@ private:
 
 }
 
-#endif // INCLUDE_BOT_HPP_
+#endif // INCLUDE_BOTBASE_HPP_

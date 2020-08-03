@@ -1,14 +1,14 @@
-#include "Bot.hpp"
+#include "BotBase.hpp"
 
 namespace VK {
-Bot::Bot(const std::string groupId, const std::string timeWait)
+BotBase::BotBase(const std::string groupId, const std::string timeWait)
     : groupId_(groupId)
     , accessToken_("")
     , timeWait_(timeWait)
 {
 }
 
-bool Bot::Auth(const std::string& accessToken)
+bool BotBase::Auth(const std::string& accessToken)
 {
     if (connectedToLongPoll_)
         throw std::exception("The bot have already connected to the VK!");
@@ -46,7 +46,7 @@ bool Bot::Auth(const std::string& accessToken)
     return connectedToLongPoll_;
 }
 
-Bot::Event Bot::WaitForEvent()
+BotBase::Event BotBase::WaitForEvent()
 {
     if (!connectedToLongPoll_)
         throw std::exception("The bot have not connected to the VK yet!");
@@ -70,7 +70,7 @@ Bot::Event Bot::WaitForEvent()
     return Event(GetTypeEvent(eventStr), updates);
 }
 
-std::string Bot::GetMethodStr(const METHODS method)
+std::string BotBase::GetMethodStr(const METHODS method)
 {
     switch (method) {
     case METHODS::DELETE_COMMENT:
@@ -195,7 +195,7 @@ std::string Bot::GetMethodStr(const METHODS method)
     return "";
 }
 
-json Bot::SendRequest(const METHODS method, const json& parametersData)
+json BotBase::SendRequest(const METHODS method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
         throw std::exception("The bot have not connected to the VK yet!");
@@ -209,7 +209,7 @@ json Bot::SendRequest(const METHODS method, const json& parametersData)
     return answerData;
 }
 
-json Bot::SendRequest(const std::string& method, const json& parametersData)
+json BotBase::SendRequest(const std::string& method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
         throw std::exception("The bot have not connected to the VK yet!");
@@ -225,7 +225,7 @@ json Bot::SendRequest(const std::string& method, const json& parametersData)
     return answerData;
 }
 
-json Bot::CheckValidationParameters(const json& parametersData)
+json BotBase::CheckValidationParameters(const json& parametersData)
 {
     json cParametersData = parametersData;
 
@@ -241,7 +241,7 @@ json Bot::CheckValidationParameters(const json& parametersData)
     return cParametersData;
 }
 
-Bot::EVENTS Bot::GetTypeEvent(const std::string& typeEvent)
+BotBase::EVENTS BotBase::GetTypeEvent(const std::string& typeEvent)
 {
     if (typeEvent == "message_new")
         return EVENTS::MESSAGE_NEW;
