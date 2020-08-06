@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef INCLUDE_CLIENTBASE_H_
-#define INCLUDE_CLIENTBASE_H_
+#ifndef _CLIENTBASE_HPP_
+#define _CLIENTBASE_HPP_
 
 #include <iostream> // cout, endl
 #include <random> // rand
@@ -10,10 +10,11 @@
 
 #include "Request.hpp" // Request
 #include "Utilities.hpp" // ConvertStrToUrlCode
+#include "Exceptions.hpp" // already_connected, not_connected, empty_argument
 
 #include "nlohmann/json.hpp" // json
 
-namespace VK {
+namespace vk {
 
 using json = nlohmann::json;
 
@@ -141,4 +142,4 @@ protected:
 
 }
 
-#endif // INCLUDE_CLIENTBASE_H_
+#endif // _CLIENTBASE_HPP_

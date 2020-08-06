@@ -1,14 +1,14 @@
 #pragma once
 
-#ifndef INCLUDE_USERBASE_HPP_
-#define INCLUDE_USERBASE_HPP_
+#ifndef _USERBASE_HPP_
+#define _USERBASE_HPP_
 
 #include "ClientBase.hpp"
 
-namespace VK {
+namespace vk {
 
 // The class for working from users by Long Poll Server.
-class UserBase : virtual public ClientBase {
+class UserBase : public ClientBase {
 public:
     // There are user's methods, but not all.
     // Description about below methods you can find at https://vk.com/dev/methods
@@ -469,10 +469,10 @@ public:
 
 protected:
     /**
-     * @brief  Checking validation parameters on having items like access_token and othes.
+     * @brief  Checking validation parameters on having items like access_token and others.
      * @note   If the data of parameters won't have the function will add it.
      * @param  parametersData: the data of parameters that you want to check.
-     * @retval the currectly data of parameters.
+     * @retval the correctly data of parameters.
      */
     json CheckValidationParameters(const json& parametersData) override;
 
@@ -494,4 +494,4 @@ private:
 
 }
 
-#endif // INCLUDE_USERBASE_HPP_
+#endif // _USERBASE_HPP_

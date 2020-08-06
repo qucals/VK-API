@@ -17,10 +17,10 @@
 //Determines whether examples should be performed
 BUILD_EXAMPLES:BOOL=ON
 
-//Determines whether tests should be performed
-BUILD_TESTS:BOOL=ON
-
-CMAKE_CONFIGURATION_TYPES:STRING=Release
+//Semicolon separated list of supported configuration types, only
+// supports Debug, Release, MinSizeRel, and RelWithDebInfo, anything
+// else will be ignored.
+CMAKE_CONFIGURATION_TYPES:STRING=Debug;Release;MinSizeRel;RelWithDebInfo
 
 //Flags used by the CXX compiler during all build types.
 CMAKE_CXX_FLAGS:STRING=/DWIN32 /D_WINDOWS /W3 /GR /EHsc
@@ -95,21 +95,6 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
 CMAKE_PROJECT_NAME:STATIC=VKAPI
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION:STATIC=0.0.1
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_MAJOR:STATIC=0
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_MINOR:STATIC=0
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_PATCH:STATIC=1
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_TWEAK:STATIC=
 
 //RC compiler
 CMAKE_RC_COMPILER:FILEPATH=C:/Program Files (x86)/Windows Kits/10/bin/10.0.18362.0/x86/rc.exe
@@ -194,9 +179,6 @@ Example2_BINARY_DIR:STATIC=D:/C++ Projects/VKAPI/build/examples/2
 //Value Computed by CMake
 Example2_SOURCE_DIR:STATIC=D:/C++ Projects/VKAPI/examples/2
 
-//Path to the library's headers
-INSTALL_HEADERS_PATH:PATH=bin/include
-
 //Value Computed by CMake
 VKAPI_BINARY_DIR:STATIC=D:/C++ Projects/VKAPI/build
 
@@ -206,12 +188,6 @@ VKAPI_DIR:PATH=D:/C++ Projects/VKAPI/lib/cmake
 //The path to include's files
 VKAPI_INCLUDE_DIRS:PATH=bin/include
 
-//The path to lib's files
-VKAPI_LIBRARIES:PATH=
-
-//The path to lib's files
-VKAPI_LIBRARIES_PATH:PATH=lib
-
 //Value Computed by CMake
 VKAPI_SOURCE_DIR:STATIC=D:/C++ Projects/VKAPI
 
@@ -220,9 +196,6 @@ VKAPI_TESTS_BINARY_DIR:STATIC=D:/C++ Projects/VKAPI/build/examples
 
 //Value Computed by CMake
 VKAPI_TESTS_SOURCE_DIR:STATIC=D:/C++ Projects/VKAPI/examples
-
-//The directory containing a CMake configuration file for vkapi.
-vkapi_DIR:PATH=D:/C++ Projects/VKAPI/lib/cmake
 
 
 ########################

@@ -21,6 +21,9 @@
     <ClInclude Include="D:\C++ Projects\VKAPI\include\ClientBase.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D:\C++ Projects\VKAPI\include\Exceptions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="D:\C++ Projects\VKAPI\include\Request.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -28,9 +31,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\C++ Projects\VKAPI\include\Utilities.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\C++ Projects\VKAPI\include\VKAPI.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

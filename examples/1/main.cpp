@@ -5,12 +5,18 @@ int main(int argc, const char** argv)
     std::string access_token = "your_token_there";
     std::string group_id = "your_group_id_there";
 
-    VK::BotBase bot(group_id);
+    vk::BotBase bot(group_id);
 
-    if (bot.Auth(access_token) == true) {
-        // The further behaviour
-    } else {
-        // The further behaviour
+    std::cout << "I'm created vk::BotBase!" << std::endl;
+    std::cout << "The address is: " << &bot << std::endl;
+    try {
+        if (bot.Auth(access_token) == true) {
+            std::cout << "Auth is ended successfully" << std::endl;
+        } else {
+            std::cout << "Auth is failed!" << std::endl;
+        }
+    } catch (std::exception ex) {
+        std::cout << ex.what() << std::endl;
     }
 
     return 0;

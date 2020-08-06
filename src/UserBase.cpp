@@ -1,21 +1,22 @@
 #include "UserBase.hpp"
 
-namespace VK {
+namespace vk {
 
 UserBase::UserBase(const std::string& appId, const std::string& appSecureKey)
-    : appId_(appId)
+    : ClientBase()
+    , appId_(appId)
     , appSecureKey_(appSecureKey)
     , accessToken_("")
     , userId_("")
 {
     if (appId_.empty() || appSecureKey_.empty())
-        throw std::exception("Invalid arguments! The size of argument's symbols cannot equal zero!");
+        throw ex::empty_argument();
 }
 
 bool UserBase::Auth(std::string& login, std::string& password)
 {
     if (login.empty() || password.empty())
-        throw std::exception("Invalid arguments! The size of argument's symbols cannot equal zero!");
+        throw ex::empty_argument();
 
     if (connectedToLongPoll_)
         connectedToLongPoll_ = false;
@@ -99,7 +100,7 @@ bool UserBase::Auth(std::string& login, std::string& password)
 bool UserBase::Auth(const std::string& accessToken)
 {
     if (accessToken.empty())
-        throw std::exception("Invalid arguments! The size of argument's symbols cannot equal zero!");
+        throw ex::empty_argument();
 
     if (connectedToLongPoll_)
         connectedToLongPoll_ = false;
@@ -168,7 +169,7 @@ UserBase::VALIDATION_TYPES UserBase::GetValidationType(const std::string& descri
 json UserBase::SendRequest(const METHODS method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
-        throw std::exception("The bot have not connected to the VK yet!");
+        throw ex::not_connected();
 
     std::string methodStr = GetMethodStr(method);
     std::string url = API_URL + methodStr;
@@ -182,10 +183,10 @@ json UserBase::SendRequest(const METHODS method, const json& parametersData)
 json UserBase::SendRequest(const std::string& method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
-        throw std::exception("The bot have not connected to the VK yet!");
+        throw ex::not_connected();
 
     if (method.empty())
-        throw std::exception("Invalid arguments! The size of argument's symbols cannot equal zero!");
+        throw ex::empty_argument();
 
     std::string url = API_URL + method;
 

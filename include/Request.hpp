@@ -1,14 +1,14 @@
 #pragma once
 
-#ifndef INCLUDE_REQUEST_HPP_
-#define INCLUDE_REQUEST_HPP_
+#ifndef _REQUEST_HPP_
+#define _REQUEST_HPP_
 
 #include <curl/curl.h> // curl
 #include <string> // string
 
 #include "Utilities.hpp" // ConvertStrToUrlCode
 
-namespace VK {
+namespace vk {
 
 constexpr auto APPLY_CURLOPT = 1L;
 constexpr auto NO_APPLY_CURLOPT = 0L;
@@ -41,4 +41,4 @@ protected:
 
 }
 
-#endif // INCLUDE_REQUEST_HPP_
+#endif // _REQUEST_HPP_

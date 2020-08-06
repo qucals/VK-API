@@ -1,18 +1,18 @@
 #pragma once
 
-#ifndef INCLUDE_BOTBASE_HPP_
-#define INCLUDE_BOTBASE_HPP_
+#ifndef _BOTBASE_HPP_
+#define _BOTBASE_HPP_
 
 #include "ClientBase.hpp"
 
-namespace VK {
+namespace vk {
 
 constexpr auto DEFAULT_TIME_WAIT = "25";
 
 /**
  * @brief The class for working from bots by Long Poll Server.
  */
-class BotBase : virtual public ClientBase {
+class BotBase : public ClientBase {
 public:
     // There are bot methods, but not all.
     // Description about below methods you can find at https://vk.com/dev/methods
@@ -184,10 +184,8 @@ private:
     std::string timeStamp_;
 
     std::string timeWait_;
-
-    bool connectedToLongPoll_;
 };
 
 }
 
-#endif // INCLUDE_BOTBASE_HPP_
+#endif // _BOTBASE_HPP_
