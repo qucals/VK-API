@@ -6,7 +6,7 @@
 #include <curl/curl.h> // curl
 #include <string> // string
 
-namespace VK {
+namespace vk {
 
 namespace Utilities {
 

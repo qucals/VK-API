@@ -10,10 +10,11 @@
 
 #include "Request.hpp" // Request
 #include "Utilities.hpp" // ConvertStrToUrlCode
+#include "Exceptions.hpp" // already_connected, not_connected, empty_argument
 
 #include "nlohmann/json.hpp" // json
 
-namespace VK {
+namespace vk {
 
 using json = nlohmann::json;
 

@@ -9,7 +9,7 @@ The output was:
 Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
-Сборка начата 30.07.2020 21:38:56.
+Сборка начата 06.08.2020 12:17:40.
 Проект "D:\C++ Projects\VKAPI\build\CMakeFiles\3.17.0\CompilerIdCXX\CompilerIdCXX.vcxproj" в узле 1 (целевые объекты по умолчанию).
 PrepareForBuild:
   Создание каталога "Debug\".
@@ -39,7 +39,7 @@ FinalizeBuildStatus:
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:03.45
+Прошло времени 00:00:02.31
 
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -51,28 +51,28 @@ The CXX compiler identification is MSVC, found in "D:/C++ Projects/VKAPI/build/C
 Determining if the CXX compiler works passed with the following output:
 Change Dir: D:/C++ Projects/VKAPI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):D:/Visual Studio/MSBuild/Current/Bin/MSBuild.exe cmTC_0f724.vcxproj /p:Configuration=Debug /p:Platform=win32 /p:VisualStudioVersion=16.0 /v:m && Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
+Run Build Command(s):D:/Visual Studio/MSBuild/Current/Bin/MSBuild.exe cmTC_49239.vcxproj /p:Configuration=Debug /p:Platform=win32 /p:VisualStudioVersion=16.0 /v:m && Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.26.28806 для x86
   testCXXCompiler.cxx
   (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
-  cl /c /I"C:\vcpkg\installed\x86-windows\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_0f724.dir\Debug\\" /Fd"cmTC_0f724.dir\Debug\vc142.pdb" /Gd /TP /analyze- /errorReport:queue "D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
-  cmTC_0f724.vcxproj -> D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\Debug\cmTC_0f724.exe
+  cl /c /I"C:\vcpkg\installed\x86-windows\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_49239.dir\Debug\\" /Fd"cmTC_49239.dir\Debug\vc142.pdb" /Gd /TP /analyze- /errorReport:queue "D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  cmTC_49239.vcxproj -> D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\Debug\cmTC_49239.exe
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: D:/C++ Projects/VKAPI/build/CMakeFiles/CMakeTmp
 
-Run Build Command(s):D:/Visual Studio/MSBuild/Current/Bin/MSBuild.exe cmTC_9532b.vcxproj /p:Configuration=Debug /p:Platform=win32 /p:VisualStudioVersion=16.0 /v:m && Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
+Run Build Command(s):D:/Visual Studio/MSBuild/Current/Bin/MSBuild.exe cmTC_f97b5.vcxproj /p:Configuration=Debug /p:Platform=win32 /p:VisualStudioVersion=16.0 /v:m && Microsoft (R) Build Engine версии 16.6.0+5ff7b0c9e для .NET Framework
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.26.28806 для x86
   CMakeCXXCompilerABI.cpp
   (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
-  cl /c /I"C:\vcpkg\installed\x86-windows\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_9532b.dir\Debug\\" /Fd"cmTC_9532b.dir\Debug\vc142.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCXXCompilerABI.cpp"
-  cmTC_9532b.vcxproj -> D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\Debug\cmTC_9532b.exe
+  cl /c /I"C:\vcpkg\installed\x86-windows\include" /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_f97b5.dir\Debug\\" /Fd"cmTC_f97b5.dir\Debug\vc142.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files\CMake\share\cmake-3.17\Modules\CMakeCXXCompilerABI.cpp"
+  cmTC_f97b5.vcxproj -> D:\C++ Projects\VKAPI\build\CMakeFiles\CMakeTmp\Debug\cmTC_f97b5.exe
 
 
 

@@ -8,20 +8,23 @@ int main(int argc, const char** argv)
     std::string password = "your_password_there";
     std::string access_token = "your_access_token_there";
 
-    VK::UserBase user(app_id, app_secure_key);
+    vk::UserBase user(app_id, app_secure_key);
+    try {
+        if (user.Auth(login, password) == true) {
+            // The further behaviour
+        } else {
+            // The further behaviour
+        }
 
-    if (user.Auth(login, password) == true) {
-        // The further behaviour
-    } else {
-        // The further behaviour
-    }
+        // or
 
-    // or
-
-    if (user.Auth(access_token) == true) {
-        // The further behaviour
-    } else {
-        // The further behaviour
+        if (user.Auth(access_token) == true) {
+            // The further behaviour
+        } else {
+            // The further behaviour
+        }
+    } catch (std::exception ex) {
+        std::cout << ex.what() << std::endl;
     }
 
     return 0;

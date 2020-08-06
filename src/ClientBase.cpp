@@ -1,6 +1,6 @@
 #include "ClientBase.hpp"
 
-namespace VK {
+namespace vk {
 
 ClientBase::ClientBase()
     : connectedToLongPoll_(false)

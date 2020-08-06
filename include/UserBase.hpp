@@ -5,10 +5,10 @@
 
 #include "ClientBase.hpp"
 
-namespace VK {
+namespace vk {
 
 // The class for working from users by Long Poll Server.
-class UserBase : virtual public ClientBase {
+class UserBase : public ClientBase {
 public:
     // There are user's methods, but not all.
     // Description about below methods you can find at https://vk.com/dev/methods

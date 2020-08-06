@@ -5,14 +5,14 @@
 
 #include "ClientBase.hpp"
 
-namespace VK {
+namespace vk {
 
 constexpr auto DEFAULT_TIME_WAIT = "25";
 
 /**
  * @brief The class for working from bots by Long Poll Server.
  */
-class BotBase : virtual public ClientBase {
+class BotBase : public ClientBase {
 public:
     // There are bot methods, but not all.
     // Description about below methods you can find at https://vk.com/dev/methods

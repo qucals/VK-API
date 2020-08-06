@@ -53,6 +53,8 @@ endif()
 add_library(VKAPI::VKAPI STATIC IMPORTED)
 
 set_target_properties(VKAPI::VKAPI PROPERTIES
+  INTERFACE_INCLUDE_DIRECTORIES "D:/C++ Projects/VKAPI/include"
+  INTERFACE_LINK_DIRECTORIES "D:/C++ Projects/VKAPI/include;D:/C++ Projects/VKAPI/include"
   INTERFACE_LINK_LIBRARIES "D:/C++ Projects/VKAPI/thirdparty/libcurl.lib"
 )
 

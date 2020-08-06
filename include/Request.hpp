@@ -8,7 +8,7 @@
 
 #include "Utilities.hpp" // ConvertStrToUrlCode
 
-namespace VK {
+namespace vk {
 
 constexpr auto APPLY_CURLOPT = 1L;
 constexpr auto NO_APPLY_CURLOPT = 0L;

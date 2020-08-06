@@ -1,6 +1,6 @@
 #include "Request.hpp"
 
-namespace VK {
+namespace vk {
 
 std::string Request::Send(const std::string& url, const std::string& postData)
 {
