@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef INCLUDE_CLIENTBASE_H_
-#define INCLUDE_CLIENTBASE_H_
+#ifndef _CLIENTBASE_HPP_
+#define _CLIENTBASE_HPP_
 
 #include <iostream> // cout, endl
 #include <random> // rand
@@ -142,4 +142,4 @@ protected:
 
 }
 
-#endif // INCLUDE_CLIENTBASE_H_
+#endif // _CLIENTBASE_HPP_

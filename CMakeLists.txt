@@ -15,7 +15,7 @@ set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
 
 set(VKAPI_INCLUDE_DIRS bin/include CACHE PATH "The path to include's files")
 
-option(BUILD_EXAMPLES "Determines whether examples should be performed" OFF)
+option(BUILD_EXAMPLES "Determines whether examples should be performed" ON)
 
 file(GLOB TARGET_SRC "./src/*.cpp")
 file(GLOB TARGET_HEADERS "./include/*.hpp")

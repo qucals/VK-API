@@ -1028,3 +1028,9 @@ dkms.conf
 
 # VS code
 .vscode/*
+
+# CURL
+./include/curl/*
+
+# JSON
+./include/nlohmann/*

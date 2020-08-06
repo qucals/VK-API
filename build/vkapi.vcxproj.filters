@@ -33,9 +33,6 @@
     <ClInclude Include="D:\C++ Projects\VKAPI\include\Utilities.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\C++ Projects\VKAPI\include\VKAPI.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="D:\C++ Projects\VKAPI\CMakeLists.txt" />

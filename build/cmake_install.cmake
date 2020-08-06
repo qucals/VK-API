@@ -52,7 +52,6 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "D:/C++ Projects/VKAPI/./include/Request.hpp"
     "D:/C++ Projects/VKAPI/./include/UserBase.hpp"
     "D:/C++ Projects/VKAPI/./include/Utilities.hpp"
-    "D:/C++ Projects/VKAPI/./include/VKAPI.hpp"
     )
 endif()
 

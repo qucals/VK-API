@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef INCLUDE_UTILITIES_HPP_
-#define INCLUDE_UTILITIES_HPP_
+#ifndef _UTILITIES_HPP_
+#define _UTILITIES_HPP_
 
 #include <curl/curl.h> // curl
 #include <string> // string
@@ -30,4 +30,4 @@ namespace Utilities {
 
 }
 
-#endif // INCLUDE_UTILITIES_HPP_
+#endif // _UTILITIES_HPP_

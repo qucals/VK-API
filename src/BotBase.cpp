@@ -2,8 +2,7 @@
 
 namespace vk {
 BotBase::BotBase(const std::string groupId, const std::string timeWait)
-    : ClientBase()
-    , groupId_(groupId)
+    : groupId_(groupId)
     , accessToken_("")
     , timeWait_(timeWait)
 {

@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef INCLUDE_BOTBASE_HPP_
-#define INCLUDE_BOTBASE_HPP_
+#ifndef _BOTBASE_HPP_
+#define _BOTBASE_HPP_
 
 #include "ClientBase.hpp"
 
@@ -184,10 +184,8 @@ private:
     std::string timeStamp_;
 
     std::string timeWait_;
-
-    bool connectedToLongPoll_;
 };
 
 }
 
-#endif // INCLUDE_BOTBASE_HPP_
+#endif // _BOTBASE_HPP_
