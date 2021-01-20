@@ -42,7 +42,7 @@ Steps <a name = "steps"></a>:
 2. Open terminal in a directory where you copied the repository;
 3. Change a main directory: `cd build`;
 4. Enter the following command with your replacements: `cmake -DNLOHMANN_JSON_PATH=PATH:*path* -DCURL_INCLUDE_PATH=PATH:*path* -DCURL_LIB_PATH=PATH:*path* ..`. Replace the `*path*` inserts with the corresponding paths;
-5. Build the project by the next command: `cmake --build .`;
+5. Build the project by the next command: `cmake --build .`.
 
 ### Prerequisites
 
