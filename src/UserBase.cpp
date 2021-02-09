@@ -1,6 +1,7 @@
 #include "UserBase.hpp"
 
-namespace vk {
+namespace vk
+{
 
 UserBase::UserBase(const std::string& appId, const std::string& appSecureKey)
     : ClientBase()
@@ -9,17 +10,13 @@ UserBase::UserBase(const std::string& appId, const std::string& appSecureKey)
     , accessToken_("")
     , userId_("")
 {
-    if (appId_.empty() || appSecureKey_.empty())
-        throw ex::EmptyArgumentException();
+    if (appId_.empty() || appSecureKey_.empty()) throw ex::EmptyArgumentException();
 }
 
 bool UserBase::Auth(std::string& login, std::string& password)
 {
-    if (login.empty() || password.empty())
-        throw ex::EmptyArgumentException();
-
-    if (connectedToLongPoll_)
-        connectedToLongPoll_ = false;
+    if (login.empty() || password.empty()) throw ex::EmptyArgumentException();
+    if (connectedToLongPoll_) throw ex::AlreadyConnectedException;
 
     std::string scope;
 
@@ -38,16 +35,16 @@ bool UserBase::Auth(std::string& login, std::string& password)
         { "password", password }
     };
 
-    json answerData = json::parse(Request::Send(AUTH_URL,
-        ConvertParametersDataToURL(parametersData)));
+    json response = json::parse(Request::Send(AUTH_URL,
+                                              ConvertParametersDataToURL(parametersData)));
 
     try {
-        if (answerData.find("error") != answerData.end()) {
-            auto errorTypeStr = answerData["error"].get<std::string>();
+        if (response.find("error") != response.end()) {
+            auto errorTypeStr = response["error"].get<std::string>();
             VK_REQUEST_ERROR_TYPES errorType = GetRequestErrorType(errorTypeStr);
 
             if (errorType == VK_REQUEST_ERROR_TYPES::NEED_CAPTCHA) {
-                std::cout << GetURLCaptcha(parametersData, answerData);
+                std::cout << GetURLCaptcha(parametersData, response);
 
                 std::string captchaKey;
                 std::cin >> captchaKey;
@@ -56,10 +53,10 @@ bool UserBase::Auth(std::string& login, std::string& password)
                     { "captcha_key", captchaKey });
                 Request::Send(AUTH_URL, ConvertParametersDataToURL(parametersData));
 
-                // TODO: Add further processing
+                // TODO (#001): Add further processing
             }
 
-            VALIDATION_TYPES validationType = GetValidationType(answerData.at("validation_type"));
+            VALIDATION_TYPES validationType = GetValidationType(response.at("validation_type"));
 
             if (validationType == VALIDATION_TYPES::TWOFA_SMS || validationType == VALIDATION_TYPES::TWOFA_APP) {
                 parametersData.push_back({ "2fa_supported", "1" });
@@ -69,7 +66,7 @@ bool UserBase::Auth(std::string& login, std::string& password)
                 else
                     parametersData.push_back({ "2fa_app", "1" });
 
-                Request::Send(answerData.at("redirect_url").get<std::string>(), "");
+                Request::Send(response.at("redirect_url").get<std::string>(), "");
                 Request::Send(AUTH_URL, ConvertParametersDataToURL(parametersData));
 
                 std::cout << "Enter code: ";
@@ -78,15 +75,15 @@ bool UserBase::Auth(std::string& login, std::string& password)
                 std::cin >> code;
 
                 parametersData.push_back({ "code", code });
-                answerData = json::parse(Request::Send(AUTH_URL, ConvertParametersDataToURL(parametersData)));
+                response = json::parse(Request::Send(AUTH_URL, ConvertParametersDataToURL(parametersData)));
 
-                accessToken_ = answerData.at("access_token").get<std::string>();
-                userId_ = answerData.at("user_id").get<std::string>();
+                accessToken_ = response.at("access_token").get<std::string>();
+                userId_ = response.at("user_id").get<std::string>();
                 connectedToLongPoll_ = true;
             }
         } else {
-            accessToken_ = answerData.at("access_token").get<std::string>();
-            userId_ = answerData.at("user_id").get<std::string>();
+            accessToken_ = response.at("access_token").get<std::string>();
+            userId_ = response.at("user_id").get<std::string>();
             connectedToLongPoll_ = true;
         }
     } catch (json::exception& exc) {
@@ -113,12 +110,12 @@ bool UserBase::Auth(const std::string& accessToken)
     const std::string method = GetMethodStr(METHODS::USERS_GET);
     const std::string url = API_URL + method;
 
-    json answerData = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
+    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     try {
 
-        if (answerData.find("error") != answerData.end()) {
-            for (const auto& data : answerData.at("response").items()) {
+        if (response.find("error") != response.end()) {
+            for (const auto& data : response.at("response").items()) {
                 userId_ = data.value().at("id").get<std::string>();
             }
             accessToken_ = accessToken;
@@ -149,11 +146,11 @@ json UserBase::CheckValidationParameters(const json& parametersData)
     return cParametersData;
 }
 
-std::string UserBase::GetURLCaptcha(json& parametersData, const json& answerData)
+std::string UserBase::GetURLCaptcha(json& parametersData, const json& response)
 {
     parametersData.push_back(
-        { "captcha_sid", answerData.at("captcha_sid").get<std::string>() });
-    return answerData.at("captcha_img").get<std::string>();
+        { "captcha_sid", response.at("captcha_sid").get<std::string>() });
+    return response.at("captcha_img").get<std::string>();
 }
 
 UserBase::VALIDATION_TYPES UserBase::GetValidationType(const std::string& descriptionType)
@@ -175,9 +172,9 @@ json UserBase::SendRequest(const METHODS method, const json& parametersData)
     std::string url = API_URL + methodStr;
 
     json pData = CheckValidationParameters(parametersData);
-    json answerData = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
+    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
 
-    return answerData;
+    return response;
 }
 
 json UserBase::SendRequest(const std::string& method, const json& parametersData)
@@ -191,9 +188,9 @@ json UserBase::SendRequest(const std::string& method, const json& parametersData
     std::string url = API_URL + method;
 
     json pData = CheckValidationParameters(parametersData);
-    json answerData = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
+    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
 
-    return answerData;
+    return response;
 }
 
 std::string UserBase::GetMethodStr(const METHODS method)

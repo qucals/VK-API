@@ -1,13 +1,13 @@
 #include "BotBase.hpp"
 
-namespace vk {
+namespace vk
+{
 
 BotBase::BotBase(const std::string groupId, const std::string timeWait)
     : groupId_(groupId)
     , accessToken_("")
     , timeWait_(timeWait)
-{
-}
+{}
 
 bool BotBase::Auth(const std::string& accessToken)
 {
@@ -28,16 +28,17 @@ bool BotBase::Auth(const std::string& accessToken)
 
     const std::string method = GetMethodStr(METHODS::GET_LONG_POLL_SERVER);
     const std::string url = API_URL + method;
-    json answerData = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
+    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
-    if (answerData.find("error") != answerData.end()) {
-        std::cout << "Oops, somethind is wrong!\n"
-                  << "Error is: " << answerData << std::endl;
+    if (response.find("error") != response.end()) {
+        throw ex::RequestError;
+        // std::cout << "Oops, somethind is wrong!\n"
+        //     << "Error is: " << response << std::endl;
         /*
             TODO: Add processing this case
         */
     } else {
-        json answerDataStr = answerData["response"];
+        json answerDataStr = response["response"];
 
         secretKey_ = answerDataStr["key"].get<std::string>();
         serverUrl_ = answerDataStr["server"].get<std::string>();
@@ -61,13 +62,13 @@ BotBase::Event BotBase::WaitForEvent()
     };
 
     std::string url = serverUrl_ + "?act=a_check&";
-    json answerData = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
+    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
-    if (answerData.find("ts") != answerData.end()) {
-        timeStamp_ = answerData.at("ts").get<std::string>();
+    if (response.find("ts") != response.end()) {
+        timeStamp_ = response.at("ts").get<std::string>();
     }
 
-    json updates = answerData.at("updates")[0];
+    json updates = response.at("updates")[0];
     auto eventStr = updates.at("type").get<std::string>();
 
     return Event(GetTypeEvent(eventStr), updates);
@@ -207,9 +208,9 @@ json BotBase::SendRequest(const METHODS method, const json& parametersData)
     std::string url = API_URL + methodStr;
 
     json pData = CheckValidationParameters(parametersData);
-    json answerData = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
+    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
 
-    return answerData;
+    return response;
 }
 
 json BotBase::SendRequest(const std::string& method, const json& parametersData)
@@ -223,9 +224,9 @@ json BotBase::SendRequest(const std::string& method, const json& parametersData)
     std::string url = API_URL + method;
 
     json pData = CheckValidationParameters(parametersData);
-    json answerData = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
+    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
 
-    return answerData;
+    return response;
 }
 
 json BotBase::CheckValidationParameters(const json& parametersData)
