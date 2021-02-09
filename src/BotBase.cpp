@@ -1,6 +1,7 @@
 #include "BotBase.hpp"
 
 namespace vk {
+
 BotBase::BotBase(const std::string groupId, const std::string timeWait)
     : groupId_(groupId)
     , accessToken_("")
@@ -11,10 +12,10 @@ BotBase::BotBase(const std::string groupId, const std::string timeWait)
 bool BotBase::Auth(const std::string& accessToken)
 {
     if (connectedToLongPoll_)
-        throw ex::already_connected();
+        throw ex::AlreadyConnectedException();
 
     if (accessToken.empty())
-        throw ex::empty_argument();
+        throw ex::EmptyArgumentException();
 
     if (accessToken_ != accessToken)
         accessToken_ = accessToken;
@@ -51,7 +52,7 @@ bool BotBase::Auth(const std::string& accessToken)
 BotBase::Event BotBase::WaitForEvent()
 {
     if (!connectedToLongPoll_)
-        throw ex::not_connected();
+        throw ex::NotConnectedException();
 
     json parametersData = {
         { "key", secretKey_ },
@@ -200,7 +201,7 @@ std::string BotBase::GetMethodStr(const METHODS method)
 json BotBase::SendRequest(const METHODS method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
-        throw ex::not_connected();
+        throw ex::NotConnectedException();
 
     std::string methodStr = GetMethodStr(method);
     std::string url = API_URL + methodStr;
@@ -214,10 +215,10 @@ json BotBase::SendRequest(const METHODS method, const json& parametersData)
 json BotBase::SendRequest(const std::string& method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
-        throw ex::not_connected();
+        throw ex::NotConnectedException();
 
     if (method.empty())
-        throw ex::empty_argument();
+        throw ex::EmptyArgumentException();
 
     std::string url = API_URL + method;
 

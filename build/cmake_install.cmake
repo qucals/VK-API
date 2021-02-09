@@ -1,8 +1,8 @@
-# Install script for directory: D:/C++ Projects/VKAPI
+# Install script for directory: /Users/totalboy/Desktop/C++/VK-API
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "D:/C++ Projects/VKAPI")
+  set(CMAKE_INSTALL_PREFIX "/Users/totalboy/Desktop/C++/VK-API")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -32,26 +32,28 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+endif()
+
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "D:/C++ Projects/VKAPI/build/Debug/VKAPI.lib")
-  elseif("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "D:/C++ Projects/VKAPI/build/Release/VKAPI.lib")
-  elseif("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "D:/C++ Projects/VKAPI/build/MinSizeRel/VKAPI.lib")
-  elseif("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "D:/C++ Projects/VKAPI/build/RelWithDebInfo/VKAPI.lib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/Users/totalboy/Desktop/C++/VK-API/build/libVKAPI.a")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libVKAPI.a" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libVKAPI.a")
+    execute_process(COMMAND "/usr/bin/ranlib" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libVKAPI.a")
   endif()
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin/include" TYPE FILE FILES
-    "D:/C++ Projects/VKAPI/./include/BotBase.hpp"
-    "D:/C++ Projects/VKAPI/./include/ClientBase.hpp"
-    "D:/C++ Projects/VKAPI/./include/Exceptions.hpp"
-    "D:/C++ Projects/VKAPI/./include/Request.hpp"
-    "D:/C++ Projects/VKAPI/./include/UserBase.hpp"
-    "D:/C++ Projects/VKAPI/./include/Utilities.hpp"
+    "/Users/totalboy/Desktop/C++/VK-API/./include/BotBase.hpp"
+    "/Users/totalboy/Desktop/C++/VK-API/./include/ClientBase.hpp"
+    "/Users/totalboy/Desktop/C++/VK-API/./include/Defines.hpp"
+    "/Users/totalboy/Desktop/C++/VK-API/./include/Exceptions.hpp"
+    "/Users/totalboy/Desktop/C++/VK-API/./include/Request.hpp"
+    "/Users/totalboy/Desktop/C++/VK-API/./include/UserBase.hpp"
+    "/Users/totalboy/Desktop/C++/VK-API/./include/Utilities.hpp"
     )
 endif()
 
@@ -59,7 +61,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/VKAPIConfig.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/VKAPIConfig.cmake"
-         "D:/C++ Projects/VKAPI/build/CMakeFiles/Export/lib/cmake/VKAPIConfig.cmake")
+         "/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/Export/lib/cmake/VKAPIConfig.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/VKAPIConfig-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -68,25 +70,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake" TYPE FILE FILES "D:/C++ Projects/VKAPI/build/CMakeFiles/Export/lib/cmake/VKAPIConfig.cmake")
-  if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake" TYPE FILE FILES "D:/C++ Projects/VKAPI/build/CMakeFiles/Export/lib/cmake/VKAPIConfig-debug.cmake")
-  endif()
-  if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake" TYPE FILE FILES "D:/C++ Projects/VKAPI/build/CMakeFiles/Export/lib/cmake/VKAPIConfig-minsizerel.cmake")
-  endif()
-  if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ww][Ii][Tt][Hh][Dd][Ee][Bb][Ii][Nn][Ff][Oo])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake" TYPE FILE FILES "D:/C++ Projects/VKAPI/build/CMakeFiles/Export/lib/cmake/VKAPIConfig-relwithdebinfo.cmake")
-  endif()
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake" TYPE FILE FILES "/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/Export/lib/cmake/VKAPIConfig.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake" TYPE FILE FILES "D:/C++ Projects/VKAPI/build/CMakeFiles/Export/lib/cmake/VKAPIConfig-release.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake" TYPE FILE FILES "/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/Export/lib/cmake/VKAPIConfig-release.cmake")
   endif()
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("D:/C++ Projects/VKAPI/build/examples/cmake_install.cmake")
-
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -97,5 +84,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/C++ Projects/VKAPI/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/totalboy/Desktop/C++/VK-API/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

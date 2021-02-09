@@ -6,7 +6,7 @@ set(VKAPI_MAJOR_VERSION "0")
 set(VKAPI_MINOR_VERSION "0")
 set(VKAPI_PATCH_VERSION "2")
 
-set(VKAPI_CONFIG_CMAKE "../../lib/cmake")
+set(VKAPI_CONFIG_CMAKE "../../lib/cmake/")
 
 add_executable(${PROJECT_NAME} main.cpp)
 
