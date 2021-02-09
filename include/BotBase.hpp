@@ -5,18 +5,21 @@
 
 #include "ClientBase.hpp"
 
-namespace vk {
+namespace vk
+{
 
 constexpr auto DEFAULT_TIME_WAIT = "25";
 
 /**
  * @brief The class for working from bots by Long Poll Server.
  */
-class BotBase : public ClientBase {
+class BotBase : public ClientBase
+{
 public:
     // There are bot methods, but not all.
     // Description about below methods you can find at https://vk.com/dev/methods
-    enum class METHODS {
+    enum class METHODS
+    {
         DELETE_COMMENT,
         RESTORE_COMMENT,
         ADD_ADDRESS,
@@ -59,7 +62,8 @@ public:
     };
 
     // The standard events which the server can return.
-    enum class EVENTS {
+    enum class EVENTS
+    {
         MESSAGE_NEW,
         MESSAGE_REPLY,
         MESSAGE_ALLOW,
@@ -99,21 +103,21 @@ public:
         UNKNOWN
     };
 
-    struct Event {
+    struct Event
+    {
         json parameters;
         EVENTS type;
 
         Event(const EVENTS _type, const json _parameters)
             : parameters(_parameters)
             , type(_type)
-        {
-        }
+        {        }
     };
 
 public:
     /**
      * @param  groupId: the id of the bot's group.
-     * @param  timeWait: 
+     * @param  timeWait:
      *  The time of waiting for any event.
      *  In the default timeWait equals DEFAULT_TIME_WAIT ("25").
      */
@@ -138,7 +142,7 @@ public:
      * @param  method: the enum's method.
      * @retval a string (URL) of this method.
      */
-    std::string GetMethodStr(const METHODS method);
+    std::string MethodToString(const METHODS method);
 
     /**
      * @brief  The function of sending any request to the VK server.
@@ -146,6 +150,7 @@ public:
      * @param  parametersData: the data of parameters for your request.
      * @retval the answer of your request in json.
      */
+    // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const METHODS method, const json& parametersData);
 
     /**
@@ -154,11 +159,12 @@ public:
      * @param  parametersData: the data of parameters for you request.
      * @retval the naswer of your request in json.
      */
+    // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const std::string& method, const json& parametersData);
 
 protected:
     /**
-     * @brief 
+     * @brief
      *  Checking the data of parameters on validation.
      *  If the following itmes won't be found the function will add it.
      * @param  parametersData: the data for checking validation.

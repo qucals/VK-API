@@ -441,6 +441,7 @@ public:
      * @param  parametersData: the data of parameters for the request.
      * @retval the answer of the request in json format.
      */
+    // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const METHODS method, const json& parametersData);
 
     /**
@@ -449,6 +450,7 @@ public:
      * @param  parametersData: the data of parameters for the request.
      * @retval the answer of the request in json format.
      */
+    // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const std::string& method, const json& parametersData);
 
     /**
@@ -456,7 +458,7 @@ public:
      * @param  method: enum's method.
      * @retval a string of this method in URL format.
      */
-    std::string GetMethodStr(const METHODS method);
+    std::string MethodToString(const METHODS method);
 
     /**
      * @brief  Get the validation type for auth by its description in string format.

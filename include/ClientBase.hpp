@@ -75,7 +75,7 @@ enum class VK_REQUEST_ERROR_TYPES : uint16_t
 
 // The base-parent class for UserBase & BotBase classes.
 // It has a standard function of Auth and some functions with working with URL scope.
-ABSTRACT class ClientBase
+class ClientBase
 {
 public:
     ClientBase();
@@ -114,11 +114,12 @@ public:
     static uint32_t GetRandomId();
 
     /**
-     * @brief  Get the error type by a string.
-     * @param  errorStr: the error in string format.
-     * @retval the type of the error in enum format (VK_REQUEST_ERROR_TYPES).
+     * @brief Says about the connection.
+     *
+     * @return true
+     * @return false
      */
-    VK_REQUEST_ERROR_TYPES GetRequestErrorType(const std::string& errorStr);
+    virtual bool IsAuthorized() const { return connectedToLongPoll_; }
 
     ClientBase& operator=(const ClientBase&) = delete;
 
@@ -137,6 +138,13 @@ protected:
      * @retval the correctly data of parameters.
      */
     virtual json CheckValidationParameters(const json& parametersData) = 0;
+
+    /**
+     * @brief  Get the error type by a string.
+     * @param  errorStr: the error in string format.
+     * @retval the type of the error in enum format (VK_REQUEST_ERROR_TYPES).
+     */
+    VK_REQUEST_ERROR_TYPES GetRequestErrorType(const std::string& errorStr);
 
 protected:
     std::set<std::string> scope_;

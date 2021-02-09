@@ -1,11 +1,11 @@
 #include "ClientBase.hpp"
 
-namespace vk {
+namespace vk
+{
 
 ClientBase::ClientBase()
     : connectedToLongPoll_(false)
-{
-}
+{}
 
 void ClientBase::AddScope(const std::string scope)
 {

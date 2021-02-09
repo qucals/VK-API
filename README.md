@@ -112,7 +112,7 @@ int main(int argc, const char** argv)
 
     // or
 
-    if(user.Auth(access_token) == true) {
+    if (user.Auth(access_token) == true) {
         // The further behaviour
     } else {
         // The further behaviour
