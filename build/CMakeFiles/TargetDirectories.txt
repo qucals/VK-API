@@ -1,7 +1,0 @@
-/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/install/local.dir
-/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/install/strip.dir
-/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/install.dir
-/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/VKAPI.dir
-/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/list_install_components.dir
-/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/rebuild_cache.dir
-/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/edit_cache.dir

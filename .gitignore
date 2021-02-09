@@ -1027,7 +1027,7 @@ Mkfile.old
 dkms.conf
 
 # VS code
-.vscode/*
+*.vscode/
 
 # CURL
 ./include/curl/*
