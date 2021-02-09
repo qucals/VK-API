@@ -1,12 +1,7 @@
-D:/C++ Projects/VKAPI/build/CMakeFiles/VKAPI.dir
-D:/C++ Projects/VKAPI/build/CMakeFiles/INSTALL.dir
-D:/C++ Projects/VKAPI/build/CMakeFiles/ALL_BUILD.dir
-D:/C++ Projects/VKAPI/build/CMakeFiles/ZERO_CHECK.dir
-D:/C++ Projects/VKAPI/build/examples/CMakeFiles/INSTALL.dir
-D:/C++ Projects/VKAPI/build/examples/CMakeFiles/ALL_BUILD.dir
-D:/C++ Projects/VKAPI/build/examples/1/CMakeFiles/INSTALL.dir
-D:/C++ Projects/VKAPI/build/examples/1/CMakeFiles/Example1.dir
-D:/C++ Projects/VKAPI/build/examples/1/CMakeFiles/ALL_BUILD.dir
-D:/C++ Projects/VKAPI/build/examples/2/CMakeFiles/Example2.dir
-D:/C++ Projects/VKAPI/build/examples/2/CMakeFiles/INSTALL.dir
-D:/C++ Projects/VKAPI/build/examples/2/CMakeFiles/ALL_BUILD.dir
+/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/install/local.dir
+/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/install/strip.dir
+/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/install.dir
+/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/VKAPI.dir
+/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/list_install_components.dir
+/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/rebuild_cache.dir
+/Users/totalboy/Desktop/C++/VK-API/build/CMakeFiles/edit_cache.dir

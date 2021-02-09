@@ -9,29 +9,45 @@ namespace vk {
 
 namespace ex {
 
-    class already_connected : public std::exception {
-    public:
-        already_connected() noexcept
-            : exception("The client is already connected to Long Poll Server!")
-        {
-        }
-    };
+class BaseException : virtual public std::exception {
+protected:
+    std::string errorMessage_;
 
-    class not_connected : public std::exception {
-    public:
-        not_connected() noexcept
-            : exception("The client is not already connected to Long Poll Server!")
-        {
-        }
-    };
+public:
+    explicit BaseException(const std::string& msg) 
+        : errorMessage_(msg)
+    {}
 
-    class empty_argument : public std::exception {
-    public:
-        empty_argument() noexcept
-            : exception("The size of argument's symbols cannot equal zero!")
-        {
-        }
-    };
+    virtual ~BaseException() throw() {}
+
+    virtual const char* what() const throw() {
+        return errorMessage_.c_str();
+    }
+};
+
+class AlreadyConnectedException : virtual public BaseException {
+public:
+    explicit AlreadyConnectedException()
+        : BaseException("The client is already connected to Long Poll Server!")
+    {
+    }
+};
+
+class NotConnectedException : virtual public BaseException {
+public:
+    explicit NotConnectedException()
+        : BaseException("The client is not already connected to Long Poll Server!")
+    {
+    }
+};
+
+class EmptyArgumentException : virtual public BaseException {
+public:
+    explicit EmptyArgumentException()
+        : BaseException("The size of argument's symbols cannot equal zero!")
+    {
+    }
+};
 
 } // namespace ex
 } // namespace vk

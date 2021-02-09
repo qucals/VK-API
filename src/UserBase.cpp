@@ -10,13 +10,13 @@ UserBase::UserBase(const std::string& appId, const std::string& appSecureKey)
     , userId_("")
 {
     if (appId_.empty() || appSecureKey_.empty())
-        throw ex::empty_argument();
+        throw ex::EmptyArgumentException();
 }
 
 bool UserBase::Auth(std::string& login, std::string& password)
 {
     if (login.empty() || password.empty())
-        throw ex::empty_argument();
+        throw ex::EmptyArgumentException();
 
     if (connectedToLongPoll_)
         connectedToLongPoll_ = false;
@@ -100,7 +100,7 @@ bool UserBase::Auth(std::string& login, std::string& password)
 bool UserBase::Auth(const std::string& accessToken)
 {
     if (accessToken.empty())
-        throw ex::empty_argument();
+        throw ex::EmptyArgumentException();
 
     if (connectedToLongPoll_)
         connectedToLongPoll_ = false;
@@ -169,7 +169,7 @@ UserBase::VALIDATION_TYPES UserBase::GetValidationType(const std::string& descri
 json UserBase::SendRequest(const METHODS method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
-        throw ex::not_connected();
+        throw ex::NotConnectedException();
 
     std::string methodStr = GetMethodStr(method);
     std::string url = API_URL + methodStr;
@@ -183,10 +183,10 @@ json UserBase::SendRequest(const METHODS method, const json& parametersData)
 json UserBase::SendRequest(const std::string& method, const json& parametersData)
 {
     if (!connectedToLongPoll_)
-        throw ex::not_connected();
+        throw ex::NotConnectedException();
 
     if (method.empty())
-        throw ex::empty_argument();
+        throw ex::EmptyArgumentException();
 
     std::string url = API_URL + method;
 

@@ -11,10 +11,12 @@
 #include "Request.hpp" // Request
 #include "Utilities.hpp" // ConvertStrToUrlCode
 #include "Exceptions.hpp" // already_connected, not_connected, empty_argument
+#include "Defines.hpp" // ABSTRACT
 
 #include "nlohmann/json.hpp" // json
 
-namespace vk {
+namespace vk
+{
 
 using json = nlohmann::json;
 
@@ -26,7 +28,8 @@ constexpr auto API_VERSION = "5.120";
 
 // The types of error which the VK server can return.
 // You can see the description of these on https://vk.com/dev/errors
-enum class VK_REQUEST_ERROR_TYPES : uint16_t {
+enum class VK_REQUEST_ERROR_TYPES : uint16_t
+{
     UNKNOWN_ERROR = 1,
     APP_IS_DISABLED = 2,
     UNKNOWN_METHOD = 3,
@@ -72,13 +75,14 @@ enum class VK_REQUEST_ERROR_TYPES : uint16_t {
 
 // The base-parent class for UserBase & BotBase classes.
 // It has a standard function of Auth and some functions with working with URL scope.
-class ClientBase {
+ABSTRACT class ClientBase
+{
 public:
     ClientBase();
 
     /**
      * @brief  The function of authorization by access token.
-     * @note 
+     * @note
      *  ClientBase hasn't the own realization of auth's function because of
      *  implementation for user and bot auths is differently.
      * @param  accessToken: the access token
@@ -116,7 +120,7 @@ public:
      */
     VK_REQUEST_ERROR_TYPES GetRequestErrorType(const std::string& errorStr);
 
-    ClientBase& operator=(const ClientBase) = delete;
+    ClientBase& operator=(const ClientBase&) = delete;
 
 protected:
     /**

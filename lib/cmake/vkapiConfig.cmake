@@ -4,7 +4,7 @@ if("${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 2.5)
    message(FATAL_ERROR "CMake >= 2.6.0 required")
 endif()
 cmake_policy(PUSH)
-cmake_policy(VERSION 2.6)
+cmake_policy(VERSION 2.6...3.17)
 #----------------------------------------------------------------
 # Generated CMake target import file.
 #----------------------------------------------------------------
@@ -53,14 +53,9 @@ endif()
 add_library(VKAPI::VKAPI STATIC IMPORTED)
 
 set_target_properties(VKAPI::VKAPI PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "D:/C++ Projects/VKAPI/include"
-  INTERFACE_LINK_DIRECTORIES "D:/C++ Projects/VKAPI/include;D:/C++ Projects/VKAPI/include"
-  INTERFACE_LINK_LIBRARIES "D:/C++ Projects/VKAPI/thirdparty/libcurl.lib"
+  INTERFACE_INCLUDE_DIRECTORIES "/Users/totalboy/Desktop/C++/VK-API/include"
+  INTERFACE_LINK_DIRECTORIES "/Users/totalboy/Desktop/C++/VK-API/include;/Users/totalboy/Desktop/C++/VK-API/include"
 )
-
-if(CMAKE_VERSION VERSION_LESS 2.8.12)
-  message(FATAL_ERROR "This file relies on consumers using CMake 2.8.12 or greater.")
-endif()
 
 # Load information for each installed configuration.
 get_filename_component(_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
