@@ -11,11 +11,8 @@ BotBase::BotBase(const std::string groupId, const std::string timeWait)
 
 bool BotBase::Auth(const std::string& accessToken)
 {
-    if (connectedToLongPoll_)
-        throw ex::AlreadyConnectedException();
-
-    if (accessToken.empty())
-        throw ex::EmptyArgumentException();
+    if (IsAuthorized()) { throw ex::AlreadyConnectedException(); }
+    if (accessToken.empty()) { throw ex::EmptyArgumentException(); }
 
     if (accessToken_ != accessToken)
         accessToken_ = accessToken;
@@ -26,17 +23,13 @@ bool BotBase::Auth(const std::string& accessToken)
         { "v", API_VERSION }
     };
 
-    const std::string method = GetMethodStr(METHODS::GET_LONG_POLL_SERVER);
+    const std::string method = MethodToString(METHODS::GET_LONG_POLL_SERVER);
     const std::string url = API_URL + method;
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     if (response.find("error") != response.end()) {
-        throw ex::RequestError;
-        // std::cout << "Oops, somethind is wrong!\n"
-        //     << "Error is: " << response << std::endl;
-        /*
-            TODO: Add processing this case
-        */
+        throw ex::RequestError();
+        // TODO (#12): Add error handling when BotBase::Auth failed
     } else {
         json answerDataStr = response["response"];
 
@@ -52,8 +45,7 @@ bool BotBase::Auth(const std::string& accessToken)
 
 BotBase::Event BotBase::WaitForEvent()
 {
-    if (!connectedToLongPoll_)
-        throw ex::NotConnectedException();
+    if (!IsAuthorized()) { throw ex::NotConnectedException(); }
 
     json parametersData = {
         { "key", secretKey_ },
@@ -74,7 +66,7 @@ BotBase::Event BotBase::WaitForEvent()
     return Event(GetTypeEvent(eventStr), updates);
 }
 
-std::string BotBase::GetMethodStr(const METHODS method)
+std::string BotBase::MethodToString(const METHODS method)
 {
     switch (method) {
     case METHODS::DELETE_COMMENT:
@@ -201,10 +193,9 @@ std::string BotBase::GetMethodStr(const METHODS method)
 
 json BotBase::SendRequest(const METHODS method, const json& parametersData)
 {
-    if (!connectedToLongPoll_)
-        throw ex::NotConnectedException();
+    if (!IsAuthorized()) { throw ex::NotConnectedException(); }
 
-    std::string methodStr = GetMethodStr(method);
+    std::string methodStr = MethodToString(method);
     std::string url = API_URL + methodStr;
 
     json pData = CheckValidationParameters(parametersData);
@@ -215,11 +206,8 @@ json BotBase::SendRequest(const METHODS method, const json& parametersData)
 
 json BotBase::SendRequest(const std::string& method, const json& parametersData)
 {
-    if (!connectedToLongPoll_)
-        throw ex::NotConnectedException();
-
-    if (method.empty())
-        throw ex::EmptyArgumentException();
+    if (!IsAuthorized()) throw ex::NotConnectedException();
+    if (method.empty()) throw ex::EmptyArgumentException();
 
     std::string url = API_URL + method;
 

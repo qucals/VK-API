@@ -8,17 +8,19 @@
 
 #include "Utilities.hpp" // ConvertStrToUrlCode
 
-namespace vk {
+namespace vk
+{
 
 constexpr auto APPLY_CURLOPT = 1L;
 constexpr auto NO_APPLY_CURLOPT = 0L;
 constexpr auto MAXREGIDS = 50L;
-constexpr auto USERAGENT = "VK API Client";
+constexpr auto USERAGENT = "VKAPI Client";
 
 /**
  * @brief The class for working with requst.
  */
-class Request {
+class Request
+{
 public:
     Request() = delete;
     ~Request() = delete;

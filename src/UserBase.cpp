@@ -10,19 +10,18 @@ UserBase::UserBase(const std::string& appId, const std::string& appSecureKey)
     , accessToken_("")
     , userId_("")
 {
-    if (appId_.empty() || appSecureKey_.empty()) throw ex::EmptyArgumentException();
+    if (appId_.empty() || appSecureKey_.empty()) { throw ex::EmptyArgumentException(); }
 }
 
 bool UserBase::Auth(std::string& login, std::string& password)
 {
-    if (login.empty() || password.empty()) throw ex::EmptyArgumentException();
-    if (connectedToLongPoll_) throw ex::AlreadyConnectedException;
+    if (login.empty() || password.empty()) { throw ex::EmptyArgumentException(); }
+    if (IsAuthorized()) { connectedToLongPoll_ = false; }
 
     std::string scope;
 
     if (!scope_.empty()) {
-        for (const auto& i : scope_)
-            scope += "," + i;
+        for (const auto& i : scope_) { scope += "," + i; }
         scope = scope.substr(0, scope.size() - 1);
     }
 
@@ -61,10 +60,11 @@ bool UserBase::Auth(std::string& login, std::string& password)
             if (validationType == VALIDATION_TYPES::TWOFA_SMS || validationType == VALIDATION_TYPES::TWOFA_APP) {
                 parametersData.push_back({ "2fa_supported", "1" });
 
-                if (validationType == VALIDATION_TYPES::TWOFA_SMS)
+                if (validationType == VALIDATION_TYPES::TWOFA_SMS) {
                     parametersData.push_back({ "force_sms", "1" });
-                else
+                } else {
                     parametersData.push_back({ "2fa_app", "1" });
+                }
 
                 Request::Send(response.at("redirect_url").get<std::string>(), "");
                 Request::Send(AUTH_URL, ConvertParametersDataToURL(parametersData));
@@ -96,24 +96,20 @@ bool UserBase::Auth(std::string& login, std::string& password)
 
 bool UserBase::Auth(const std::string& accessToken)
 {
-    if (accessToken.empty())
-        throw ex::EmptyArgumentException();
-
-    if (connectedToLongPoll_)
-        connectedToLongPoll_ = false;
+    if (accessToken.empty()) { throw ex::EmptyArgumentException(); }
+    if (IsAuthorized()) { connectedToLongPoll_ = false; }
 
     json parametersData = {
         { "access_token", accessToken },
         { "v", API_VERSION }
     };
 
-    const std::string method = GetMethodStr(METHODS::USERS_GET);
+    const std::string method = MethodToString(METHODS::USERS_GET);
     const std::string url = API_URL + method;
 
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     try {
-
         if (response.find("error") != response.end()) {
             for (const auto& data : response.at("response").items()) {
                 userId_ = data.value().at("id").get<std::string>();
@@ -155,20 +151,20 @@ std::string UserBase::GetURLCaptcha(json& parametersData, const json& response)
 
 UserBase::VALIDATION_TYPES UserBase::GetValidationType(const std::string& descriptionType)
 {
-    if (descriptionType == "2fa_sms")
+    if (descriptionType == "2fa_sms") {
         return VALIDATION_TYPES::TWOFA_SMS;
-    else if (descriptionType == "2fa_app")
+    } else if (descriptionType == "2fa_app") {
         return VALIDATION_TYPES::TWOFA_APP;
-    else
+    } else {
         return VALIDATION_TYPES::UNKNOWN;
+    }
 }
 
 json UserBase::SendRequest(const METHODS method, const json& parametersData)
 {
-    if (!connectedToLongPoll_)
-        throw ex::NotConnectedException();
+    if (!IsAuthorized()) { throw ex::NotConnectedException(); }
 
-    std::string methodStr = GetMethodStr(method);
+    std::string methodStr = MethodToString(method);
     std::string url = API_URL + methodStr;
 
     json pData = CheckValidationParameters(parametersData);
@@ -179,11 +175,8 @@ json UserBase::SendRequest(const METHODS method, const json& parametersData)
 
 json UserBase::SendRequest(const std::string& method, const json& parametersData)
 {
-    if (!connectedToLongPoll_)
-        throw ex::NotConnectedException();
-
-    if (method.empty())
-        throw ex::EmptyArgumentException();
+    if (!IsAuthorized()) { throw ex::NotConnectedException(); }
+    if (method.empty()) { throw ex::EmptyArgumentException(); }
 
     std::string url = API_URL + method;
 
@@ -193,7 +186,7 @@ json UserBase::SendRequest(const std::string& method, const json& parametersData
     return response;
 }
 
-std::string UserBase::GetMethodStr(const METHODS method)
+std::string UserBase::MethodToString(const METHODS method)
 {
     switch (method) {
     case METHODS::ACCOUNT_BAN:
