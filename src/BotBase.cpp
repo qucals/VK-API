@@ -28,12 +28,8 @@ bool BotBase::Auth(const std::string& accessToken)
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     if (response.find("error") != response.end()) {
-        throw ex::RequestError;
-        // std::cout << "Oops, somethind is wrong!\n"
-        //     << "Error is: " << response << std::endl;
-        /*
-            TODO: Add processing this case
-        */
+        throw ex::RequestError();
+        // TODO (#12): Add error handling when BotBase::Auth failed
     } else {
         json answerDataStr = response["response"];
 

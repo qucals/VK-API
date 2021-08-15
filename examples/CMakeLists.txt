@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.5)
 project(VKAPI_TESTS LANGUAGES CXX)
 
 set(VKAPI_MAJOR_VERSION "0")
