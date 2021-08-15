@@ -1037,3 +1037,6 @@ dkms.conf
 
 # JSON
 ./include/nlohmann/*
+
+# VKAPI
+./include/Config.hpp

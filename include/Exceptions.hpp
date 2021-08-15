@@ -1,3 +1,10 @@
+/**
+ * Containts exceptions and information about them of this library.
+ * @file Exceptions.hpp
+ * @author qucals
+ * @version 0.0.3 15/08/21
+ */
+
 #pragma once
 
 #ifndef _EXCEPTIONS_HPP_

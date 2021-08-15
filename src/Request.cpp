@@ -1,3 +1,10 @@
+/**
+ * Desribes the class for working with CURL.
+ * @file Request.hpp
+ * @author qucals
+ * @version 0.0.3 15/08/21
+ */
+
 #include <Request.hpp>
 
 namespace vk
