@@ -46,11 +46,8 @@ Steps <a name = "steps"></a>:
 
 ### Prerequisites
 
-The library using 2 additional dependencies:
+The library using 1 additional dependencies:
 1. [curlpp](https://www.curlpp.org/) - A library for working with requests;
-2. [json](https://github.com/nlohmann/json) - A library for working with json.
-
-Note that you also can install it by `vcpkg` on Windows.
 
 ### Installing <a name = "installing"></a>
 

@@ -1,3 +1,12 @@
+/**
+ * Containts general defines about the language.
+ * @file Defines.hpp
+ * @author qucals
+ * @version 0.0.3 15/08/21
+ */
+
+#pragma once
+
 #ifndef VKAPI_DEFINES_H
 #define VKAPI_DEFINES_H
 

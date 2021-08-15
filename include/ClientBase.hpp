@@ -1,3 +1,10 @@
+/**
+ * Containts general objects for working with VK API.
+ * @file ClientBase.hpp
+ * @author qucals
+ * @version 0.0.3 15/08/21
+ */
+
 #pragma once
 
 #ifndef _CLIENTBASE_HPP_

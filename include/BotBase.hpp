@@ -1,3 +1,10 @@
+/**
+ * Containts the class for working with vkbot.
+ * @file BotBase.hpp
+ * @author qucals
+ * @version 0.0.3 15/08/21
+ */
+
 #pragma once
 
 #ifndef _BOTBASE_HPP_
@@ -170,7 +177,7 @@ protected:
      * @param  parametersData: the data for checking validation.
      * @retval the correctly data of parameters in json.
      */
-    json CheckValidationParameters(const json& parametersData) override;
+    json CheckValidationParameters(const json& parametersData) __OVERRIDE;
 
     /**
      * @brief  Get the type of events by string.

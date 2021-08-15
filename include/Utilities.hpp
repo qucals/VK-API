@@ -1,3 +1,10 @@
+/**
+ * Containts additional functions for working with the library.
+ * @file Utilities.hpp
+ * @author qucals
+ * @version 0.0.3 15/08/21
+ */
+
 #pragma once
 
 #ifndef _UTILITIES_HPP_
