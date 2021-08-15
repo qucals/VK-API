@@ -52,7 +52,7 @@ bool UserBase::Auth(std::string& login, std::string& password)
                     { "captcha_key", captchaKey });
                 Request::Send(AUTH_URL, ConvertParametersDataToURL(parametersData));
 
-                // TODO (#001): Add further processing
+                // TODO (#11): Add further processing
             }
 
             VALIDATION_TYPES validationType = GetValidationType(response.at("validation_type"));

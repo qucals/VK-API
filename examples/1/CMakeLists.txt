@@ -17,6 +17,5 @@ set_target_properties(
 )
 
 set(VKAPI_DIR ../../lib/cmake)
-
 find_package(VKAPI CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} VKAPI::VKAPI)
