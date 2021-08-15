@@ -24,17 +24,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Configure VKAPI Library CMake Without Examples
+    - name: Configure VKAPI Library CMake
       run: cmake -B ${{github.workspace}}/build -DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build VKAPI Library
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      
+    - name: Install VKAPI Library
+      run: cmake --build ${{github.workspace}}/build --target install --config ${{env.BUILD_TYPE}}
 
-    - name: Configure VKAPI Library CMake With Examples
+    # Configure, Build and Install WE - With Examples
+    - name: Configure VKAPI Library CMake WE
       run: cmake -B ${{github.workspace}}/build -DBUILD_EXAMPLES=ON -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
-    - name: Build VKAPI Library
+    - name: Build VKAPI Library WE
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      
+    - name: Install VKAPI Library WE
+      run: cmake --build ${{github.workspace}}/build --target install --config ${{env.BUILD_TYPE}}
 
     - name: Test
       working-directory: ${{github.workspace}}/build
