@@ -40,7 +40,7 @@ Steps <a name = "steps"></a>:
 1. Copy this repository to your computer;
 2. Open terminal in a directory where you copied the repository;
 3. Change a main directory: `cd build`;
-4. Enter the following command with your replacements: `cmake -DNLOHMANN_JSON_PATH=PATH:*path* -DCURL_INCLUDE_PATH=PATH:*path* -DCURL_LIB_PATH=PATH:*path* ..`. Replace the `*path*` inserts with the corresponding paths;
+4. Enter the following command with your replacements: `cmake ..`;
 5. Build the project by the next command: `cmake --build .`.
 
 ### Prerequisites
@@ -57,7 +57,7 @@ For connection this library to yours you need to follow the next steps:
 1. Copy this repository to your computer;
 2. Open terminal in a directory where you copied the repository;
 3. Change a main directory: `cd build`;
-4. Enter the following command with your replacements: `cmake -DNLOHMANN_JSON_PATH=PATH:*path* -DCURL_INCLUDE_PATH=PATH:*path* -DCURL_LIB_PATH=PATH:*path* ..`. Replace the `*path*` inserts with the corresponding paths;
+4. Enter the following command with your replacements: `cmake ..`;
 5. Build and install the project by the next command: `cmake --build . --target install --config Release`;
 6. If building and install is ended successfully you can see there are `include` and `lib`'s directories in `install`'s directory.
 
@@ -131,14 +131,13 @@ There are other examples of using this library in the `examples` directory.
 If you use CMake you make use the `find_package` instruction.
 After [installing](#installing) the project you can find vkapiConfig.cmake in the `lib/cmake` directory. For connection this library to your project you need to add the following code to your cmake file:
 ```CMake
-    find_package(VKAPI CONFIG REQUIRED HINTS *path_to_directory_lib_cmake*)
-    target_link_libraries(*your_target* PRIVATE VKAPI::VKAPI)
-    target_include_directories(*your_target* PRIVATE *path_to_directory_bin_include*)
+    set(CMAKE_CXX_FLAGS " -lcurl")
+    set(VKAPI_DIR *path_to_vkapiconfig.cmake*)
+    find_package(VKAPI CONFIG REQUIRED)
+    target_link_libraries(${PROJECT_NAME} VKAPI::VKAPI)
 ```
 Replace: 
-1. `*path_to_directory_lib_cmake*` to the path to directory `lib/cmake`;
-2. `*your_target*` to your target;
-3. `*path_to_directory_bin_include*`  to the path to directory `bin/include`;
+`*path_to_vkapiconfig.cmake*` to the path to directory `lib/cmake`;
 
 ### Others
 
