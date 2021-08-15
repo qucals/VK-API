@@ -27,11 +27,10 @@ option(BUILD_EXAMPLES "Determines whether examples should be performed" ON)
 file(GLOB TARGET_SRC "./src/*.cpp")
 file(GLOB TARGET_HEADERS "./include/*.hpp")
 
-# target_include_directories(${PROJECT_NAME} PUBLIC include)
-
 if(BUILD_LIBRARY)
     add_library(${PROJECT_NAME} STATIC ${TARGET_SRC} ${TARGET_HEADERS})
 else()
+    set(CMAKE_CXX_FLAGS " -lcurl")
     add_executable(${PROJECT_NAME} ${TARGET_SRC} ${TARGET_HEADERS})
 endif()
 

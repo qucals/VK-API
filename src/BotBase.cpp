@@ -222,6 +222,15 @@ json BotBase::SendRequest(const std::string& method, const json& parametersData)
     return response;
 }
 
+#ifdef __CPLUSPLUS_OVER_11
+// TODO: (#15) Fix Async
+auto BotBase::SendRequestAsync(const METHODS method, const json& parametersData)
+{ return std::async(this->SendRequest, method, parametersData); }
+
+auto BotBase::SendRequestAsync(const std::string& method, const json& parametersData)
+{ return std::async(this->SendRequest, method, parametersData); }
+#endif // __CPLUSPLUS_OVER_11
+
 json BotBase::CheckValidationParameters(const json& parametersData)
 {
     json cParametersData = parametersData;

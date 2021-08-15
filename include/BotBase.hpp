@@ -2,7 +2,7 @@
  * Containts the class for working with vkbot.
  * @file BotBase.hpp
  * @author qucals
- * @version 0.0.3 15/08/21
+ * @version 0.0.3 16/08/21
  */
 
 #pragma once
@@ -168,6 +168,11 @@ public:
      */
      // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const std::string& method, const json& parametersData);
+
+#ifdef __CPLUSPLUS_OVER_11
+    auto SendRequestAsync(const METHODS method, const json& parametersData);
+    auto SendRequestAsync(const std::string& method, const json& parametersData);
+#endif // __CPLUSPLUS_OVER_11
 
 protected:
     /**

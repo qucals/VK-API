@@ -2,7 +2,7 @@
  * Containts general objects for working with VK API.
  * @file ClientBase.hpp
  * @author qucals
- * @version 0.0.3 15/08/21
+ * @version 0.0.3 16/08/21
  */
 
 #pragma once
@@ -10,15 +10,19 @@
 #ifndef _CLIENTBASE_HPP_
 #define _CLIENTBASE_HPP_
 
+#include <Request.hpp> // Request
+#include <Utilities.hpp> // ConvertStrToUrlCode
+#include <Exceptions.hpp> // already_connected, not_connected, empty_argument
+#include <Defines.hpp>
+
 #include <iostream> // cout, endl
 #include <random> // rand
 #include <set> // set
 #include <string> // string
 
-#include <Request.hpp> // Request
-#include <Utilities.hpp> // ConvertStrToUrlCode
-#include <Exceptions.hpp> // already_connected, not_connected, empty_argument
-#include <Defines.hpp>
+#ifdef __CPLUSPLUS_OVER_11
+#include <future> // async, future
+#endif // __CPLUSPLUS_OVER_11
 
 #include <nlohmann/json.hpp> // json
 
@@ -121,7 +125,7 @@ public:
      * @note For example, it is used in the messaging request to the VK server.
      * @retval a 32 bits random number.
      */
-    static uint32_t GetRandomId();
+    __STATIC uint32_t GetRandomId();
 
     /**
      * @brief Says about the connection.

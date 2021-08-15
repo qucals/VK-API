@@ -62,7 +62,7 @@ bool UserBase::Auth(std::string& login, std::string& password)
                 std::cin >> captchaKey;
 
                 parametersData.push_back({ "captcha_key", captchaKey });
-                Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData));
+                std::string response = Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData));
 
                 // TODO (#11): Add further processing
             }
