@@ -19,7 +19,7 @@ endif()
 set(NLOHMANN_JSON_PATH "${PROJECT_SOURCE_DIR}/include")
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
 
-option(BUILD_EXAMPLES "Determines whether examples should be performed" ON)
+option(BUILD_EXAMPLES "Determines whether examples should be performed" OFF)
 
 file(GLOB TARGET_SRC "./src/*.cpp")
 file(GLOB TARGET_HEADERS "./include/*.hpp")
