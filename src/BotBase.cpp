@@ -5,7 +5,6 @@ namespace vk
 
 BotBase::BotBase(const std::string groupId, const std::string timeWait)
     : groupId_(groupId)
-    , accessToken_("")
     , timeWait_(timeWait)
 {}
 
@@ -14,17 +13,16 @@ bool BotBase::Auth(const std::string& accessToken)
     if (IsAuthorized()) { throw ex::AlreadyConnectedException(); }
     if (accessToken.empty()) { throw ex::EmptyArgumentException(); }
 
-    if (accessToken_ != accessToken)
-        accessToken_ = accessToken;
+    if (accessToken_ != accessToken) { accessToken_ = accessToken; }
 
     json parametersData = {
         { "access_token", accessToken_ },
         { "group_id", groupId_ },
-        { "v", API_VERSION }
+        { "v", VKAPI_API_VERSION }
     };
 
     const std::string method = MethodToString(METHODS::GET_LONG_POLL_SERVER);
-    const std::string url = API_URL + method;
+    const std::string url = VKAPI_API_URL + method;
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     if (response.find("error") != response.end()) {
@@ -61,7 +59,7 @@ BotBase::Event BotBase::WaitForEvent()
     }
 
     json updates = response.at("updates")[0];
-    auto eventStr = updates.at("type").get<std::string>();
+    std::string eventStr = updates.at("type").get<std::string>();
 
     return Event(GetTypeEvent(eventStr), updates);
 }
@@ -196,7 +194,7 @@ json BotBase::SendRequest(const METHODS method, const json& parametersData)
     if (!IsAuthorized()) { throw ex::NotConnectedException(); }
 
     std::string methodStr = MethodToString(method);
-    std::string url = API_URL + methodStr;
+    std::string url = VKAPI_API_URL + methodStr;
 
     json pData = CheckValidationParameters(parametersData);
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
@@ -209,7 +207,7 @@ json BotBase::SendRequest(const std::string& method, const json& parametersData)
     if (!IsAuthorized()) throw ex::NotConnectedException();
     if (method.empty()) throw ex::EmptyArgumentException();
 
-    std::string url = API_URL + method;
+    std::string url = VKAPI_API_URL + method;
 
     json pData = CheckValidationParameters(parametersData);
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
@@ -221,93 +219,97 @@ json BotBase::CheckValidationParameters(const json& parametersData)
 {
     json cParametersData = parametersData;
 
-    if (cParametersData.find("access_token") == cParametersData.end())
+    if (cParametersData.find("access_token") == cParametersData.end()) {
         cParametersData.push_back({ "access_token", accessToken_ });
+    }
 
-    if (cParametersData.find("group_id") == cParametersData.end())
+    if (cParametersData.find("group_id") == cParametersData.end()) {
         cParametersData.push_back({ "group_id", groupId_ });
+    }
 
-    if (cParametersData.find("v") == cParametersData.end())
-        cParametersData.push_back({ "v", API_VERSION });
+    if (cParametersData.find("v") == cParametersData.end()) {
+        cParametersData.push_back({ "v", VKAPI_API_VERSION });
+    }
 
     return cParametersData;
 }
 
 BotBase::EVENTS BotBase::GetTypeEvent(const std::string& typeEvent)
 {
-    if (typeEvent == "message_new")
+    if (typeEvent == "message_new") {
         return EVENTS::MESSAGE_NEW;
-    else if (typeEvent == "message_reply")
+    } else if (typeEvent == "message_reply") {
         return EVENTS::MESSAGE_REPLY;
-    else if (typeEvent == "message_allow")
+    } else if (typeEvent == "message_allow") {
         return EVENTS::MESSAGE_ALLOW;
-    else if (typeEvent == "message_deny")
+    } else if (typeEvent == "message_deny") {
         return EVENTS::MESSAGE_DENY;
-    else if (typeEvent == "photo_new")
+    } else if (typeEvent == "photo_new") {
         return EVENTS::PHOTO_NEW;
-    else if (typeEvent == "audio_new")
+    } else if (typeEvent == "audio_new") {
         return EVENTS::AUDIO_NEW;
-    else if (typeEvent == "video_new")
+    } else if (typeEvent == "video_new") {
         return EVENTS::VIDEO_NEW;
-    else if (typeEvent == "wall_reply_new")
+    } else if (typeEvent == "wall_reply_new") {
         return EVENTS::WALL_REPLY_NEW;
-    else if (typeEvent == "wall_reply_edit")
+    } else if (typeEvent == "wall_reply_edit") {
         return EVENTS::WALL_REPLY_EDIT;
-    else if (typeEvent == "wall_reply_delete")
+    } else if (typeEvent == "wall_reply_delete") {
         return EVENTS::WALL_REPLY_DELETE;
-    else if (typeEvent == "wall_post_new")
+    } else if (typeEvent == "wall_post_new") {
         return EVENTS::WALL_POST_NEW;
-    else if (typeEvent == "wall_repost")
+    } else if (typeEvent == "wall_repost") {
         return EVENTS::WALL_REPOST;
-    else if (typeEvent == "board_post_new")
+    } else if (typeEvent == "board_post_new") {
         return EVENTS::BOARD_POST_NEW;
-    else if (typeEvent == "board_post_edit")
+    } else if (typeEvent == "board_post_edit") {
         return EVENTS::BOARD_POST_EDIT;
-    else if (typeEvent == "board_post_delete")
+    } else if (typeEvent == "board_post_delete") {
         return EVENTS::BOARD_POST_DELETE;
-    else if (typeEvent == "board_post_restore")
+    } else if (typeEvent == "board_post_restore") {
         return EVENTS::BOARD_POST_RESTORE;
-    else if (typeEvent == "photo_comment_new")
+    } else if (typeEvent == "photo_comment_new") {
         return EVENTS::PHOTO_COMMENT_NEW;
-    else if (typeEvent == "photo_comment_edit")
+    } else if (typeEvent == "photo_comment_edit") {
         return EVENTS::PHOTO_COMMENT_EDIT;
-    else if (typeEvent == "photo_comment_delete")
+    } else if (typeEvent == "photo_comment_delete") {
         return EVENTS::PHOTO_COMMENT_DELETE;
-    else if (typeEvent == "photo_comment_restore")
+    } else if (typeEvent == "photo_comment_restore") {
         return EVENTS::PHOTO_COMMENT_RESTORE;
-    else if (typeEvent == "video_comment_new")
+    } else if (typeEvent == "video_comment_new") {
         return EVENTS::VIDEO_COMMENT_NEW;
-    else if (typeEvent == "video_comment_edit")
+    } else if (typeEvent == "video_comment_edit") {
         return EVENTS::VIDEO_COMMENT_EDIT;
-    else if (typeEvent == "video_comment_delete")
+    } else if (typeEvent == "video_comment_delete") {
         return EVENTS::VIDEO_COMMENT_DELETE;
-    else if (typeEvent == "video_comment_restore")
+    } else if (typeEvent == "video_comment_restore") {
         return EVENTS::VIDEO_COMMENT_RESTORE;
-    else if (typeEvent == "market_comment_new")
+    } else if (typeEvent == "market_comment_new") {
         return EVENTS::MARKET_COMMENT_NEW;
-    else if (typeEvent == "market_comment_edit")
+    } else if (typeEvent == "market_comment_edit") {
         return EVENTS::MARKET_COMMENT_EDIT;
-    else if (typeEvent == "market_comment_delete")
+    } else if (typeEvent == "market_comment_delete") {
         return EVENTS::MARKET_COMMENT_DELETE;
-    else if (typeEvent == "market_comment_restore")
+    } else if (typeEvent == "market_comment_restore") {
         return EVENTS::MARKET_COMMENT_RESTORE;
-    else if (typeEvent == "poll_vote_new")
+    } else if (typeEvent == "poll_vote_new") {
         return EVENTS::POLL_VOTE_NEW;
-    else if (typeEvent == "group_join")
+    } else if (typeEvent == "group_join") {
         return EVENTS::GROUP_JOIN;
-    else if (typeEvent == "group_leave")
+    } else if (typeEvent == "group_leave") {
         return EVENTS::GROUP_LEAVE;
-    else if (typeEvent == "user_block")
+    } else if (typeEvent == "user_block") {
         return EVENTS::USER_BLOCK;
-    else if (typeEvent == "user_unblock")
+    } else if (typeEvent == "user_unblock") {
         return EVENTS::USER_UNBLOCK;
-    else if (typeEvent == "group_change_settings")
+    } else if (typeEvent == "group_change_settings") {
         return EVENTS::GROUP_CHANGE_SETTINGS;
-    else if (typeEvent == "group_change_photo")
+    } else if (typeEvent == "group_change_photo") {
         return EVENTS::GROUP_CHANGE_PHOTO;
-    else if (typeEvent == "group_officers_edit")
+    } else if (typeEvent == "group_officers_edit") {
         return EVENTS::GROUP_OFFICERS_EDIT;
-    else
+    } else {
         return EVENTS::UNKNOWN;
+    }
 }
 }

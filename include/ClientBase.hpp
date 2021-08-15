@@ -8,23 +8,26 @@
 #include <set> // set
 #include <string> // string
 
-#include "Request.hpp" // Request
-#include "Utilities.hpp" // ConvertStrToUrlCode
-#include "Exceptions.hpp" // already_connected, not_connected, empty_argument
-#include "Defines.hpp" // ABSTRACT
+#include <Request.hpp> // Request
+#include <Utilities.hpp> // ConvertStrToUrlCode
+#include <Exceptions.hpp> // already_connected, not_connected, empty_argument
+#include <Defines.hpp>
 
-#include "nlohmann/json.hpp" // json
+#include <nlohmann/json.hpp> // json
 
 namespace vk
 {
 
 using json = nlohmann::json;
 
-constexpr auto API_URL = "https://api.vk.com/method/";
-constexpr auto AUTH_URL = "https://oauth.vk.com/token?";
-constexpr auto OAUTH_URL = "https://oauth.vk.com/authorize?";
-constexpr auto OAUTH_URL_SECOND = "https://oauth.vk.com/access_token?";
-constexpr auto API_VERSION = "5.120";
+#define VKAPI_INVALID_REQUEST "invaid_request"
+#define VKAPI_NEED_CAPTCHA "need_captcha"
+
+constexpr const char* VKAPI_API_URL = "https://api.vk.com/method/";
+constexpr const char* VKAPI_AUTH_URL = "https://oauth.vk.com/token?";
+constexpr const char* VKAPI_OAUTH_URL = "https://oauth.vk.com/authorize?";
+constexpr const char* VKAPI_OAUTH_URL_SECOND = "https://oauth.vk.com/access_token?";
+constexpr const char* VKAPI_API_VERSION = "5.120";
 
 // The types of error which the VK server can return.
 // You can see the description of these on https://vk.com/dev/errors
@@ -87,24 +90,24 @@ public:
      *  implementation for user and bot auths is differently.
      * @param  accessToken: the access token
      */
-    virtual bool Auth(const std::string& accessToken) = 0;
+    __VIRTUAL bool Auth(const std::string& accessToken) = 0;
 
     /**
      * @brief  Add a scope to the main scope's list.
      * @param  scope: your scope.
      */
-    virtual void AddScope(const std::string scope);
+    __VIRTUAL void AddScope(const std::string scope);
 
     /**
      * @brief  Add a list of scopes to the main scope's list.
      * @param  scopeList: your list of scopes.
      */
-    virtual void AddScope(const std::initializer_list<std::string> scopeList);
+    __VIRTUAL void AddScope(const std::initializer_list<std::string> scopeList);
 
     /**
      * @brief  Clear the main scope's list.
      */
-    virtual void ClearScope();
+    __VIRTUAL void ClearScope();
 
     /**
      * @brief  Generate a 32 bits random number.
@@ -119,7 +122,7 @@ public:
      * @return true
      * @return false
      */
-    virtual bool IsAuthorized() const { return connectedToLongPoll_; }
+    __VIRTUAL bool IsAuthorized() const { return connectedToLongPoll_; }
 
     ClientBase& operator=(const ClientBase&) = delete;
 
@@ -129,7 +132,7 @@ protected:
      * @param  parametersData: your parameters data which need to convert to URL format.
      * @retval a string with parameters in URL format.
      */
-    virtual std::string ConvertParametersDataToURL(const json& parametersData);
+    __VIRTUAL std::string ConvertParametersDataToURL(const json& parametersData);
 
     /**
      * @brief  Check validation parameters on having items like access_token and others.
@@ -137,7 +140,7 @@ protected:
      * @param  parametersData: the data of parameters that you want to check.
      * @retval the correctly data of parameters.
      */
-    virtual json CheckValidationParameters(const json& parametersData) = 0;
+    __VIRTUAL json CheckValidationParameters(const json& parametersData) = 0;
 
     /**
      * @brief  Get the error type by a string.

@@ -1,6 +1,7 @@
-#include "Request.hpp"
+#include <Request.hpp>
 
-namespace vk {
+namespace vk
+{
 
 std::string Request::Send(const std::string& url, const std::string& postData)
 {
@@ -21,17 +22,19 @@ std::string Request::Send(const std::string& url, const std::string& postData)
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Request::CurlWriteData);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &callbackBuf);
 
-        if (!postData.empty())
+        if (!postData.empty()) {
             curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postData.c_str());
+        }
 
         CURLcode result = curl_easy_perform(curl);
 
         curl_easy_cleanup(curl);
 
-        if (result == CURLE_OK)
+        if (result == CURLE_OK) {
             return callbackBuf;
-        else
+        } else {
             return errorBuf;
+        }
     }
 
     return postData;

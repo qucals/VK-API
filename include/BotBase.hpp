@@ -3,12 +3,12 @@
 #ifndef _BOTBASE_HPP_
 #define _BOTBASE_HPP_
 
-#include "ClientBase.hpp"
+#include <ClientBase.hpp>
 
 namespace vk
 {
 
-constexpr auto DEFAULT_TIME_WAIT = "25";
+constexpr const char* DEFAULT_TIME_WAIT = "25";
 
 /**
  * @brief The class for working from bots by Long Poll Server.
@@ -111,7 +111,7 @@ public:
         Event(const EVENTS _type, const json _parameters)
             : parameters(_parameters)
             , type(_type)
-        {        }
+        {}
     };
 
 public:
@@ -150,7 +150,7 @@ public:
      * @param  parametersData: the data of parameters for your request.
      * @retval the answer of your request in json.
      */
-    // TODO (#14): Add asynchronous sending of requests
+     // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const METHODS method, const json& parametersData);
 
     /**
@@ -159,7 +159,7 @@ public:
      * @param  parametersData: the data of parameters for you request.
      * @retval the naswer of your request in json.
      */
-    // TODO (#14): Add asynchronous sending of requests
+     // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const std::string& method, const json& parametersData);
 
 protected:

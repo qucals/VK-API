@@ -1,4 +1,4 @@
-#include "UserBase.hpp"
+#include <UserBase.hpp>
 
 namespace vk
 {
@@ -7,8 +7,6 @@ UserBase::UserBase(const std::string& appId, const std::string& appSecureKey)
     : ClientBase()
     , appId_(appId)
     , appSecureKey_(appSecureKey)
-    , accessToken_("")
-    , userId_("")
 {
     if (appId_.empty() || appSecureKey_.empty()) { throw ex::EmptyArgumentException(); }
 }
@@ -21,7 +19,15 @@ bool UserBase::Auth(std::string& login, std::string& password)
     std::string scope;
 
     if (!scope_.empty()) {
+    #ifdef __CPLUSPLUS_OVER_11
         for (const auto& i : scope_) { scope += "," + i; }
+    #else
+        for (std::set<std::string>::iterator iter = scope_.begin();
+             iter != scope_.end();
+             iter++) {
+            scope += "," + i;
+        }
+    #endif // __CPLUSPLUS_OVER_11
         scope = scope.substr(0, scope.size() - 1);
     }
 
@@ -34,12 +40,12 @@ bool UserBase::Auth(std::string& login, std::string& password)
         { "password", password }
     };
 
-    json response = json::parse(Request::Send(AUTH_URL,
+    json response = json::parse(Request::Send(VKAPI_AUTH_URL,
                                               ConvertParametersDataToURL(parametersData)));
 
     try {
         if (response.find("error") != response.end()) {
-            auto errorTypeStr = response["error"].get<std::string>();
+            std::string errorTypeStr = response["error"].get<std::string>();
             VK_REQUEST_ERROR_TYPES errorType = GetRequestErrorType(errorTypeStr);
 
             if (errorType == VK_REQUEST_ERROR_TYPES::NEED_CAPTCHA) {
@@ -48,16 +54,16 @@ bool UserBase::Auth(std::string& login, std::string& password)
                 std::string captchaKey;
                 std::cin >> captchaKey;
 
-                parametersData.push_back(
-                    { "captcha_key", captchaKey });
-                Request::Send(AUTH_URL, ConvertParametersDataToURL(parametersData));
+                parametersData.push_back({ "captcha_key", captchaKey });
+                Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData));
 
                 // TODO (#11): Add further processing
             }
 
             VALIDATION_TYPES validationType = GetValidationType(response.at("validation_type"));
 
-            if (validationType == VALIDATION_TYPES::TWOFA_SMS || validationType == VALIDATION_TYPES::TWOFA_APP) {
+            if (validationType == VALIDATION_TYPES::TWOFA_SMS ||
+                validationType == VALIDATION_TYPES::TWOFA_APP) {
                 parametersData.push_back({ "2fa_supported", "1" });
 
                 if (validationType == VALIDATION_TYPES::TWOFA_SMS) {
@@ -67,7 +73,7 @@ bool UserBase::Auth(std::string& login, std::string& password)
                 }
 
                 Request::Send(response.at("redirect_url").get<std::string>(), "");
-                Request::Send(AUTH_URL, ConvertParametersDataToURL(parametersData));
+                Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData));
 
                 std::cout << "Enter code: ";
 
@@ -75,7 +81,7 @@ bool UserBase::Auth(std::string& login, std::string& password)
                 std::cin >> code;
 
                 parametersData.push_back({ "code", code });
-                response = json::parse(Request::Send(AUTH_URL, ConvertParametersDataToURL(parametersData)));
+                response = json::parse(Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData)));
 
                 accessToken_ = response.at("access_token").get<std::string>();
                 userId_ = response.at("user_id").get<std::string>();
@@ -101,19 +107,28 @@ bool UserBase::Auth(const std::string& accessToken)
 
     json parametersData = {
         { "access_token", accessToken },
-        { "v", API_VERSION }
+        { "v", VKAPI_API_VERSION }
     };
 
     const std::string method = MethodToString(METHODS::USERS_GET);
-    const std::string url = API_URL + method;
+    const std::string url = VKAPI_API_URL + method;
 
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     try {
         if (response.find("error") != response.end()) {
+        #ifdef __CPLUSPLUS_OVER_11
             for (const auto& data : response.at("response").items()) {
                 userId_ = data.value().at("id").get<std::string>();
             }
+        #else
+            json __response = response.at("response").items();
+            for (json::iterator iter = __response.begin();
+                 iter != __response.end();
+                 iter++) {
+                userId_ = iter->value().at("id").get<std::string>();
+            }
+        #endif // __CPLUSPLUS_OVER_11
             accessToken_ = accessToken;
             connectedToLongPoll_ = true;
         } else {
@@ -133,11 +148,13 @@ json UserBase::CheckValidationParameters(const json& parametersData)
 {
     json cParametersData = parametersData;
 
-    if (cParametersData.find("access_token") == cParametersData.end())
+    if (cParametersData.find("access_token") == cParametersData.end()) {
         cParametersData.push_back({ "access_token", accessToken_ });
+    }
 
-    if (cParametersData.find("v") == cParametersData.end())
-        cParametersData.push_back({ "v", API_VERSION });
+    if (cParametersData.find("v") == cParametersData.end()) {
+        cParametersData.push_back({ "v", VKAPI_API_VERSION });
+    }
 
     return cParametersData;
 }
@@ -165,7 +182,7 @@ json UserBase::SendRequest(const METHODS method, const json& parametersData)
     if (!IsAuthorized()) { throw ex::NotConnectedException(); }
 
     std::string methodStr = MethodToString(method);
-    std::string url = API_URL + methodStr;
+    std::string url = VKAPI_API_URL + methodStr;
 
     json pData = CheckValidationParameters(parametersData);
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
@@ -178,7 +195,7 @@ json UserBase::SendRequest(const std::string& method, const json& parametersData
     if (!IsAuthorized()) { throw ex::NotConnectedException(); }
     if (method.empty()) { throw ex::EmptyArgumentException(); }
 
-    std::string url = API_URL + method;
+    std::string url = VKAPI_API_URL + method;
 
     json pData = CheckValidationParameters(parametersData);
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));

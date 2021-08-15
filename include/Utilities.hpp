@@ -3,6 +3,8 @@
 #ifndef _UTILITIES_HPP_
 #define _UTILITIES_HPP_
 
+#include <Defines.hpp>
+
 #include <curl/curl.h> // curl
 #include <string> // string
 
@@ -10,7 +12,7 @@ namespace vk {
 
 namespace Utilities {
 
-    inline std::string ConvertStrToUrlCode(const std::string& str)
+    __INLINE std::string ConvertStrToUrlCode(const std::string& str)
     {
         std::string temp(str);
         CURL* curl = curl_easy_init();

@@ -6,15 +6,16 @@
 #include <curl/curl.h> // curl
 #include <string> // string
 
-#include "Utilities.hpp" // ConvertStrToUrlCode
+#include <Defines.hpp>
+#include <Utilities.hpp> // ConvertStrToUrlCode
 
 namespace vk
 {
 
-constexpr auto APPLY_CURLOPT = 1L;
-constexpr auto NO_APPLY_CURLOPT = 0L;
-constexpr auto MAXREGIDS = 50L;
-constexpr auto USERAGENT = "VKAPI Client";
+constexpr long APPLY_CURLOPT = 1L;
+constexpr long NO_APPLY_CURLOPT = 0L;
+constexpr long MAXREGIDS = 50L;
+constexpr const char* USERAGENT = "VKAPI Client";
 
 /**
  * @brief The class for working with requst.
@@ -33,11 +34,11 @@ public:
      * @param  postData: the additional parameters which need to add to the request.
      * @retval an answer in a string.
      */
-    static std::string Send(const std::string& url,
+    __STATIC std::string Send(const std::string& url,
         const std::string& postData);
 
 protected:
-    static std::size_t CurlWriteData(char* ptr, size_t size,
+    __STATIC std::size_t CurlWriteData(char* ptr, size_t size,
         size_t nmemb, std::string* data);
 };
 

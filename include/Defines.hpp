@@ -14,6 +14,8 @@
 #endif // __STATIC
 
 #if (__cplusplus >= 201103L)
+#define __CPLUSPLUS_OVER_11
+
 #ifndef __OVERRIDE
 #define __OVERRIDE override
 #endif // __OVERRIDE
@@ -30,5 +32,13 @@
 #define __FINAL
 #endif // __FINAL
 #endif
+
+#ifndef __VIRTUAL
+#define __VIRTUAL virtual
+#endif // __VIRTUAL
+
+#ifndef __INLINE
+#define __INLINE inline
+#endif // __INLINE
 
 #endif //VKAPI_DEFINES_H

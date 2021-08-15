@@ -3,7 +3,7 @@
 #ifndef _USERBASE_HPP_
 #define _USERBASE_HPP_
 
-#include "ClientBase.hpp"
+#include <ClientBase.hpp>
 
 namespace vk {
 
@@ -426,14 +426,14 @@ public:
      * @param  password: your password.
      * @retval 'true' if auth is successfully and 'false' in another case.
      */
-    virtual bool Auth(std::string& login, std::string& password);
+    __VIRTUAL bool Auth(std::string& login, std::string& password);
 
     /**
      * @brief  The authorization function by access token.
      * @param  accessToken: your access token.
      * @retval 'true' if auth is successfully and 'false' in another case.
      */
-    bool Auth(const std::string& accessToken) final;
+    bool Auth(const std::string& accessToken) __FINAL;
 
     /**
      * @brief  The function of sending any request to the VK server.
@@ -476,7 +476,7 @@ protected:
      * @param  parametersData: the data of parameters that you want to check.
      * @retval the correctly data of parameters.
      */
-    json CheckValidationParameters(const json& parametersData) override;
+    json CheckValidationParameters(const json& parametersData) __OVERRIDE;
 
     /**
      * @brief  Get the URL to the captcha.

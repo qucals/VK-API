@@ -5,13 +5,15 @@
 
 #include <exception>
 
+#include <Defines.hpp>
+
 namespace vk
 {
 
 namespace ex
 {
 
-class BaseException : virtual public std::exception
+class BaseException : __VIRTUAL public std::exception
 {
 protected:
     std::string errorMessage_;
@@ -21,15 +23,15 @@ public:
         : errorMessage_(msg)
     {}
 
-    virtual ~BaseException() throw() {}
+    __VIRTUAL ~BaseException() throw() {}
 
-    virtual const char* what() const throw()
+    __VIRTUAL const char* what() const throw()
     {
         return errorMessage_.c_str();
     }
 };
 
-class AlreadyConnectedException : virtual public BaseException
+class AlreadyConnectedException : __VIRTUAL public BaseException
 {
 public:
     explicit AlreadyConnectedException()
@@ -37,7 +39,7 @@ public:
     {}
 };
 
-class NotConnectedException : virtual public BaseException
+class NotConnectedException : __VIRTUAL public BaseException
 {
 public:
     explicit NotConnectedException()
@@ -45,7 +47,7 @@ public:
     {}
 };
 
-class EmptyArgumentException : virtual public BaseException
+class EmptyArgumentException : __VIRTUAL public BaseException
 {
 public:
     explicit EmptyArgumentException()
@@ -53,7 +55,7 @@ public:
     {}
 };
 
-class RequestError : virtual public BaseException
+class RequestError : __VIRTUAL public BaseException
 {
 public:
     explicit RequestError()
