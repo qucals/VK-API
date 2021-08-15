@@ -5,27 +5,35 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 
-set(VKAPI_MAJOR_VERSION "0")
-set(VKAPI_MINOR_VERSION "0")
-set(VKAPI_PATCH_VERSION "2")
+set(VKAPI_MAJOR_VERSION 0)
+set(VKAPI_MINOR_VERSION 0)
+set(VKAPI_PATCH_VERSION 3)
 set(VKAPI_VERSION_STRING "${VKAPI_MAJOR_VERSION}.${VKAPI_MINOR_VERSION}.${VKAPI_PATCH_VERSION}")
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/Config.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/Config.hpp)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(MACOSX TRUE)
 endif()
 
 set(NLOHMANN_JSON_PATH "${PROJECT_SOURCE_DIR}/include")
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
 
+option(BUILD_LIBRARY "Determines that, as a result, we get" ON)
 option(BUILD_EXAMPLES "Determines whether examples should be performed" ON)
 
 file(GLOB TARGET_SRC "./src/*.cpp")
 file(GLOB TARGET_HEADERS "./include/*.hpp")
 
 # target_include_directories(${PROJECT_NAME} PUBLIC include)
-add_library(${PROJECT_NAME} STATIC ${TARGET_SRC} ${TARGET_HEADERS})
+
+if(BUILD_LIBRARY)
+    add_library(${PROJECT_NAME} STATIC ${TARGET_SRC} ${TARGET_HEADERS})
+else()
+    add_executable(${PROJECT_NAME} ${TARGET_SRC} ${TARGET_HEADERS})
+endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_INSTALL_INCLUDEDIR})
 

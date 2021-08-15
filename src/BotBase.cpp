@@ -1,4 +1,11 @@
-#include "BotBase.hpp"
+/**
+ * Containts the class for working with vkbot.
+ * @file BotBase.cpp
+ * @author qucals
+ * @version 0.0.3 15/08/21
+ */
+
+#include <BotBase.hpp>
 
 namespace vk
 {
