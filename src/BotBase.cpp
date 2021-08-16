@@ -2,7 +2,7 @@
  * Containts the class for working with vkbot.
  * @file BotBase.cpp
  * @author qucals
- * @version 0.0.3 16/08/21
+ * @version 0.0.4 16/08/21
  */
 
 #include <BotBase.hpp>
@@ -233,7 +233,7 @@ json BotBase::SendRequestAsync_(BotBase* handle, const METHODS method, const jso
 {
     assert(handle == nullptr);
     if (!handle->IsAuthorized()) { throw ex::NotConnectedException(); }
-    
+
     std::string methodStr = BotBase::MethodToString(method);
     std::string url = VKAPI_API_URL + methodStr;
 

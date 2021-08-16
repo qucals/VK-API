@@ -1039,5 +1039,5 @@ dkms.conf
 ./include/nlohmann/*
 
 # VKAPI
-./include/Config.hpp
-./src/main.cpp
+include/Config.hpp
+src/main.cpp
