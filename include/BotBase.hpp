@@ -149,7 +149,7 @@ public:
      * @param  method: the enum's method.
      * @retval a string (URL) of this method.
      */
-    std::string MethodToString(const METHODS method);
+    __STATIC std::string MethodToString(const METHODS method);
 
     /**
      * @brief  The function of sending any request to the VK server.
@@ -190,6 +190,14 @@ protected:
      * @retval the type of event in enum (EVENTS).
      */
     EVENTS GetTypeEvent(const std::string& typeEvent);
+
+private:
+
+#ifdef __CPLUSPLUS_OVER_11
+    __STATIC json SendRequestAsync_(BotBase* handle, const METHODS method, const json& parametersData);
+
+    __STATIC json SendRequestAsync__(BotBase* handle, const std::string& method, const json& parametersData);
+#endif // #ifdef __CPLUSPLUS_OVER_11
 
 private:
     const std::string groupId_;

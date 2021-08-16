@@ -2,11 +2,11 @@
  * Desribes the class for working with VK account.
  * @file UserBase.hpp
  * @author qucals
- * @version 0.0.3 15/08/21
+ * @version 0.0.3 16/08/21
  */
 
 #include <UserBase.hpp>
-
+    
 namespace vk
 {
 
