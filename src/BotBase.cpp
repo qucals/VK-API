@@ -233,7 +233,7 @@ json BotBase::SendRequestAsync_(BotBase* handle, const METHODS method, const jso
 {
     assert(handle == nullptr);
     if (!handle->IsAuthorized()) { throw ex::NotConnectedException(); }
-    
+
     std::string methodStr = BotBase::MethodToString(method);
     std::string url = VKAPI_API_URL + methodStr;
 

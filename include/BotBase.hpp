@@ -163,14 +163,27 @@ public:
     /**
      * @brief  The function of sending any request to the VK server.
      * @param  method: your method in str format.
-     * @param  parametersData: the data of parameters for you request.
+     * @param  parametersData: the data of parameters for your request.
      * @retval the naswer of your request in json.
      */
      // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const std::string& method, const json& parametersData);
 
 #ifdef __CPLUSPLUS_OVER_11
+    /**
+     * @brief  The function witch calls private function for sending a request in asynchronous mode.
+     * @param  method: the enum's method.
+     * @param  parametersData: the data of parameters for your request.
+     * @retval the answer of your request in json.
+     */
     auto SendRequestAsync(const METHODS method, const json& parametersData);
+
+    /**
+     * @brief  The function witch calls private function for sending a request in asynchronous mode.
+     * @param  method: your method in str format.
+     * @param  parametersData: the data of parameters for your request.
+     * @retval the naswer of your request in json.
+     */
     auto SendRequestAsync(const std::string& method, const json& parametersData);
 #endif // __CPLUSPLUS_OVER_11
 
@@ -194,8 +207,20 @@ protected:
 private:
 
 #ifdef __CPLUSPLUS_OVER_11
+    /**
+     * @brief The static function of sending any request to the VK server.
+     * @param handle: a pointer to your handle of BotBase.
+     * @param method: the enum's method.
+     * @param parametersData:  the data of parameters for your request.
+     */
     __STATIC json SendRequestAsync_(BotBase* handle, const METHODS method, const json& parametersData);
 
+    /**
+     * @brief The static function of sending any request to the VK server.
+     * @param handle: a pointer to your handle of BotBase.
+     * @param method: your method in str format.
+     * @param parametersData:  the data of parameters for your request.
+     */
     __STATIC json SendRequestAsync__(BotBase* handle, const std::string& method, const json& parametersData);
 #endif // #ifdef __CPLUSPLUS_OVER_11
 
