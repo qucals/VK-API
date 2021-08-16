@@ -29,9 +29,9 @@ typedef struct __vkapi_version
     short patch;
 } __vkapi_version;
 
-#cmakedefine __VKAPI_MAJOR_VERSION @VKAPI_MAJOR_VERSION@
-#cmakedefine __VKAPI_MINOR_VERSION @VKAPI_MINOR_VERSION@
-#cmakedefine __VKAPI_PATCH_VERSION @VKAPI_PATCH_VERSION@
+#define __VKAPI_MAJOR_VERSION @VKAPI_MAJOR_VERSION@
+#define __VKAPI_MINOR_VERSION @VKAPI_MINOR_VERSION@
+#define __VKAPI_PATCH_VERSION @VKAPI_PATCH_VERSION@
 
 #ifndef __VKAPI_MAJOR_VERSION
 #define __VKAPI_MAJOR_VERSION 0
@@ -58,7 +58,7 @@ typedef struct __vkapi_version
  *  @param x A pointer to a __vkapi_version struct to initialize.
  */
 #define __VKAPI_VERSION(x)                    \
-{                                           \
+{                                             \
         (x)->major = __VKAPI_MAJOR_VERSION;   \
         (x)->minor = __VKAPI_MINOR_VERSION;   \
         (x)->patch = __VKAPI_PATCH_VERSION;   \

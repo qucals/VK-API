@@ -2,11 +2,11 @@
  * Desribes the class for working with VK account.
  * @file UserBase.hpp
  * @author qucals
- * @version 0.0.3 15/08/21
+ * @version 0.0.3 16/08/21
  */
 
 #include <UserBase.hpp>
-
+    
 namespace vk
 {
 
@@ -62,7 +62,7 @@ bool UserBase::Auth(std::string& login, std::string& password)
                 std::cin >> captchaKey;
 
                 parametersData.push_back({ "captcha_key", captchaKey });
-                Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData));
+                std::string response = Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData));
 
                 // TODO (#11): Add further processing
             }

@@ -2,7 +2,7 @@
  * Containts the class for working with vkbot.
  * @file BotBase.cpp
  * @author qucals
- * @version 0.0.3 15/08/21
+ * @version 0.0.4 16/08/21
  */
 
 #include <BotBase.hpp>
@@ -211,8 +211,8 @@ json BotBase::SendRequest(const METHODS method, const json& parametersData)
 
 json BotBase::SendRequest(const std::string& method, const json& parametersData)
 {
-    if (!IsAuthorized()) throw ex::NotConnectedException();
-    if (method.empty()) throw ex::EmptyArgumentException();
+    if (!IsAuthorized()) { throw ex::NotConnectedException(); }
+    if (method.empty()) { throw ex::EmptyArgumentException(); }
 
     std::string url = VKAPI_API_URL + method;
 
@@ -221,6 +221,42 @@ json BotBase::SendRequest(const std::string& method, const json& parametersData)
 
     return response;
 }
+
+#ifdef __CPLUSPLUS_OVER_11
+auto BotBase::SendRequestAsync(const METHODS method, const json& parametersData)
+{ return std::async(BotBase::SendRequestAsync_, this, method, parametersData); }
+
+auto BotBase::SendRequestAsync(const std::string& method, const json& parametersData)
+{ return std::async(BotBase::SendRequestAsync__, this, method, parametersData); }
+
+json BotBase::SendRequestAsync_(BotBase* handle, const METHODS method, const json& parametersData)
+{
+    assert(handle == nullptr);
+    if (!handle->IsAuthorized()) { throw ex::NotConnectedException(); }
+
+    std::string methodStr = BotBase::MethodToString(method);
+    std::string url = VKAPI_API_URL + methodStr;
+
+    json pData = handle->CheckValidationParameters(parametersData);
+    json response = json::parse(Request::Send(url, handle->ConvertParametersDataToURL(pData)));
+
+    return response;
+}
+
+json BotBase::SendRequestAsync__(BotBase* handle, const std::string& method, const json& parametersData)
+{
+    assert(handle == nullptr);
+    if (!handle->IsAuthorized()) { throw ex::NotConnectedException(); }
+    if (method.empty()) { throw ex::EmptyArgumentException(); }
+
+    std::string url = VKAPI_API_URL + method;
+
+    json pData = handle->CheckValidationParameters(parametersData);
+    json response = json::parse(Request::Send(url, handle->ConvertParametersDataToURL(pData)));
+
+    return response;
+}
+#endif // __CPLUSPLUS_OVER_11
 
 json BotBase::CheckValidationParameters(const json& parametersData)
 {

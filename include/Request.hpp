@@ -2,7 +2,7 @@
  * Desribes the class for working with CURL.
  * @file Request.hpp
  * @author qucals
- * @version 0.0.3 15/08/21
+ * @version 0.0.3 16/08/21
  */
 
 #pragma once
@@ -34,7 +34,7 @@ public:
     ~Request() = delete;
 
     Request& operator=(const Request&) = delete;
-
+ 
     /**
      * @brief Sending your request to the VK server.
      * @param  url: the request in url format.

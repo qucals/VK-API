@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.5)
 set(PROJECT_NAME Example2)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
-set(VKAPI_MAJOR_VERSION "0")
-set(VKAPI_MINOR_VERSION "0")
-set(VKAPI_PATCH_VERSION "2")
+set(VKAPI_MAJOR_VERSION 0)
+set(VKAPI_MINOR_VERSION 0)
+set(VKAPI_PATCH_VERSION 3)
 
-set(CMAKE_CXX_FLAGS " -lcurl")
+set(CMAKE_CXX_FLAGS "-lcurl")
 
 add_executable(${PROJECT_NAME} main.cpp)
 
