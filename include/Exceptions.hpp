@@ -23,18 +23,18 @@ namespace ex
 class BaseException : __VIRTUAL public std::exception
 {
 protected:
-    std::string errorMessage_;
+    std::string m_errorMessage;
 
 public:
     __EXPLICIT BaseException(std::string msg)
-        : errorMessage_(__MOVE(msg))
+        : m_errorMessage(__MOVE(msg))
     {}
 
     ~BaseException() __NOEXCEPT __OVERRIDE = default;
 
     const char* what() const __NOEXCEPT __OVERRIDE
     {
-        return errorMessage_.c_str();
+        return m_errorMessage.c_str();
     }
 };
 

@@ -4,8 +4,6 @@
  * @author qucals
  * @version 0.0.5 18/08/21
  */
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #pragma once
 
 #ifndef _CLIENTBASE_HPP_
@@ -20,9 +18,6 @@
 #include <random> // rand
 #include <set> // set
 #include <string> // string
-
-__DISABLE_WARNING_PUSH
-__DISABLE_WARNING_UNUSED
 
 #ifdef __CPLUSPLUS_OVER_11
 #include <future> // async, future
@@ -179,5 +174,3 @@ protected:
 } // namespace vk
 
 #endif // _CLIENTBASE_HPP_
-
-__DISABLE_WARNING_POP

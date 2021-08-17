@@ -80,12 +80,10 @@
 #define __DISABLE_WARNING_POP            __pragma(warning( pop ))
 #define __DISABLE_WARNING(warningNumber) __pragma(warning( disable : warningNumber ))
 #elif defined(__GNUC__) || defined(__clang__)
-#define __DO_PRAGMA(X) _Pragma(#X)
+#define __DO_PRAGMA(X)                   _Pragma(#X)
 #define __DISABLE_WARNING_PUSH           __DO_PRAGMA(GCC diagnostic push)
 #define __DISABLE_WARNING_POP            __DO_PRAGMA(GCC diagnostic pop)
 #define __DISABLE_WARNING(warningName)   __DO_PRAGMA(ide diagnostic ignored #warningName)
-
-#define __DISABLE_WARNING_UNUSED         __DISABLE_WARNING("OCUnusedGlobalDeclarationInspection")
 #else
 #define __DISABLE_WARNING_PUSH
 #define __DISABLE_WARNING_POP

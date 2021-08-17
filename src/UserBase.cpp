@@ -18,10 +18,10 @@ namespace user
 
 UserBase::UserBase(std::string appId, std::string appSecureKey)
     : ClientBase()
-    , appId_(__MOVE(appId))
-    , appSecureKey_(__MOVE(appSecureKey))
+    , m_appId(__MOVE(appId))
+    , m_appSecureKey(__MOVE(appSecureKey))
 {
-    if (appId_.empty() || appSecureKey_.empty()) { throw ex::EmptyArgumentException(); }
+    if (m_appId.empty() || m_appSecureKey.empty()) { throw ex::EmptyArgumentException(); }
 }
 
 bool UserBase::Auth(std::string& login, std::string& password)
@@ -45,9 +45,9 @@ bool UserBase::Auth(std::string& login, std::string& password)
     }
 
     json parametersData = {
-        { "client_id",     appId_ },
+        { "client_id",     m_appId },
         { "grant_type",    "password" },
-        { "client_secret", appSecureKey_ },
+        { "client_secret", m_appSecureKey },
         { "scope",         scope },
         { "username",      login },
         { "password",      password }
@@ -96,13 +96,13 @@ bool UserBase::Auth(std::string& login, std::string& password)
                 parametersData.push_back({ "code", code });
                 response = json::parse(Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData)));
 
-                accessToken_ = response.at("access_token").get<std::string>();
-                userId_ = response.at("user_id").get<std::string>();
+                m_accessToken = response.at("access_token").get<std::string>();
+                m_userId = response.at("user_id").get<std::string>();
                 m_connectedToLongPoll = true;
             }
         } else {
-            accessToken_ = response.at("access_token").get<std::string>();
-            userId_ = response.at("user_id").get<std::string>();
+            m_accessToken = response.at("access_token").get<std::string>();
+            m_userId = response.at("user_id").get<std::string>();
             m_connectedToLongPoll = true;
         }
     } catch (json::exception& exc) {
@@ -132,21 +132,21 @@ bool UserBase::Auth(const std::string& accessToken)
         if (response.find("error") != response.end()) {
 #ifdef __CPLUSPLUS_OVER_11
             for (const auto& data : response.at("response").items()) {
-                userId_ = data.value().at("id").get<std::string>();
+                m_userId = data.value().at("id").get<std::string>();
             }
 #else
             json __response = response.at("response").items();
             for (json::iterator iter = __response.begin();
                  iter != __response.end();
                  iter++) {
-                userId_ = iter->value().at("id").get<std::string>();
+                m_userId = iter->value().at("id").get<std::string>();
             }
 #endif // __CPLUSPLUS_OVER_11
-            accessToken_ = accessToken;
+            m_accessToken = accessToken;
             m_connectedToLongPoll = true;
         } else {
-            userId_.clear();
-            accessToken_.clear();
+            m_userId.clear();
+            m_accessToken.clear();
             m_connectedToLongPoll = false;
         }
     } catch (json::exception& exc) {
@@ -162,7 +162,7 @@ json UserBase::CheckValidationParameters(const json& parametersData)
     json cParametersData = parametersData;
 
     if (cParametersData.find("access_token") == cParametersData.end()) {
-        cParametersData.push_back({ "access_token", accessToken_ });
+        cParametersData.push_back({ "access_token", m_accessToken });
     }
 
     if (cParametersData.find("v") == cParametersData.end()) {

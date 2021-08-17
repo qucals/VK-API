@@ -503,11 +503,11 @@ protected:
     __STATIC std::string GetURLCaptcha(json& parametersData, const json& answerData);
 
 private:
-    const std::string appId_;
-    const std::string appSecureKey_;
+    const std::string m_appId;
+    const std::string m_appSecureKey;
 
-    std::string accessToken_;
-    std::string userId_;
+    std::string m_accessToken;
+    std::string m_userId;
 };
 
 } // namespace user
