@@ -1,8 +1,8 @@
 /**
- * Containts the class for working with vkbot.
+ * Contains the class for working with vkbot.
  * @file BotBase.cpp
  * @author qucals
- * @version 0.0.4 16/08/21
+ * @version 0.0.5 18/08/21
  */
 
 #include <BotBase.hpp>
@@ -10,9 +10,15 @@
 namespace vk
 {
 
-BotBase::BotBase(const std::string groupId, const std::string timeWait)
-    : groupId_(groupId)
-    , timeWait_(timeWait)
+namespace base
+{
+
+namespace bot
+{
+
+BotBase::BotBase(std::string groupId, std::string timeWait)
+    : m_groupId(__MOVE(groupId))
+    , m_timeWait(__MOVE(timeWait))
 {}
 
 bool BotBase::Auth(const std::string& accessToken)
@@ -20,12 +26,12 @@ bool BotBase::Auth(const std::string& accessToken)
     if (IsAuthorized()) { throw ex::AlreadyConnectedException(); }
     if (accessToken.empty()) { throw ex::EmptyArgumentException(); }
 
-    if (accessToken_ != accessToken) { accessToken_ = accessToken; }
+    if (m_accessToken != accessToken) { m_accessToken = accessToken; }
 
     json parametersData = {
-        { "access_token", accessToken_ },
-        { "group_id", groupId_ },
-        { "v", VKAPI_API_VERSION }
+        { "access_token", m_accessToken },
+        { "group_id",     m_groupId },
+        { "v",            VKAPI_API_VERSION }
     };
 
     const std::string method = MethodToString(METHODS::GET_LONG_POLL_SERVER);
@@ -38,14 +44,14 @@ bool BotBase::Auth(const std::string& accessToken)
     } else {
         json answerDataStr = response["response"];
 
-        secretKey_ = answerDataStr["key"].get<std::string>();
-        serverUrl_ = answerDataStr["server"].get<std::string>();
-        timeStamp_ = answerDataStr["ts"].get<std::string>();
+        m_secretKey = answerDataStr["key"].get<std::string>();
+        m_serverUrl = answerDataStr["server"].get<std::string>();
+        m_timeStamp = answerDataStr["ts"].get<std::string>();
 
-        connectedToLongPoll_ = true;
+        m_connectedToLongPoll = true;
     }
 
-    return connectedToLongPoll_;
+    return m_connectedToLongPoll;
 }
 
 BotBase::Event BotBase::WaitForEvent()
@@ -53,16 +59,16 @@ BotBase::Event BotBase::WaitForEvent()
     if (!IsAuthorized()) { throw ex::NotConnectedException(); }
 
     json parametersData = {
-        { "key", secretKey_ },
-        { "ts", timeStamp_ },
-        { "wait", timeWait_ }
+        { "key",  m_secretKey },
+        { "ts",   m_timeStamp },
+        { "wait", m_timeWait }
     };
 
-    std::string url = serverUrl_ + "?act=a_check&";
+    std::string url = m_serverUrl + "?act=a_check&";
     json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     if (response.find("ts") != response.end()) {
-        timeStamp_ = response.at("ts").get<std::string>();
+        m_timeStamp = response.at("ts").get<std::string>();
     }
 
     json updates = response.at("updates")[0];
@@ -76,121 +82,82 @@ std::string BotBase::MethodToString(const METHODS method)
     switch (method) {
     case METHODS::DELETE_COMMENT:
         return "board.deleteComment";
-        break;
     case METHODS::RESTORE_COMMENT:
         return "board.restoreComment";
-        break;
     case METHODS::ADD_ADDRESS:
         return "groups.addAddress";
-        break;
     case METHODS::DELETE_ADDRESS:
         return "groups.deleteAddress";
-        break;
     case METHODS::DISABLE_ONLINE:
         return "groups.disableOnline";
-        break;
     case METHODS::EDIT_ADDRESS:
         return "groups.editAddress";
-        break;
     case METHODS::ENABLE_ONLINE:
         return "groups.enableOnline";
-        break;
     case METHODS::GET_BANNED:
         return "groups.getBanned";
-        break;
     case METHODS::GET_LONG_POLL_SERVER:
         return "groups.getLongPollServer";
-        break;
     case METHODS::GET_LONG_POLL_SETTINGS:
         return "groups.getLongPollSettings";
-        break;
     case METHODS::GET_MEMBERS:
         return "groups.getMembers";
-        break;
     case METHODS::GET_ONLINE_STATUS:
         return "groups.getOnlineStatus";
-        break;
     case METHODS::GET_TOKEN_PERMISSIONS:
         return "groups.getTokenPermissions";
-        break;
     case METHODS::IS_MEMBER:
         return "groups.isMember";
-        break;
     case METHODS::SET_LONG_POLL_SETTINGS:
         return "groups.setLongPollSettings";
-        break;
     case METHODS::SET_SETTINGS:
         return "groups.setSettings";
-        break;
     case METHODS::CREATE_CHAT:
         return "messages.createChat";
-        break;
     case METHODS::DELETE_MESSAGE:
         return "messages.delete";
-        break;
     case METHODS::DELETE_CHAT_PHOTO:
         return "messages.deleteChatPhoto";
-        break;
     case METHODS::DELETE_CONVERSATION:
         return "messages.deleteConversation";
-        break;
     case METHODS::EDIT_MESSAGE:
         return "messages.edit";
-        break;
     case METHODS::EDIT_CHAT:
         return "messages.editChat";
-        break;
     case METHODS::GET_BY_CONVERSATION_MESSAGE_ID:
         return "messages.getByConversationMessageId";
-        break;
     case METHODS::GET_BY_MESSAGE_ID:
         return "messages.getById";
-        break;
     case METHODS::GET_CONVERSATION_MEMBERS:
         return "messages.getConversationMembers";
-        break;
     case METHODS::GET_CONVERSATIONS:
         return "messages.getConversations";
-        break;
     case METHODS::GET_CONVERSATION_BY_ID:
         return "messages.getConversationById";
-        break;
     case METHODS::GET_HISTORY:
         return "messages.getHistory";
-        break;
     case METHODS::GET_INVITE_LINK:
         return "messages.getInviteLink";
-        break;
     case METHODS::PIN_MESSAGE:
         return "messages.pin";
-        break;
     case METHODS::REMOVE_CHAT_USER:
         return "messages.removeChatUser";
-        break;
     case METHODS::RESTORE_MESSAGE:
         return "messages.restore";
-        break;
     case METHODS::SEARCH_MESSAGE:
         return "messages.search";
-        break;
     case METHODS::SEND_MESSAGE:
         return "messages.send";
-        break;
     case METHODS::UNPIN_MESSAGE:
         return "messages.unpin";
-        break;
     case METHODS::GET_USER:
         return "users.get";
-        break;
     case METHODS::CLOSE_COMMENTS:
         return "wall.closeComments";
-        break;
     case METHODS::CREATE_COMMENT:
         return "wall.createComment";
-        break;
     case METHODS::OPEN_COMMENTS:
         return "wall.openComments";
-        break;
     }
 
     return "";
@@ -223,6 +190,7 @@ json BotBase::SendRequest(const std::string& method, const json& parametersData)
 }
 
 #ifdef __CPLUSPLUS_OVER_11
+
 auto BotBase::SendRequestAsync(const METHODS method, const json& parametersData)
 { return std::async(BotBase::SendRequestAsync_, this, method, parametersData); }
 
@@ -256,6 +224,7 @@ json BotBase::SendRequestAsync__(BotBase* handle, const std::string& method, con
 
     return response;
 }
+
 #endif // __CPLUSPLUS_OVER_11
 
 json BotBase::CheckValidationParameters(const json& parametersData)
@@ -263,11 +232,11 @@ json BotBase::CheckValidationParameters(const json& parametersData)
     json cParametersData = parametersData;
 
     if (cParametersData.find("access_token") == cParametersData.end()) {
-        cParametersData.push_back({ "access_token", accessToken_ });
+        cParametersData.push_back({ "access_token", m_accessToken });
     }
 
     if (cParametersData.find("group_id") == cParametersData.end()) {
-        cParametersData.push_back({ "group_id", groupId_ });
+        cParametersData.push_back({ "group_id", m_groupId });
     }
 
     if (cParametersData.find("v") == cParametersData.end()) {
@@ -355,4 +324,9 @@ BotBase::EVENTS BotBase::GetTypeEvent(const std::string& typeEvent)
         return EVENTS::UNKNOWN;
     }
 }
-}
+
+} // namespace bot
+
+} // namespace base
+
+} // namespace vk

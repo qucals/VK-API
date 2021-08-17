@@ -1,8 +1,8 @@
 /**
- * Containts information about the project's version.
+ * Contains information about the project's version.
  * @file Config.hpp
  * @author qucals
- * @version @VKAPI_MAJOR_VERSION@.@VKAPI_MINOR_VERSION@.@VKAPI_PATCH_VERSION@ 15/08/21
+ * @version @VKAPI_MAJOR_VERSION@.@VKAPI_MINOR_VERSION@.@VKAPI_PATCH_VERSION@ 18/08/21
  */
 
 #pragma once

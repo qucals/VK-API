@@ -1,10 +1,11 @@
 /**
- * Containts general objects for working with VK API.
+ * Contains general objects for working with VK API.
  * @file ClientBase.hpp
  * @author qucals
- * @version 0.0.3 16/08/21
+ * @version 0.0.5 18/08/21
  */
-
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #pragma once
 
 #ifndef _CLIENTBASE_HPP_
@@ -20,6 +21,9 @@
 #include <set> // set
 #include <string> // string
 
+__DISABLE_WARNING_PUSH
+__DISABLE_WARNING_UNUSED
+
 #ifdef __CPLUSPLUS_OVER_11
 #include <future> // async, future
 #endif // __CPLUSPLUS_OVER_11
@@ -31,7 +35,10 @@ namespace vk
 
 using json = nlohmann::json;
 
-#define VKAPI_INVALID_REQUEST "invaid_request"
+namespace base
+{
+
+#define VKAPI_INVALID_REQUEST "invalid_request"
 #define VKAPI_NEED_CAPTCHA "need_captcha"
 
 constexpr const char* VKAPI_API_URL = "https://api.vk.com/method/";
@@ -107,13 +114,13 @@ public:
      * @brief  Add a scope to the main scope's list.
      * @param  scope: your scope.
      */
-    __VIRTUAL void AddScope(const std::string scope);
+    __VIRTUAL void AddScope(std::string scope);
 
     /**
      * @brief  Add a list of scopes to the main scope's list.
      * @param  scopeList: your list of scopes.
      */
-    __VIRTUAL void AddScope(const std::initializer_list<std::string> scopeList);
+    __VIRTUAL void AddScope(std::initializer_list<std::string> scopeList);
 
     /**
      * @brief  Clear the main scope's list.
@@ -133,7 +140,8 @@ public:
      * @return true
      * @return false
      */
-    __VIRTUAL bool IsAuthorized() const { return connectedToLongPoll_; }
+    __VIRTUAL bool IsAuthorized() const
+    { return m_connectedToLongPoll; }
 
     ClientBase& operator=(const ClientBase&) = delete;
 
@@ -147,7 +155,7 @@ protected:
 
     /**
      * @brief  Check validation parameters on having items like access_token and others.
-     * @note   If the data of paramers won't have necessary parameters the function will add it.
+     * @note   If the data of parameters won't have necessary parameters the function will add it.
      * @param  parametersData: the data of parameters that you want to check.
      * @retval the correctly data of parameters.
      */
@@ -158,14 +166,18 @@ protected:
      * @param  errorStr: the error in string format.
      * @retval the type of the error in enum format (VK_REQUEST_ERROR_TYPES).
      */
-    VK_REQUEST_ERROR_TYPES GetRequestErrorType(const std::string& errorStr);
+    __STATIC VK_REQUEST_ERROR_TYPES GetRequestErrorType(const std::string& errorStr);
 
 protected:
-    std::set<std::string> scope_;
+    std::set<std::string> m_scope;
 
-    bool connectedToLongPoll_;
+    bool m_connectedToLongPoll;
 };
 
-}
+} // namespace base
+
+} // namespace vk
 
 #endif // _CLIENTBASE_HPP_
+
+__DISABLE_WARNING_POP

@@ -1,5 +1,5 @@
 /**
- * Desribes the class for working with CURL.
+ * Describes the class for working with CURL.
  * @file Request.hpp
  * @author qucals
  * @version 0.0.3 15/08/21
@@ -8,6 +8,9 @@
 #include <Request.hpp>
 
 namespace vk
+{
+
+namespace base
 {
 
 std::string Request::Send(const std::string& url, const std::string& postData)
@@ -48,7 +51,7 @@ std::string Request::Send(const std::string& url, const std::string& postData)
 }
 
 std::size_t Request::CurlWriteData(char* ptr, size_t size,
-    size_t nmemb, std::string* data)
+                                   size_t nmemb, std::string* data)
 {
     if (data) {
         data->append(ptr, size * nmemb);
@@ -57,4 +60,7 @@ std::size_t Request::CurlWriteData(char* ptr, size_t size,
 
     return 0;
 }
-}
+
+} // namespace base
+
+} // namespace vk

@@ -1,8 +1,8 @@
 /**
- * Containts general objects for working with VK API.
+ * Contains general objects for working with VK API.
  * @file ClientBase.hpp
  * @author qucals
- * @version 0.0.3 15/08/21
+ * @version 0.0.5 18/08/21
  */
 
 #include <ClientBase.hpp>
@@ -10,28 +10,31 @@
 namespace vk
 {
 
+namespace base
+{
+
 ClientBase::ClientBase()
-    : connectedToLongPoll_(false)
+    : m_connectedToLongPoll(false)
 {}
 
-void ClientBase::AddScope(const std::string scope)
-{ scope_.insert(scope); }
+void ClientBase::AddScope(std::string scope)
+{ m_scope.insert(__MOVE(scope)); }
 
-void ClientBase::AddScope(const std::initializer_list<std::string> scopeList)
+void ClientBase::AddScope(std::initializer_list<std::string> scopeList)
 {
 #ifdef __CPLUSPLUS_OVER_11
-    for (const auto& scope : scopeList) { scope_.insert(scope); }
+    for (const auto& scope : scopeList) { m_scope.insert(__MOVE(scope)); }
 #else
     for (std::initializer_list<std::string>::iterator iter = scopeList.begin();
          iter != scopeList.end();
          iter++) {
-        scope_.insert(*iter);
+        m_scope.insert(__MOVE(*iter));
     }
 #endif // __CPLUSPLUS_OVER_11
 }
 
 void ClientBase::ClearScope()
-{ scope_.clear(); }
+{ m_scope.clear(); }
 
 std::string ClientBase::ConvertParametersDataToURL(const json& parametersData)
 {
@@ -40,14 +43,14 @@ std::string ClientBase::ConvertParametersDataToURL(const json& parametersData)
 #ifdef __CPLUSPLUS_OVER_11
     for (const auto& parameter : parametersData.items()) {
         result += parameter.key() + "=" +
-            Utilities::ConvertStrToUrlCode(parameter.value().get<std::string>()) + "&";
+                  utilities::ConvertStrToUrlCode(parameter.value().get<std::string>()) + "&";
     }
 #else
     for (json::iterator iter = parametersData.begin();
          iter != parametersData.end();
          iter++) {
         result += iter->key() + "=" +
-            Utilities::ConvertStrToUrlCode(iter->value().get<std::string>()) + "&";
+            utilities::ConvertStrToUrlCode(iter->value().get<std::string>()) + "&";
     }
 #endif // __CPLUSPLUS_OVER_11
 
@@ -79,4 +82,7 @@ VK_REQUEST_ERROR_TYPES ClientBase::GetRequestErrorType(const std::string& errorS
         return VK_ERROR::UNKNOWN_ERROR;
     }
 }
-}
+
+} // namespace base
+
+} // namespace vk

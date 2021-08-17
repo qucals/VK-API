@@ -8,7 +8,7 @@ int main(int argc, const char** argv)
     std::string password = "your_password_there";
     std::string access_token = "your_access_token_there";
 
-    vk::UserBase user(app_id, app_secure_key);
+    vk::base::user::UserBase user(app_id, app_secure_key);
     try {
         if (user.Auth(login, password) == true) {
             // The further behaviour
