@@ -1,8 +1,8 @@
 /**
- * Containts additional functions for working with the library.
+ * Contains additional functions for working with the library.
  * @file Utilities.hpp
  * @author qucals
- * @version 0.0.3 15/08/21
+ * @version 0.0.5 18/08/21
  */
 
 #pragma once
@@ -15,25 +15,27 @@
 #include <curl/curl.h> // curl
 #include <string> // string
 
-namespace vk {
+namespace vk
+{
 
-namespace Utilities {
+namespace utilities
+{
 
-    __INLINE std::string ConvertStrToUrlCode(const std::string& str)
-    {
-        std::string temp(str);
-        CURL* curl = curl_easy_init();
+__INLINE std::string ConvertStrToUrlCode(const std::string& str)
+{
+    std::string temp(str);
+    CURL* curl = curl_easy_init();
 
-        if (curl) {
-            char* output = curl_easy_escape(curl, str.c_str(), str.length());
+    if (curl) {
+        char* output = curl_easy_escape(curl, str.c_str(), static_cast<int>(str.length()));
 
-            if (output) {
-                temp = output;
-                curl_free(output);
-            }
+        if (output) {
+            temp = output;
+            curl_free(output);
         }
-        return temp;
     }
+    return temp;
+}
 
 }
 

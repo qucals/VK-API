@@ -1,8 +1,8 @@
 /**
- * Containts the class for working with vkbot.
+ * Contains the class for working with vkbot.
  * @file BotBase.hpp
  * @author qucals
- * @version 0.0.4 16/08/21
+ * @version 0.0.5 18/08/21
  */
 
 #pragma once
@@ -13,6 +13,12 @@
 #include <ClientBase.hpp>
 
 namespace vk
+{
+
+namespace base
+{
+
+namespace bot
 {
 
 constexpr const char* DEFAULT_TIME_WAIT = "25";
@@ -115,8 +121,8 @@ public:
         json parameters;
         EVENTS type;
 
-        Event(const EVENTS _type, const json _parameters)
-            : parameters(_parameters)
+        Event(const EVENTS _type, json _parameters)
+            : parameters(__MOVE(_parameters))
             , type(_type)
         {}
     };
@@ -128,7 +134,8 @@ public:
      *  The time of waiting for any event.
      *  In the default timeWait equals DEFAULT_TIME_WAIT ("25").
      */
-    BotBase(const std::string groupId, const std::string timeWait = DEFAULT_TIME_WAIT);
+    __EXPLICIT BotBase(std::string groupId, std::string timeWait = DEFAULT_TIME_WAIT);
+
     ~BotBase() = default;
 
     /**
@@ -136,11 +143,11 @@ public:
      * @param  accessToken: the access token
      * @retval 'true' if authorization is successfully and 'false' in another case.
      */
-    bool Auth(const std::string& accessToken) final;
+    bool Auth(const std::string& accessToken) __FINAL;
 
     /**
      * @brief  The function of waiting for any event after authorization.
-     * @retval If the event has happend the function returns the description about it.
+     * @retval If the event has happened the function returns the description about it.
      */
     Event WaitForEvent();
 
@@ -149,7 +156,7 @@ public:
      * @param  method: the enum's method.
      * @retval a string (URL) of this method.
      */
-    __STATIC std::string MethodToString(const METHODS method);
+    __STATIC std::string MethodToString(METHODS method);
 
     /**
      * @brief  The function of sending any request to the VK server.
@@ -157,41 +164,41 @@ public:
      * @param  parametersData: the data of parameters for your request.
      * @retval the answer of your request in json.
      */
-     // TODO (#14): Add asynchronous sending of requests
-    json SendRequest(const METHODS method, const json& parametersData);
+    json SendRequest(METHODS method, const json& parametersData);
 
     /**
      * @brief  The function of sending any request to the VK server.
      * @param  method: your method in str format.
      * @param  parametersData: the data of parameters for your request.
-     * @retval the naswer of your request in json.
+     * @retval the answer of your request in json.
      */
-     // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const std::string& method, const json& parametersData);
 
 #ifdef __CPLUSPLUS_OVER_11
+
     /**
      * @brief  The function witch calls private function for sending a request in asynchronous mode.
      * @param  method: the enum's method.
      * @param  parametersData: the data of parameters for your request.
      * @retval the answer of your request in json.
      */
-    auto SendRequestAsync(const METHODS method, const json& parametersData);
+    auto SendRequestAsync(METHODS method, const json& parametersData);
 
     /**
      * @brief  The function witch calls private function for sending a request in asynchronous mode.
      * @param  method: your method in str format.
      * @param  parametersData: the data of parameters for your request.
-     * @retval the naswer of your request in json.
+     * @retval the answer of your request in json.
      */
     auto SendRequestAsync(const std::string& method, const json& parametersData);
+
 #endif // __CPLUSPLUS_OVER_11
 
 protected:
     /**
      * @brief
      *  Checking the data of parameters on validation.
-     *  If the following itmes won't be found the function will add it.
+     *  If the following items won't be found the function will add it.
      * @param  parametersData: the data for checking validation.
      * @retval the correctly data of parameters in json.
      */
@@ -202,7 +209,7 @@ protected:
      * @param  typeEvent: the event in str.
      * @retval the type of event in enum (EVENTS).
      */
-    EVENTS GetTypeEvent(const std::string& typeEvent);
+    __STATIC EVENTS GetTypeEvent(const std::string& typeEvent);
 
 private:
 
@@ -213,7 +220,7 @@ private:
      * @param method: the enum's method.
      * @param parametersData:  the data of parameters for your request.
      */
-    __STATIC json SendRequestAsync_(BotBase* handle, const METHODS method, const json& parametersData);
+    __STATIC json SendRequestAsync_(BotBase* handle, METHODS method, const json& parametersData);
 
     /**
      * @brief The static function of sending any request to the VK server.
@@ -222,21 +229,26 @@ private:
      * @param parametersData:  the data of parameters for your request.
      */
     __STATIC json SendRequestAsync__(BotBase* handle, const std::string& method, const json& parametersData);
+
 #endif // #ifdef __CPLUSPLUS_OVER_11
 
 private:
-    const std::string groupId_;
-    std::string accessToken_;
+    const std::string m_groupId;
+    std::string m_accessToken;
 
-    json previousEvent_;
+    json m_previousEvent;
 
-    std::string secretKey_;
-    std::string serverUrl_;
-    std::string timeStamp_;
+    std::string m_secretKey;
+    std::string m_serverUrl;
+    std::string m_timeStamp;
 
-    std::string timeWait_;
+    std::string m_timeWait;
 };
 
-}
+} // namespace bot
+
+} // namespace base
+
+} // namespace vk
 
 #endif // _BOTBASE_HPP_

@@ -5,7 +5,7 @@ int main(int argc, const char** argv)
     std::string access_token = "your_token_there";
     std::string group_id = "your_group_id_there";
 
-    vk::BotBase bot(group_id);
+    vk::base::bot::BotBase bot(group_id);
 
     std::cout << "I'm created vk::BotBase!" << std::endl;
     std::cout << "The address is: " << &bot << std::endl;

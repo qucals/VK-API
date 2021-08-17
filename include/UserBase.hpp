@@ -1,8 +1,8 @@
 /**
- * Desribes the class for working with VK account.
+ * Describes the class for working with VK account.
  * @file UserBase.hpp
  * @author qucals
- * @version 0.0.3 15/08/21
+ * @version 0.0.5 18/08/21
  */
 
 #pragma once
@@ -12,14 +12,23 @@
 
 #include <ClientBase.hpp>
 
-namespace vk {
+namespace vk
+{
+
+namespace base
+{
+
+namespace user
+{
 
 // The class for working from users by Long Poll Server.
-class UserBase : public ClientBase {
+class UserBase : public ClientBase
+{
 public:
     // There are user's methods, but not all.
     // Description about below methods you can find at https://vk.com/dev/methods
-    enum class METHODS {
+    enum class METHODS
+    {
         ACCOUNT_BAN,
         ACCOUNT_CHANGE_PASSWORD,
         ACCOUNT_GET_ACTIVE_OFFERS,
@@ -413,7 +422,8 @@ public:
     };
 
     // There are types' messages which the VK server can return during authorization.
-    enum class VALIDATION_TYPES {
+    enum class VALIDATION_TYPES
+    {
         TWOFA_SMS,
         TWOFA_APP,
         UNKNOWN
@@ -424,7 +434,8 @@ public:
      * @param  appId: the id of the application.
      * @param  appSecureKey: the secure key of the application.
      */
-    UserBase(const std::string& appId, const std::string& appSecureKey);
+    UserBase(std::string  appId, std::string  appSecureKey);
+
     ~UserBase() = default;
 
     /**
@@ -448,8 +459,7 @@ public:
      * @param  parametersData: the data of parameters for the request.
      * @retval the answer of the request in json format.
      */
-    // TODO (#14): Add asynchronous sending of requests
-    json SendRequest(const METHODS method, const json& parametersData);
+    json SendRequest(METHODS method, const json& parametersData);
 
     /**
      * @brief  The function sends any request to the VK serve.
@@ -457,7 +467,6 @@ public:
      * @param  parametersData: the data of parameters for the request.
      * @retval the answer of the request in json format.
      */
-    // TODO (#14): Add asynchronous sending of requests
     json SendRequest(const std::string& method, const json& parametersData);
 
     /**
@@ -465,14 +474,14 @@ public:
      * @param  method: enum's method.
      * @retval a string of this method in URL format.
      */
-    std::string MethodToString(const METHODS method);
+    __STATIC std::string MethodToString(METHODS method);
 
     /**
      * @brief  Get the validation type for auth by its description in string format.
      * @param  descriptionType: the description of the type.
      * @retval the validation type in enum format (VALIDATION_TYPES).
      */
-    VALIDATION_TYPES GetValidationType(const std::string& descriptionType);
+    __STATIC VALIDATION_TYPES GetValidationType(const std::string& descriptionType);
 
     UserBase& operator=(const UserBase&) = delete;
 
@@ -491,7 +500,7 @@ protected:
      * @param  answerData: the answer which was received in the previous request.
      * @retval the URL to the captcha.
      */
-    std::string GetURLCaptcha(json& parametersData, const json& answerData);
+    __STATIC std::string GetURLCaptcha(json& parametersData, const json& answerData);
 
 private:
     const std::string appId_;
@@ -501,6 +510,10 @@ private:
     std::string userId_;
 };
 
-}
+} // namespace user
+
+} // namespace base
+
+} // namespace vk
 
 #endif // _USERBASE_HPP_

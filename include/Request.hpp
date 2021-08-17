@@ -1,8 +1,8 @@
 /**
- * Desribes the class for working with CURL.
+ * Describes the class for working with CURL.
  * @file Request.hpp
  * @author qucals
- * @version 0.0.3 16/08/21
+ * @version 0.0.5 18/08/21
  */
 
 #pragma once
@@ -19,13 +19,16 @@
 namespace vk
 {
 
+namespace base
+{
+
 constexpr long APPLY_CURLOPT = 1L;
 constexpr long NO_APPLY_CURLOPT = 0L;
 constexpr long MAXREGIDS = 50L;
 constexpr const char* USERAGENT = "VKAPI Client";
 
 /**
- * @brief The class for working with requst.
+ * @brief The class for working with request.
  */
 class Request
 {
@@ -34,7 +37,7 @@ public:
     ~Request() = delete;
 
     Request& operator=(const Request&) = delete;
- 
+
     /**
      * @brief Sending your request to the VK server.
      * @param  url: the request in url format.
@@ -42,13 +45,15 @@ public:
      * @retval an answer in a string.
      */
     __STATIC std::string Send(const std::string& url,
-        const std::string& postData);
+                              const std::string& postData);
 
 protected:
     __STATIC std::size_t CurlWriteData(char* ptr, size_t size,
-        size_t nmemb, std::string* data);
+                                       size_t nmemb, std::string* data);
 };
 
-}
+} // namespace base
+
+} // namespace vk
 
 #endif // _REQUEST_HPP_
