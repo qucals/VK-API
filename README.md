@@ -78,7 +78,7 @@ int main(int argc, const char** argv)
     std::string access_token = "your_token_there";
     std::string group_id = "your_group_id_there";
 
-    VK::Bot bot(group_id);
+    vk::base::bot::Bot bot(group_id);
 
     if (bot.Auth(access_token) == true) {
         // The further behaviour
@@ -103,7 +103,7 @@ int main(int argc, const char** argv)
     std::string password = "your_password_there";
     std::string access_token = "your_access_token_there";
 
-    VK::User user(app_id, app_secure_key);
+    vk::base::user::User user(app_id, app_secure_key);
     
     if(user.Auth(login, password) == true) {
         // The further behaviour
