@@ -2,17 +2,26 @@
  * Contains general objects for working with VK API.
  * @file ClientBase.hpp
  * @author qucals
- * @version 0.0.5 18/08/21
+ * @version 0.0.6 19/08/21
  */
+
 #pragma once
 
-#ifndef _CLIENTBASE_HPP_
-#define _CLIENTBASE_HPP_
+#ifndef VKAPI_CLIENTBASE_HPP
+#define VKAPI_CLIENTBASE_HPP
+
+#include <Config.hpp>
 
 #include <Request.hpp> // Request
 #include <Utilities.hpp> // ConvertStrToUrlCode
 #include <Exceptions.hpp> // already_connected, not_connected, empty_argument
 #include <Defines.hpp>
+
+#ifdef __VKAPI_VERSION_ADDED_OPTIONAL
+#if __VKAPI_COMPILED_VERSION >= __VKAPI_VERSION_ADDED_OPTIONAL
+#include <Optional.hpp>
+#endif // __VKAPI_COMPILED_VERSION >= __VKAPI_VERSION_ADDED_OPTIONAL
+#endif // __VKAPI_VERSION_ADDED_OPTIONAL
 
 #include <iostream> // cout, endl
 #include <random> // rand
@@ -23,16 +32,22 @@
 #include <future> // async, future
 #endif // __CPLUSPLUS_OVER_11
 
-#include <nlohmann/json.hpp> // json
+#include <nlohmann/json.hpp> // nlohmann::json
 
 namespace vk
 {
 
-using json = nlohmann::json;
-
 namespace base
 {
 
+#ifdef __VKAPI_VERSION_ADDED_OPTIONAL
+#if __VKAPI_COMPILED_VERSION < __VKAPI_VERSION_ADDED_OPTIONAL
+typedef nlohmann::json JsonType;
+#endif // __VKAPI_COMPILED_VERSION < __VKAPI_VERSION_ADDED_OPTIONAL
+#else
+typedef nlohmann::json JsonType;
+#endif // __VKAPI_VERSION_ADDED_OPTIONAL
+    
 #define VKAPI_INVALID_REQUEST "invalid_request"
 #define VKAPI_NEED_CAPTCHA "need_captcha"
 
@@ -97,71 +112,93 @@ public:
     ClientBase();
 
     /**
-     * @brief  The function of authorization by access token.
+     * @brief The function of authorization by access token.
+     *
      * @note
      *  ClientBase hasn't the own realization of auth's function because of
      *  implementation for user and bot auths is differently.
-     * @param  accessToken: the access token
+     *
+     * @param accessToken: the access token
      */
-    __VIRTUAL bool Auth(const std::string& accessToken) = 0;
+    _VKAPI_VIRTUAL bool Auth(const std::string& accessToken) = 0;
 
     /**
-     * @brief  Add a scope to the main scope's list.
-     * @param  scope: your scope.
+     * @brief Add a scope to the main scope's list.
+     *
+     * @param scope: your scope.
      */
-    __VIRTUAL void AddScope(std::string scope);
+    _VKAPI_VIRTUAL void AddScope(std::string scope);
 
     /**
-     * @brief  Add a list of scopes to the main scope's list.
-     * @param  scopeList: your list of scopes.
+     * @brief Add a list of scopes to the main scope's list.
+     *
+     * @param scopeList: your list of scopes.
      */
-    __VIRTUAL void AddScope(std::initializer_list<std::string> scopeList);
+    _VKAPI_VIRTUAL void AddScope(std::initializer_list<std::string> scopeList);
 
     /**
-     * @brief  Clear the main scope's list.
+     * @brief Clear the main scope's list.
      */
-    __VIRTUAL void ClearScope();
+    _VKAPI_VIRTUAL void ClearScope();
 
     /**
-     * @brief  Generate a 32 bits random number.
+     * @brief Generate a 32 bits random number.
+     *
      * @note For example, it is used in the messaging request to the VK server.
+     *
      * @retval a 32 bits random number.
      */
-    __STATIC uint32_t GetRandomId();
+    _VKAPI_STATIC uint32_t GetRandomId();
 
     /**
-     * @brief Says about the connection.
+     * @brief Indicates that you are connected to long poll.
      *
-     * @return true
-     * @return false
+     * @return the connection indicator.
      */
-    __VIRTUAL bool IsAuthorized() const
+    _VKAPI_VIRTUAL bool IsAuthorized() const
     { return m_connectedToLongPoll; }
+
+    /**
+     * @brief The function sends any request to the VK serve.
+     *
+     * @param method: the method in str format.
+     * @param parametersData: the data of parameters for the request.
+     *
+     * @retval the answer of the request in JsonType format.
+     */
+    _VKAPI_VIRTUAL JsonType SendRequest(const std::string& method, const JsonType& parametersData) = 0;
 
     ClientBase& operator=(const ClientBase&) = delete;
 
 protected:
     /**
      * @brief  Convert parameters data to URL format.
+     *
      * @param  parametersData: your parameters data which need to convert to URL format.
+     *
      * @retval a string with parameters in URL format.
      */
-    __VIRTUAL std::string ConvertParametersDataToURL(const json& parametersData);
+    _VKAPI_VIRTUAL std::string ConvertParametersDataToURL(const JsonType& parametersData);
 
     /**
      * @brief  Check validation parameters on having items like access_token and others.
+     *
      * @note   If the data of parameters won't have necessary parameters the function will add it.
+     *
      * @param  parametersData: the data of parameters that you want to check.
+     *
      * @retval the correctly data of parameters.
      */
-    __VIRTUAL json CheckValidationParameters(const json& parametersData) = 0;
+    _VKAPI_VIRTUAL JsonType CheckValidationParameters(const JsonType& parametersData) = 0;
 
     /**
      * @brief  Get the error type by a string.
+     *
      * @param  errorStr: the error in string format.
+     *
      * @retval the type of the error in enum format (VK_REQUEST_ERROR_TYPES).
      */
-    __STATIC VK_REQUEST_ERROR_TYPES GetRequestErrorType(const std::string& errorStr);
+    _VKAPI_STATIC VK_REQUEST_ERROR_TYPES GetRequestErrorType(const std::string& errorStr);
 
 protected:
     std::set<std::string> m_scope;
@@ -173,4 +210,4 @@ protected:
 
 } // namespace vk
 
-#endif // _CLIENTBASE_HPP_
+#endif // VKAPI_CLIENTBASE_HPP

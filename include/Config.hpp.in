@@ -7,8 +7,8 @@
 
 #pragma once
 
-#ifndef _CONFIG_HPP_IN_
-#define _CONFIG_HPP_IN_
+#ifndef VKAPI_CONFIG_HPP_IN
+#define VKAPI_CONFIG_HPP_IN
 
 namespace vk
 {
@@ -89,4 +89,4 @@ typedef struct __vkapi_version
 
 } // namespace vk
 
-#endif // _CONFIG_HPP_IN_
+#endif // VKAPI_CONFIG_HPP_IN

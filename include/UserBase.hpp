@@ -2,13 +2,13 @@
  * Describes the class for working with VK account.
  * @file UserBase.hpp
  * @author qucals
- * @version 0.0.5 18/08/21
+ * @version 0.0.6 19/08/21
  */
 
 #pragma once
 
-#ifndef _USERBASE_HPP_
-#define _USERBASE_HPP_
+#ifndef VKAPI_USERBASE_HPP
+#define VKAPI_USERBASE_HPP
 
 #include <ClientBase.hpp>
 
@@ -21,7 +21,9 @@ namespace base
 namespace user
 {
 
-// The class for working from users by Long Poll Server.
+/**
+ * @brief The class for working from users by Long Poll Server.
+ */
 class UserBase : public ClientBase
 {
 public:
@@ -431,76 +433,93 @@ public:
 
 public:
     /**
-     * @param  appId: the id of the application.
-     * @param  appSecureKey: the secure key of the application.
+     * @param appId: the id of the application.
+     * @param appSecureKey: the secure key of the application.
      */
     UserBase(std::string  appId, std::string  appSecureKey);
 
     ~UserBase() = default;
 
     /**
-     * @brief  The authorization function by login and password.
-     * @param  login: your login.
-     * @param  password: your password.
+     * @brief The authorization function by login and password.
+     *
+     * @param login: your login.
+     * @param password: your password.
+     *
      * @retval 'true' if auth is successfully and 'false' in another case.
      */
-    __VIRTUAL bool Auth(std::string& login, std::string& password);
+    _VKAPI_VIRTUAL bool Auth(std::string& login, std::string& password);
 
     /**
-     * @brief  The authorization function by access token.
-     * @param  accessToken: your access token.
+     * @brief The authorization function by access token.
+     *
+     * @param accessToken: your access token.
+     *
      * @retval 'true' if auth is successfully and 'false' in another case.
      */
-    bool Auth(const std::string& accessToken) __FINAL;
+    bool Auth(const std::string& accessToken) _VKAPI_FINAL;
 
     /**
-     * @brief  The function of sending any request to the VK server.
-     * @param  method: the enum's method.
-     * @param  parametersData: the data of parameters for the request.
-     * @retval the answer of the request in json format.
+     * @brief The function of sending any request to the VK server.
+     *
+     * @param method: the enum's method.
+     * @param parametersData: the data of parameters for the request.
+     *
+     * @retval the answer of the request in JsonType format.
      */
-    json SendRequest(METHODS method, const json& parametersData);
+    JsonType SendRequest(METHODS method, const JsonType& parametersData);
 
     /**
-     * @brief  The function sends any request to the VK serve.
-     * @param  method: the method in str format.
-     * @param  parametersData: the data of parameters for the request.
-     * @retval the answer of the request in json format.
+     * @brief The function sends any request to the VK serve.
+     *
+     * @param method: the method in str format.
+     * @param parametersData: the data of parameters for the request.
+     *
+     * @retval the answer of the request in JsonType format.
      */
-    json SendRequest(const std::string& method, const json& parametersData);
+    JsonType SendRequest(const std::string& method, const JsonType& parametersData) _VKAPI_OVERRIDE;
 
     /**
-     * @brief  The function of converting an enum's method to a string (URL).
-     * @param  method: enum's method.
+     * @brief The function of converting an enum's method to a string (URL).
+     *
+     * @param method: enum's method.
+     *
      * @retval a string of this method in URL format.
      */
-    __STATIC std::string MethodToString(METHODS method);
+    _VKAPI_STATIC std::string MethodToString(METHODS method);
 
     /**
-     * @brief  Get the validation type for auth by its description in string format.
-     * @param  descriptionType: the description of the type.
+     * @brief Get the validation type for auth by its description in string format.
+     *
+     * @param descriptionType: the description of the type.
+     *
      * @retval the validation type in enum format (VALIDATION_TYPES).
      */
-    __STATIC VALIDATION_TYPES GetValidationType(const std::string& descriptionType);
+    _VKAPI_STATIC VALIDATION_TYPES GetValidationType(const std::string& descriptionType);
 
     UserBase& operator=(const UserBase&) = delete;
 
 protected:
     /**
      * @brief  Checking validation parameters on having items like access_token and others.
+     *
      * @note   If the data of parameters won't have the function will add it.
+     *
      * @param  parametersData: the data of parameters that you want to check.
+     *
      * @retval the correctly data of parameters.
      */
-    json CheckValidationParameters(const json& parametersData) __OVERRIDE;
+    JsonType CheckValidationParameters(const JsonType& parametersData) _VKAPI_OVERRIDE;
 
     /**
      * @brief  Get the URL to the captcha.
+     *
      * @param  parametersData: the parameters data which was sent in the previous request.
      * @param  answerData: the answer which was received in the previous request.
+     *
      * @retval the URL to the captcha.
      */
-    __STATIC std::string GetURLCaptcha(json& parametersData, const json& answerData);
+    _VKAPI_STATIC std::string GetURLCaptcha(JsonType& parametersData, const JsonType& answerData);
 
 private:
     const std::string m_appId;
@@ -516,4 +535,4 @@ private:
 
 } // namespace vk
 
-#endif // _USERBASE_HPP_
+#endif // VKAPI_USERBASE_HPP

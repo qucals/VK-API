@@ -2,18 +2,22 @@
  * Contains additional functions for working with the library.
  * @file Utilities.hpp
  * @author qucals
- * @version 0.0.5 18/08/21
+ * @version 0.0.6 19/08/21
  */
 
 #pragma once
 
-#ifndef _UTILITIES_HPP_
-#define _UTILITIES_HPP_
+#ifndef VKAPI_UTILITIES_HPP
+#define VKAPI_UTILITIES_HPP
 
 #include <Defines.hpp>
 
-#include <curl/curl.h> // curl
 #include <string> // string
+#include <curl/curl.h> // curl
+
+#ifndef __CPLUSPLUS_OVER_11
+#include <sstream>
+#endif // __CPLUSPLUS_OVER_11
 
 namespace vk
 {
@@ -21,24 +25,20 @@ namespace vk
 namespace utilities
 {
 
-__INLINE std::string ConvertStrToUrlCode(const std::string& str)
-{
-    std::string temp(str);
-    CURL* curl = curl_easy_init();
+std::string ConvertStrToUrlCode(const std::string& str);
 
-    if (curl) {
-        char* output = curl_easy_escape(curl, str.c_str(), static_cast<int>(str.length()));
+std::string ToString(int val);
+std::string ToString(unsigned val);
+std::string ToString(long val);
+std::string ToString(unsigned long val);
+std::string ToString(long long val);
+std::string ToString(unsigned long long val);
+std::string ToString(float val);
+std::string ToString(double val);
+std::string ToString(long double val);
 
-        if (output) {
-            temp = output;
-            curl_free(output);
-        }
-    }
-    return temp;
-}
+} // namespace utilities
 
-}
+} // namespace vk
 
-}
-
-#endif // _UTILITIES_HPP_
+#endif // VKAPI_UTILITIES_HPP

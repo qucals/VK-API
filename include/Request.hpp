@@ -2,19 +2,19 @@
  * Describes the class for working with CURL.
  * @file Request.hpp
  * @author qucals
- * @version 0.0.5 18/08/21
+ * @version 0.0.6 19/08/21
  */
 
 #pragma once
 
-#ifndef _REQUEST_HPP_
-#define _REQUEST_HPP_
-
-#include <curl/curl.h> // curl
-#include <string> // string
+#ifndef VKAPI_REQUEST_HPP
+#define VKAPI_REQUEST_HPP
 
 #include <Defines.hpp>
 #include <Utilities.hpp> // ConvertStrToUrlCode
+
+#include <curl/curl.h> // curl
+#include <string> // string
 
 namespace vk
 {
@@ -40,20 +40,22 @@ public:
 
     /**
      * @brief Sending your request to the VK server.
-     * @param  url: the request in url format.
-     * @param  postData: the additional parameters which need to add to the request.
+     *
+     * @param url: the request in url format.
+     * @param postData: the additional parameters which need to add to the request.
+     *
      * @retval an answer in a string.
      */
-    __STATIC std::string Send(const std::string& url,
-                              const std::string& postData);
+    _VKAPI_STATIC std::string Send(const std::string& url,
+                                   const std::string& postData);
 
 protected:
-    __STATIC std::size_t CurlWriteData(char* ptr, size_t size,
-                                       size_t nmemb, std::string* data);
+    _VKAPI_STATIC std::size_t CurlWriteData(char* ptr, size_t size,
+                                            size_t nmemb, std::string* data);
 };
 
 } // namespace base
 
 } // namespace vk
 
-#endif // _REQUEST_HPP_
+#endif // VKAPI_REQUEST_HPP

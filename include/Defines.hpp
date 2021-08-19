@@ -2,78 +2,90 @@
  * Contains general defines about the language.
  * @file Defines.hpp
  * @author qucals
- * @version 0.0.5 18/08/21
+ * @version 0.0.6 20/08/21
  */
 
 #pragma once
 
-#ifndef VKAPI_DEFINES_H
-#define VKAPI_DEFINES_H
+#ifndef VKAPI_DEFINES_HPP
+#define VKAPI_DEFINES_HPP
 
-#ifndef __NO_TESTED
-#define __NO_TESTED
-#endif // __NO_TESTED
+#include <Config.hpp>
 
-#ifndef __NO_IMPL
-#define __NO_IMPL
-#endif // __NO_IMPL
+#ifndef _VKAPI_NO_IMPL
+#define _VKAPI_NO_IMPL
+#endif // _VKAPI_NO_IMPL
 
-#ifndef __STATIC
-#define __STATIC static
-#endif // __STATIC
+#ifndef _VKAPI_STATIC
+#define _VKAPI_STATIC static
+#endif // _VKAPI_STATIC
 
 #if (__cplusplus >= 201103L)
 #define __CPLUSPLUS_OVER_11
+#endif // (__cplusplus >= 201103L)
 
-#ifndef __OVERRIDE
-#define __OVERRIDE override
-#endif // __OVERRIDE
+#if (__cplusplus >= 201402L)
+#define __CPLUSPLUS_OVER_14
+#endif // ((__cplusplus >= 201402L))
 
-#ifndef __FINAL
-#define __FINAL final
-#endif // __FINAL
+#if (__cplusplus >= 201703L)
+#define __CPLUSPLUS_OVER_17
+#endif // (__cplusplus >= 201703L)
 
-#ifndef __NOEXCEPT
-#define __NOEXCEPT noexcept
-#endif // __NOEXCEPT
+#if (__cplusplus >= 202002L)
+#define __CPLUSPLUS_OVER_20
+#endif // (__cplusplus >= 202002L)
 
-#ifndef __EXPLICIT
-#define __EXPLICIT explicit
-#endif // __EXPLICIT
+#ifdef __CPLUSPLUS_OVER_11
+#ifndef _VKAPI_OVERRIDE
+#define _VKAPI_OVERRIDE override
+#endif // _VKAPI_OVERRIDE
 
-#ifndef __MOVE
+#ifndef _VKAPI_FINAL
+#define _VKAPI_FINAL final
+#endif // _VKAPI_FINAL
+
+#ifndef _VKAPI_NOEXCEPT
+#define _VKAPI_NOEXCEPT noexcept
+#endif // _VKAPI_NOEXCEPT
+
+#ifndef _VKAPI_EXPLICIT
+#define _VKAPI_EXPLICIT explicit
+#endif // _VKAPI_EXPLICIT
+
+#ifndef _VKAPI_MOVE
 #include <utility>
-#define __MOVE(x) std::move(x)
-#endif // __MOVE(x)
+#define _VKAPI_MOVE(x) std::move(x)
+#endif // _VKAPI_MOVE(x)
 #else
-#ifndef __OVERRIDE
-#define __OVERRIDE
-#endif // __OVERRIDE
+#ifndef _VKAPI_OVERRIDE
+#define _VKAPI_OVERRIDE
+#endif // _VKAPI_OVERRIDE
 
-#ifndef __FINAL
-#define __FINAL
-#endif // __FINAL
+#ifndef _VKAPI_FINAL
+#define _VKAPI_FINAL
+#endif // _VKAPI_FINAL
 
-#ifndef __NOEXCEPT
-#define __NOEXCEPT
-#endif // __NOEXCEPT
+#ifndef _VKAPI_NOEXCEPT
+#define _VKAPI_NOEXCEPT
+#endif // _VKAPI_NOEXCEPT
 
-#ifndef __EXPLICIT
-#define __EXPLICIT
-#endif // __EXPLICIT
+#ifndef _VKAPI_EXPLICIT
+#define _VKAPI_EXPLICIT
+#endif // _VKAPI_EXPLICIT
 
-#ifndef __MOVE
-#define __MOVE(x) x
-#endif // __MOVE
+#ifndef _VKAPI_MOVE
+#define _VKAPI_MOVE(x) x
+#endif // _VKAPI_MOVE
 #endif
 
-#ifndef __VIRTUAL
-#define __VIRTUAL virtual
-#endif // __VIRTUAL
+#ifndef _VKAPI_VIRTUAL
+#define _VKAPI_VIRTUAL virtual
+#endif // _VKAPI_VIRTUAL
 
-#ifndef __INLINE
-#define __INLINE inline
-#endif // __INLINE
+#ifndef _VKAPI_INLINE
+#define _VKAPI_INLINE inline
+#endif // _VKAPI_INLINE
 
 #if defined(_MSC_VER)
 #define __DISABLE_WARNING_PUSH           __pragma(warning( push ))
@@ -90,4 +102,8 @@
 #define __DISABLE_WARNING
 #endif
 
-#endif //VKAPI_DEFINES_H
+#ifndef __VKAPI_VERSION_ADDED_OPTIONAL
+#define __VKAPI_VERSION_ADDED_OPTIONAL __VKAPI_VERSION_NUM(0, 0, 7)
+#endif // __VKAPI_VERSION_ADDED_OPTIONAL
+
+#endif //VKAPI_DEFINES_HPP

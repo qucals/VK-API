@@ -2,7 +2,7 @@
  * Contains general objects for working with VK API.
  * @file ClientBase.hpp
  * @author qucals
- * @version 0.0.5 18/08/21
+ * @version 0.0.6 19/08/21
  */
 
 #include <ClientBase.hpp>
@@ -18,17 +18,17 @@ ClientBase::ClientBase()
 {}
 
 void ClientBase::AddScope(std::string scope)
-{ m_scope.insert(__MOVE(scope)); }
+{ m_scope.insert(_VKAPI_MOVE(scope)); }
 
 void ClientBase::AddScope(std::initializer_list<std::string> scopeList)
 {
 #ifdef __CPLUSPLUS_OVER_11
-    for (const auto& scope : scopeList) { m_scope.insert(__MOVE(scope)); }
+    for (const auto& scope : scopeList) { m_scope.insert(_VKAPI_MOVE(scope)); }
 #else
     for (std::initializer_list<std::string>::iterator iter = scopeList.begin();
          iter != scopeList.end();
          iter++) {
-        m_scope.insert(__MOVE(*iter));
+        m_scope.insert(_VKAPI_MOVE(*iter));
     }
 #endif // __CPLUSPLUS_OVER_11
 }
@@ -36,7 +36,7 @@ void ClientBase::AddScope(std::initializer_list<std::string> scopeList)
 void ClientBase::ClearScope()
 { m_scope.clear(); }
 
-std::string ClientBase::ConvertParametersDataToURL(const json& parametersData)
+std::string ClientBase::ConvertParametersDataToURL(const JsonType& parametersData)
 {
     std::string result;
 
@@ -46,7 +46,7 @@ std::string ClientBase::ConvertParametersDataToURL(const json& parametersData)
                   utilities::ConvertStrToUrlCode(parameter.value().get<std::string>()) + "&";
     }
 #else
-    for (json::iterator iter = parametersData.begin();
+    for (JsonType::iterator iter = parametersData.begin();
          iter != parametersData.end();
          iter++) {
         result += iter->key() + "=" +

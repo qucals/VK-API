@@ -2,7 +2,7 @@
  * Contains the class for working with vkbot.
  * @file BotBase.cpp
  * @author qucals
- * @version 0.0.5 18/08/21
+ * @version 0.0.6 19/08/21
  */
 
 #include <BotBase.hpp>
@@ -17,8 +17,8 @@ namespace bot
 {
 
 BotBase::BotBase(std::string groupId, std::string timeWait)
-    : m_groupId(__MOVE(groupId))
-    , m_timeWait(__MOVE(timeWait))
+    : m_groupId(_VKAPI_MOVE(groupId))
+    , m_timeWait(_VKAPI_MOVE(timeWait))
 {}
 
 bool BotBase::Auth(const std::string& accessToken)
@@ -28,7 +28,7 @@ bool BotBase::Auth(const std::string& accessToken)
 
     if (m_accessToken != accessToken) { m_accessToken = accessToken; }
 
-    json parametersData = {
+    JsonType parametersData = {
         { "access_token", m_accessToken },
         { "group_id",     m_groupId },
         { "v",            VKAPI_API_VERSION }
@@ -36,13 +36,13 @@ bool BotBase::Auth(const std::string& accessToken)
 
     const std::string method = MethodToString(METHODS::GET_LONG_POLL_SERVER);
     const std::string url = VKAPI_API_URL + method;
-    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
+    JsonType response = JsonType::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     if (response.find("error") != response.end()) {
         throw ex::RequestError();
         // TODO (#12): Add error handling when BotBase::Auth failed
     } else {
-        json answerDataStr = response["response"];
+        JsonType answerDataStr = response["response"];
 
         m_secretKey = answerDataStr["key"].get<std::string>();
         m_serverUrl = answerDataStr["server"].get<std::string>();
@@ -58,20 +58,20 @@ BotBase::Event BotBase::WaitForEvent()
 {
     if (!IsAuthorized()) { throw ex::NotConnectedException(); }
 
-    json parametersData = {
+    JsonType parametersData = {
         { "key",  m_secretKey },
         { "ts",   m_timeStamp },
         { "wait", m_timeWait }
     };
 
     std::string url = m_serverUrl + "?act=a_check&";
-    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
+    JsonType response = JsonType::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     if (response.find("ts") != response.end()) {
         m_timeStamp = response.at("ts").get<std::string>();
     }
 
-    json updates = response.at("updates")[0];
+    JsonType updates = response.at("updates")[0];
     std::string eventStr = updates.at("type").get<std::string>();
 
     return Event(GetTypeEvent(eventStr), updates);
@@ -163,73 +163,73 @@ std::string BotBase::MethodToString(const METHODS method)
     return "";
 }
 
-json BotBase::SendRequest(const METHODS method, const json& parametersData)
+JsonType BotBase::SendRequest(METHODS method, const JsonType& parametersData)
 {
     if (!IsAuthorized()) { throw ex::NotConnectedException(); }
 
     std::string methodStr = MethodToString(method);
     std::string url = VKAPI_API_URL + methodStr;
 
-    json pData = CheckValidationParameters(parametersData);
-    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
+    JsonType pData = CheckValidationParameters(parametersData);
+    JsonType response = JsonType::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
 
     return response;
 }
 
-json BotBase::SendRequest(const std::string& method, const json& parametersData)
+JsonType BotBase::SendRequest(const std::string& method, const JsonType& parametersData)
 {
     if (!IsAuthorized()) { throw ex::NotConnectedException(); }
     if (method.empty()) { throw ex::EmptyArgumentException(); }
 
     std::string url = VKAPI_API_URL + method;
 
-    json pData = CheckValidationParameters(parametersData);
-    json response = json::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
+    JsonType pData = CheckValidationParameters(parametersData);
+    JsonType response = JsonType::parse(Request::Send(url, ConvertParametersDataToURL(pData)));
 
     return response;
 }
 
 #ifdef __CPLUSPLUS_OVER_11
 
-auto BotBase::SendRequestAsync(const METHODS method, const json& parametersData)
-{ return std::async(BotBase::SendRequestAsync_, this, method, parametersData); }
+auto BotBase::SendRequestAsync(METHODS method, const JsonType& parametersData)
+{ return std::async(BotBase::SendRequestAsyncByMethod_, this, method, parametersData); }
 
-auto BotBase::SendRequestAsync(const std::string& method, const json& parametersData)
-{ return std::async(BotBase::SendRequestAsync__, this, method, parametersData); }
+auto BotBase::SendRequestAsync(const std::string& method, const JsonType& parametersData)
+{ return std::async(BotBase::SendRequestAsyncByStr_, this, method, parametersData); }
 
-json BotBase::SendRequestAsync_(BotBase* handle, const METHODS method, const json& parametersData)
+JsonType BotBase::SendRequestAsyncByMethod_(BotBase* botHandle, METHODS method, const JsonType& parametersData)
 {
-    assert(handle == nullptr);
-    if (!handle->IsAuthorized()) { throw ex::NotConnectedException(); }
+    assert(botHandle == nullptr);
+    if (!botHandle->IsAuthorized()) { throw ex::NotConnectedException(); }
 
     std::string methodStr = BotBase::MethodToString(method);
     std::string url = VKAPI_API_URL + methodStr;
 
-    json pData = handle->CheckValidationParameters(parametersData);
-    json response = json::parse(Request::Send(url, handle->ConvertParametersDataToURL(pData)));
+    JsonType pData = botHandle->CheckValidationParameters(parametersData);
+    JsonType response = JsonType::parse(Request::Send(url, botHandle->ConvertParametersDataToURL(pData)));
 
     return response;
 }
 
-json BotBase::SendRequestAsync__(BotBase* handle, const std::string& method, const json& parametersData)
+JsonType BotBase::SendRequestAsyncByStr_(BotBase* botHandle, const std::string& method, const JsonType& parametersData)
 {
-    assert(handle == nullptr);
-    if (!handle->IsAuthorized()) { throw ex::NotConnectedException(); }
+    assert(botHandle == nullptr);
+    if (!botHandle->IsAuthorized()) { throw ex::NotConnectedException(); }
     if (method.empty()) { throw ex::EmptyArgumentException(); }
 
     std::string url = VKAPI_API_URL + method;
 
-    json pData = handle->CheckValidationParameters(parametersData);
-    json response = json::parse(Request::Send(url, handle->ConvertParametersDataToURL(pData)));
+    JsonType pData = botHandle->CheckValidationParameters(parametersData);
+    JsonType response = JsonType::parse(Request::Send(url, botHandle->ConvertParametersDataToURL(pData)));
 
     return response;
 }
 
 #endif // __CPLUSPLUS_OVER_11
 
-json BotBase::CheckValidationParameters(const json& parametersData)
+JsonType BotBase::CheckValidationParameters(const JsonType& parametersData)
 {
-    json cParametersData = parametersData;
+    JsonType cParametersData = parametersData;
 
     if (cParametersData.find("access_token") == cParametersData.end()) {
         cParametersData.push_back({ "access_token", m_accessToken });

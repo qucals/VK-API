@@ -2,13 +2,13 @@
  * Contains exceptions and information about them of this library.
  * @file Exceptions.hpp
  * @author qucals
- * @version 0.0.5 18/08/21
+ * @version 0.0.6 19/08/21
  */
 
 #pragma once
 
-#ifndef _EXCEPTIONS_HPP_
-#define _EXCEPTIONS_HPP_
+#ifndef VKAPI_EXCEPTIONS_HPP
+#define VKAPI_EXCEPTIONS_HPP
 
 #include <exception>
 
@@ -20,25 +20,25 @@ namespace vk
 namespace ex
 {
 
-class BaseException : __VIRTUAL public std::exception
+class BaseException : _VKAPI_VIRTUAL public std::exception
 {
 protected:
     std::string m_errorMessage;
 
 public:
-    __EXPLICIT BaseException(std::string msg)
-        : m_errorMessage(__MOVE(msg))
+    _VKAPI_EXPLICIT BaseException(std::string msg)
+        : m_errorMessage(_VKAPI_MOVE(msg))
     {}
 
-    ~BaseException() __NOEXCEPT __OVERRIDE = default;
+    ~BaseException() _VKAPI_NOEXCEPT _VKAPI_OVERRIDE = default;
 
-    const char* what() const __NOEXCEPT __OVERRIDE
+    const char* what() const _VKAPI_NOEXCEPT _VKAPI_OVERRIDE
     {
         return m_errorMessage.c_str();
     }
 };
 
-class AlreadyConnectedException : __VIRTUAL public BaseException
+class AlreadyConnectedException : _VKAPI_VIRTUAL public BaseException
 {
 public:
     explicit AlreadyConnectedException()
@@ -46,7 +46,7 @@ public:
     {}
 };
 
-class NotConnectedException : __VIRTUAL public BaseException
+class NotConnectedException : _VKAPI_VIRTUAL public BaseException
 {
 public:
     explicit NotConnectedException()
@@ -54,7 +54,7 @@ public:
     {}
 };
 
-class EmptyArgumentException : __VIRTUAL public BaseException
+class EmptyArgumentException : _VKAPI_VIRTUAL public BaseException
 {
 public:
     explicit EmptyArgumentException()
@@ -62,7 +62,7 @@ public:
     {}
 };
 
-class RequestError : __VIRTUAL public BaseException
+class RequestError : _VKAPI_VIRTUAL public BaseException
 {
 public:
     explicit RequestError()
@@ -74,4 +74,4 @@ public:
 
 } // namespace vk
 
-#endif // _EXCEPTIONS_HPP_
+#endif // VKAPI_EXCEPTIONS_HPP

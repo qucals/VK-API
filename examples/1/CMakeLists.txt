@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.5)
 set(PROJECT_NAME Example1)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
-set(CMAKE_CXX_FLAGS "-lcurl")
+if(UNIX)
+    set(CMAKE_CXX_FLAGS "-L/usr/local/lib/ -L/usr/lib/ ${CMAKE_CXX_FLAGS} -pthread")
+endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lcurl")
 
 set(VKAPI_DIR ../../lib/cmake)
 find_package(VKAPI CONFIG REQUIRED)

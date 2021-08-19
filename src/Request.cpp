@@ -50,6 +50,8 @@ std::string Request::Send(const std::string& url, const std::string& postData)
     return postData;
 }
 
+
+
 std::size_t Request::CurlWriteData(char* ptr, size_t size,
                                    size_t nmemb, std::string* data)
 {
