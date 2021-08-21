@@ -47,7 +47,7 @@ typedef nlohmann::json JsonType;
 #else
 typedef nlohmann::json JsonType;
 #endif // __VKAPI_VERSION_ADDED_OPTIONAL
-    
+
 #define VKAPI_INVALID_REQUEST "invalid_request"
 #define VKAPI_NEED_CAPTCHA "need_captcha"
 
