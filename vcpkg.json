@@ -1,7 +1,0 @@
-{
-    "name": "VK-API",
-    "version-string": "0.0.6",
-    "dependencies": [
-      "curl"
-    ]
-  }

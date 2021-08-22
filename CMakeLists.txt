@@ -42,9 +42,17 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_INSTALL_INCLUDEDIR})
 # Include json
 target_link_directories(${PROJECT_NAME} PUBLIC ${NLOHMANN_JSON_PATH})
 
-find_package(CURL REQUIRED)
-target_link_directories(${PROJECT_NAME} PUBLIC ${CURL_INCLUDE_DIR})
-target_link_libraries(${PROJECT_NAME} PUBLIC curl)
+# Link curl
+if(UNIX)
+    find_package(CURL REQUIRED)
+    target_link_directories(${PROJECT_NAME} PUBLIC ${CURL_INCLUDE_DIR})
+else()
+    include(FindPkgConfig)
+    # find_package(CURL REQUIRED)
+    pkg_check_modules(CURL libcurl REQUIRED)
+endif()
+
+target_link_libraries(${PROJECT_NAME} PUBLIC CURL::libcurl)
 
 set_target_properties(
     ${PROJECT_NAME} PROPERTIES

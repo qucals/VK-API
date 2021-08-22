@@ -9,8 +9,8 @@ on:
     branches: [ master ]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  CMAKE_BUILD_DIR: ${{ github.workspace }}/build/
 
 jobs:
   build:
@@ -19,32 +19,38 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        submodules: true
 
     - name: Install deps
-      run: sudo apt update && sudo apt upgrade && sudo apt install curl && sudo apt-get install libcurl4-openssl-dev
+      run: |
+        sudo apt update
+        sudo apt upgrade
+        sudo apt install curl
+        sudo apt-get install libcurl4-openssl-dev
 
     - name: Configure VKAPI Library CMake
-      run: cmake -B ${{github.workspace}}/build -DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -B ${{ env.CMAKE_BUILD_DIR }} -DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
 
     - name: Build VKAPI Library
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{ env.CMAKE_BUILD_DIR }} --config ${{ env.BUILD_TYPE }}
       
     - name: Install VKAPI Library
-      run: cmake --build ${{github.workspace}}/build --target install --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{ env.CMAKE_BUILD_DIR }} --target install --config ${{ env.BUILD_TYPE }}
 
     # Configure, Build and Install WE - With Examples
     - name: Configure VKAPI Library CMake WE
-      run: cmake -B ${{github.workspace}}/build -DBUILD_EXAMPLES=ON -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -B ${{ env.CMAKE_BUILD_DIR }} -DBUILD_EXAMPLES=ON -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
 
     - name: Build VKAPI Library WE
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{ env.CMAKE_BUILD_DIR }} --config ${{ env.BUILD_TYPE }}
       
     - name: Install VKAPI Library WE
-      run: cmake --build ${{github.workspace}}/build --target install --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{ env.CMAKE_BUILD_DIR }} --target install --config ${{ env.BUILD_TYPE }}
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{ env.CMAKE_BUILD_DIR }}
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: ctest -C ${{env.BUILD_TYPE}}
+      run: ctest -C ${{ env.BUILD_TYPE }}
       
