@@ -2,10 +2,10 @@
  * Contains the class for working with vkbot.
  * @file BotBase.cpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
 
-#include <BotBase.hpp>
+#include "BotBase.hpp"
 
 namespace vk
 {
@@ -26,7 +26,7 @@ bool BotBase::Auth(const std::string& accessToken)
     if (IsAuthorized()) { throw ex::AlreadyConnectedException(); }
     if (accessToken.empty()) { throw ex::EmptyArgumentException(); }
 
-    if (m_accessToken != accessToken) { m_accessToken = accessToken; }
+    m_accessToken = accessToken;
 
     JsonType parametersData = {
         { "access_token", m_accessToken },
@@ -77,6 +77,7 @@ BotBase::Event BotBase::WaitForEvent()
     return Event(GetTypeEvent(eventStr), updates);
 }
 
+_VKAPI_COMPLEXITY_FUNCTION 
 std::string BotBase::MethodToString(const METHODS method)
 {
     switch (method) {
@@ -191,10 +192,10 @@ JsonType BotBase::SendRequest(const std::string& method, const JsonType& paramet
 
 #ifdef __CPLUSPLUS_OVER_11
 
-auto BotBase::SendRequestAsync(METHODS method, const JsonType& parametersData)
+auto BotBase::SendRequestAsync(METHODS method, const JsonType& parametersData) -> std::future<JsonType>
 { return std::async(BotBase::SendRequestAsyncByMethod_, this, method, parametersData); }
 
-auto BotBase::SendRequestAsync(const std::string& method, const JsonType& parametersData)
+auto BotBase::SendRequestAsync(const std::string& method, const JsonType& parametersData) -> std::future<JsonType>
 { return std::async(BotBase::SendRequestAsyncByStr_, this, method, parametersData); }
 
 JsonType BotBase::SendRequestAsyncByMethod_(BotBase* botHandle, METHODS method, const JsonType& parametersData)
@@ -246,6 +247,7 @@ JsonType BotBase::CheckValidationParameters(const JsonType& parametersData)
     return cParametersData;
 }
 
+_VKAPI_COMPLEXITY_FUNCTION
 BotBase::EVENTS BotBase::GetTypeEvent(const std::string& typeEvent)
 {
     if (typeEvent == "message_new") {

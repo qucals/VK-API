@@ -2,24 +2,22 @@
  * Contains general objects for working with VK API.
  * @file ClientBase.hpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
-
-#pragma once
 
 #ifndef VKAPI_CLIENTBASE_HPP
 #define VKAPI_CLIENTBASE_HPP
 
-#include <Config.hpp>
+#include "Config.hpp"
 
-#include <Request.hpp> // Request
-#include <Utilities.hpp> // ConvertStrToUrlCode
-#include <Exceptions.hpp> // already_connected, not_connected, empty_argument
-#include <Defines.hpp>
+#include "Request.hpp" // Request
+#include "Utilities.hpp" // ConvertStrToUrlCode
+#include "Exceptions.hpp" // already_connected, not_connected, empty_argument
+#include "Defines.hpp"
 
 #ifdef __VKAPI_VERSION_ADDED_OPTIONAL
 #if __VKAPI_COMPILED_VERSION >= __VKAPI_VERSION_ADDED_OPTIONAL
-#include <Optional.hpp>
+#include "Optional.hpp"
 #endif // __VKAPI_COMPILED_VERSION >= __VKAPI_VERSION_ADDED_OPTIONAL
 #endif // __VKAPI_VERSION_ADDED_OPTIONAL
 
@@ -27,12 +25,13 @@
 #include <random> // rand
 #include <set> // set
 #include <string> // string
+#include <iterator> // begin, end
 
 #ifdef __CPLUSPLUS_OVER_11
 #include <future> // async, future
 #endif // __CPLUSPLUS_OVER_11
 
-#include <nlohmann/json.hpp> // nlohmann::json
+#include "nlohmann/json.hpp" // nlohmann::json
 
 namespace vk
 {
@@ -40,13 +39,13 @@ namespace vk
 namespace base
 {
 
-#ifdef __VKAPI_VERSION_ADDED_OPTIONAL
-#if __VKAPI_COMPILED_VERSION < __VKAPI_VERSION_ADDED_OPTIONAL
+#ifndef VKAPI_OPTIONAL_HPP
 typedef nlohmann::json JsonType;
-#endif // __VKAPI_COMPILED_VERSION < __VKAPI_VERSION_ADDED_OPTIONAL
-#else
-typedef nlohmann::json JsonType;
-#endif // __VKAPI_VERSION_ADDED_OPTIONAL
+
+typedef long long int IdType;
+typedef unsigned long long UIdType;
+typedef bool IndicatorType;
+#endif // VKAPI_OPTIONAL_HPP
 
 #define VKAPI_INVALID_REQUEST "invalid_request"
 #define VKAPI_NEED_CAPTCHA "need_captcha"

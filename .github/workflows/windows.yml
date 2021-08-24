@@ -22,19 +22,6 @@ jobs:
       with:
         submodules: true
 
-    # - name: Install vcpkg and deps
-    #   run: |
-    #     cd ..
-    #     git clone ${{ env.VCPKG_GIT }}
-    #     cd vcpkg
-    #     git checkout --force 2020.01
-    #     .\bootstrap-vcpkg.bat
-    #     .\vcpkg.exe install curl
-    #     cd ${{ github.workspace }}
-
-    # - name: Configure VKAPI Library CMake
-    #   run: cmake -B ${{ env.CMAKE_BUILD_DIR }} -DBUILD_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} /../vcpkg/scripts/buildsystems/vcpkg.cmake
-
     - name: Install deps
       uses: crazy-max/ghaction-chocolatey@v1
       with:

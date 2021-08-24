@@ -2,15 +2,13 @@
  * Describes the class for working with VK account.
  * @file UserBase.hpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
-
-#pragma once
 
 #ifndef VKAPI_USERBASE_HPP
 #define VKAPI_USERBASE_HPP
 
-#include <ClientBase.hpp>
+#include "ClientBase.hpp"
 
 namespace vk
 {
@@ -486,6 +484,7 @@ public:
      *
      * @retval a string of this method in URL format.
      */
+    _VKAPI_COMPLEXITY_FUNCTION
     _VKAPI_STATIC std::string MethodToString(METHODS method);
 
     /**

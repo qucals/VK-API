@@ -2,10 +2,10 @@
  * Describes the class for working with VK account.
  * @file UserBase.hpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
 
-#include <UserBase.hpp>
+#include "UserBase.hpp"
 
 namespace vk
 {
@@ -33,11 +33,13 @@ bool UserBase::Auth(std::string& login, std::string& password)
 
     if (!m_scope.empty()) {
 #ifdef __CPLUSPLUS_OVER_11
-        for (const auto& i : m_scope) { scope += "," + i; }
+        scope = std::accumulate(std::begin(m_scope), std::end(m_scope), std::string(),
+                                [](const std::string& temp, const std::string& item)
+                                { return temp + "," + item; });
 #else
         for (std::set<std::string>::iterator iter = m_scope.begin();
              iter != m_scope.end();
-             iter++) {
+             ++iter) {
             scope += "," + i;
         }
 #endif // __CPLUSPLUS_OVER_11
@@ -138,7 +140,7 @@ bool UserBase::Auth(const std::string& accessToken)
             JsonType __response = response.at("response").items();
             for (JsonType::iterator iter = __response.begin();
                  iter != __response.end();
-                 iter++) {
+                 ++iter) {
                 m_userId = iter->value().at("id").get<std::string>();
             }
 #endif // __CPLUSPLUS_OVER_11
@@ -216,6 +218,7 @@ JsonType UserBase::SendRequest(const std::string& method, const JsonType& parame
     return response;
 }
 
+_VKAPI_COMPLEXITY_FUNCTION
 std::string UserBase::MethodToString(METHODS method)
 {
     switch (method) {

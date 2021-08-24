@@ -2,10 +2,10 @@
  * Contains additional functions for working with the library.
  * @file Utilities.hpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
 
-#include <Utilities.hpp>
+#include "Utilities.hpp"
 
 namespace vk
 {

@@ -2,17 +2,16 @@
  * Contains exceptions and information about them of this library.
  * @file Exceptions.hpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
-
-#pragma once
 
 #ifndef VKAPI_EXCEPTIONS_HPP
 #define VKAPI_EXCEPTIONS_HPP
 
+#include <string>
 #include <exception>
 
-#include <Defines.hpp>
+#include "Defines.hpp"
 
 namespace vk
 {

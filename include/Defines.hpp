@@ -2,15 +2,13 @@
  * Contains general defines about the language.
  * @file Defines.hpp
  * @author qucals
- * @version 0.0.6 20/08/21
+ * @version 0.0.7 24/08/21
  */
-
-#pragma once
 
 #ifndef VKAPI_DEFINES_HPP
 #define VKAPI_DEFINES_HPP
 
-#include <Config.hpp>
+#include "Config.hpp"
 
 #ifndef _VKAPI_NO_IMPL
 #define _VKAPI_NO_IMPL
@@ -87,15 +85,19 @@
 #define _VKAPI_INLINE inline
 #endif // _VKAPI_INLINE
 
+#ifndef _VKAPI_UNUSED
+#define _VKAPI_UNUSED(x) (void)(x)
+#endif // _VKAPI_UNUSED
+
 #if defined(_MSC_VER)
-#define __DISABLE_WARNING_PUSH           __pragma(warning( push ))
-#define __DISABLE_WARNING_POP            __pragma(warning( pop ))
-#define __DISABLE_WARNING(warningNumber) __pragma(warning( disable : warningNumber ))
+#define __DISABLE_WARNING_PUSH           __pragma(warning(push))
+#define __DISABLE_WARNING_POP            __pragma(warning(pop))
+#define __DISABLE_WARNING(warningNumber) __pragma(warning(disable : warningNumber))
 #elif defined(__GNUC__) || defined(__clang__)
 #define __DO_PRAGMA(X)                   _Pragma(#X)
-#define __DISABLE_WARNING_PUSH           __DO_PRAGMA(GCC diagnostic push)
-#define __DISABLE_WARNING_POP            __DO_PRAGMA(GCC diagnostic pop)
-#define __DISABLE_WARNING(warningName)   __DO_PRAGMA(ide diagnostic ignored #warningName)
+#define __DISABLE_WARNING_PUSH           __DO_PRAGMA("GCC diagnostic push")
+#define __DISABLE_WARNING_POP            __DO_PRAGMA("GCC diagnostic pop")
+#define __DISABLE_WARNING(warningName)   __DO_PRAGMA("GCC diagnostic ignored \"#warningName\"")
 #else
 #define __DISABLE_WARNING_PUSH
 #define __DISABLE_WARNING_POP
@@ -105,5 +107,8 @@
 #ifndef __VKAPI_VERSION_ADDED_OPTIONAL
 #define __VKAPI_VERSION_ADDED_OPTIONAL __VKAPI_VERSION_NUM(0, 0, 7)
 #endif // __VKAPI_VERSION_ADDED_OPTIONAL
+
+// TODO(#14): Write defines for disable complexity warnings
+#define _VKAPI_COMPLEXITY_FUNCTION
 
 #endif //VKAPI_DEFINES_HPP

@@ -2,10 +2,10 @@
  * Contains general objects for working with VK API.
  * @file ClientBase.hpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
 
-#include <ClientBase.hpp>
+#include "ClientBase.hpp"
 
 namespace vk
 {
@@ -27,7 +27,7 @@ void ClientBase::AddScope(std::initializer_list<std::string> scopeList)
 #else
     for (std::initializer_list<std::string>::iterator iter = scopeList.begin();
          iter != scopeList.end();
-         iter++) {
+         ++iter) {
         m_scope.insert(_VKAPI_MOVE(*iter));
     }
 #endif // __CPLUSPLUS_OVER_11
@@ -41,14 +41,15 @@ std::string ClientBase::ConvertParametersDataToURL(const JsonType& parametersDat
     std::string result;
 
 #ifdef __CPLUSPLUS_OVER_11
+    // TODO(#16): Rewrite below function with using std::accumulate
     for (const auto& parameter : parametersData.items()) {
         result += parameter.key() + "=" +
-                  utilities::ConvertStrToUrlCode(parameter.value().get<std::string>()) + "&";
+            utilities::ConvertStrToUrlCode(parameter.value().get<std::string>()) + "&";
     }
 #else
     for (JsonType::iterator iter = parametersData.begin();
          iter != parametersData.end();
-         iter++) {
+         ++iter) {
         result += iter->key() + "=" +
             utilities::ConvertStrToUrlCode(iter->value().get<std::string>()) + "&";
     }
@@ -73,7 +74,7 @@ VK_REQUEST_ERROR_TYPES ClientBase::GetRequestErrorType(const std::string& errorS
 {
     using VK_ERROR = VK_REQUEST_ERROR_TYPES;
 
-    // TODO: Add all VK_ERRORS
+    // TODO (#13): Add all VK_ERRORS
     if (errorStr == VKAPI_INVALID_REQUEST) {
         return VK_ERROR::INVALID_REQUEST;
     } else if (errorStr == VKAPI_NEED_CAPTCHA) {

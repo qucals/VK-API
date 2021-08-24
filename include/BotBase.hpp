@@ -2,15 +2,13 @@
  * Contains the class for working with vkbot.
  * @file BotBase.hpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
-
-#pragma once
 
 #ifndef VKAPI_BOTBASE_HPP
 #define VKAPI_BOTBASE_HPP
 
-#include <ClientBase.hpp>
+#include "ClientBase.hpp"
 
 namespace vk
 {
@@ -162,6 +160,7 @@ public:
      *
      * @retval a string (URL) of this method.
      */
+    _VKAPI_COMPLEXITY_FUNCTION
     _VKAPI_STATIC std::string MethodToString(METHODS method);
 
     /**
@@ -194,7 +193,7 @@ public:
      *
      * @retval the answer of your request in JsonType.
      */
-    auto SendRequestAsync(METHODS method, const JsonType& parametersData);
+    auto SendRequestAsync(METHODS method, const JsonType& parametersData) -> std::future<JsonType>;
 
     /**
      * @brief The function witch calls private function for sending a request in asynchronous mode.
@@ -204,7 +203,7 @@ public:
      *
      * @retval the answer of your request in JsonType.
      */
-    auto SendRequestAsync(const std::string& method, const JsonType& parametersData);
+    auto SendRequestAsync(const std::string& method, const JsonType& parametersData) -> std::future<JsonType>;
 
 #endif // __CPLUSPLUS_OVER_11
 
@@ -227,6 +226,7 @@ protected:
      *
      * @retval the type of event in enum (EVENTS).
      */
+    _VKAPI_COMPLEXITY_FUNCTION
     _VKAPI_STATIC EVENTS GetTypeEvent(const std::string& typeEvent);
 
 private:

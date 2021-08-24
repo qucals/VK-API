@@ -2,15 +2,13 @@
  * Contains additional functions for working with the library.
  * @file Utilities.hpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
-
-#pragma once
 
 #ifndef VKAPI_UTILITIES_HPP
 #define VKAPI_UTILITIES_HPP
 
-#include <Defines.hpp>
+#include "Defines.hpp"
 
 #include <string> // string
 #include <curl/curl.h> // curl

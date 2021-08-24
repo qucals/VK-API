@@ -2,16 +2,14 @@
  * Describes the class for working with CURL.
  * @file Request.hpp
  * @author qucals
- * @version 0.0.6 19/08/21
+ * @version 0.0.7 24/08/21
  */
-
-#pragma once
 
 #ifndef VKAPI_REQUEST_HPP
 #define VKAPI_REQUEST_HPP
 
-#include <Defines.hpp>
-#include <Utilities.hpp> // ConvertStrToUrlCode
+#include "Defines.hpp"
+#include "Utilities.hpp" // ConvertStrToUrlCode
 
 #include <curl/curl.h> // curl
 #include <string> // string
