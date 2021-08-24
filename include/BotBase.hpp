@@ -2,15 +2,13 @@
  * Contains the class for working with vkbot.
  * @file BotBase.hpp
  * @author qucals
- * @version 0.0.5 18/08/21
+ * @version 0.0.7 24/08/21
  */
 
-#pragma once
+#ifndef VKAPI_BOTBASE_HPP
+#define VKAPI_BOTBASE_HPP
 
-#ifndef _BOTBASE_HPP_
-#define _BOTBASE_HPP_
-
-#include <ClientBase.hpp>
+#include "ClientBase.hpp"
 
 namespace vk
 {
@@ -118,79 +116,94 @@ public:
 
     struct Event
     {
-        json parameters;
+        JsonType parameters;
         EVENTS type;
 
-        Event(const EVENTS _type, json _parameters)
-            : parameters(__MOVE(_parameters))
+        Event(const EVENTS _type, JsonType _parameters)
+            : parameters(_VKAPI_MOVE(_parameters))
             , type(_type)
         {}
     };
 
 public:
     /**
-     * @param  groupId: the id of the bot's group.
-     * @param  timeWait:
+     * @param groupId: the id of the bot's group.
+     *
+     * @param timeWait:
      *  The time of waiting for any event.
-     *  In the default timeWait equals DEFAULT_TIME_WAIT ("25").
+     *  Default: DEFAULT_TIME_WAIT ("25").
      */
-    __EXPLICIT BotBase(std::string groupId, std::string timeWait = DEFAULT_TIME_WAIT);
+    _VKAPI_EXPLICIT BotBase(std::string groupId, std::string timeWait = DEFAULT_TIME_WAIT);
 
     ~BotBase() = default;
 
     /**
-     * @brief  The authorization function by the access token
-     * @param  accessToken: the access token
+     * @brief The authorization function by the access token.
+     *
+     * @param accessToken: the access token.
+     *
      * @retval 'true' if authorization is successfully and 'false' in another case.
      */
-    bool Auth(const std::string& accessToken) __FINAL;
+    bool Auth(const std::string& accessToken) _VKAPI_FINAL;
 
     /**
-     * @brief  The function of waiting for any event after authorization.
+     * @brief The function of waiting for any event after authorization.
+     *
      * @retval If the event has happened the function returns the description about it.
      */
     Event WaitForEvent();
 
     /**
-     * @brief  The function of converting an enum's method to a string (URL).
-     * @param  method: the enum's method.
+     * @brief The function of converting an enum's method to a string (URL).
+     *
+     * @param method: the enum's method.
+     *
      * @retval a string (URL) of this method.
      */
-    __STATIC std::string MethodToString(METHODS method);
+    _VKAPI_COMPLEXITY_FUNCTION
+    _VKAPI_STATIC std::string MethodToString(METHODS method);
 
     /**
-     * @brief  The function of sending any request to the VK server.
-     * @param  method: the enum's method.
-     * @param  parametersData: the data of parameters for your request.
-     * @retval the answer of your request in json.
+     * @brief The function of sending any request to the VK server.
+     *
+     * @param method: the enum's method.
+     * @param parametersData: the data of parameters for your request.
+     *
+     * @retval the answer of your request in JsonType.
      */
-    json SendRequest(METHODS method, const json& parametersData);
+    JsonType SendRequest(METHODS method, const JsonType& parametersData);
 
     /**
-     * @brief  The function of sending any request to the VK server.
-     * @param  method: your method in str format.
-     * @param  parametersData: the data of parameters for your request.
-     * @retval the answer of your request in json.
+     * @brief The function of sending any request to the VK server.
+     *
+     * @param method: your method in str format.
+     * @param parametersData: the data of parameters for your request.
+     *
+     * @retval the answer of your request in JsonType.
      */
-    json SendRequest(const std::string& method, const json& parametersData);
+    JsonType SendRequest(const std::string& method, const JsonType& parametersData) _VKAPI_OVERRIDE;
 
 #ifdef __CPLUSPLUS_OVER_11
 
     /**
-     * @brief  The function witch calls private function for sending a request in asynchronous mode.
-     * @param  method: the enum's method.
-     * @param  parametersData: the data of parameters for your request.
-     * @retval the answer of your request in json.
+     * @brief The function witch calls private function for sending a request in asynchronous mode.
+     *
+     * @param method: the enum's method.
+     * @param parametersData: the data of parameters for your request.
+     *
+     * @retval the answer of your request in JsonType.
      */
-    auto SendRequestAsync(METHODS method, const json& parametersData);
+    auto SendRequestAsync(METHODS method, const JsonType& parametersData) -> std::future<JsonType>;
 
     /**
-     * @brief  The function witch calls private function for sending a request in asynchronous mode.
-     * @param  method: your method in str format.
-     * @param  parametersData: the data of parameters for your request.
-     * @retval the answer of your request in json.
+     * @brief The function witch calls private function for sending a request in asynchronous mode.
+     *
+     * @param method: your method in str format.
+     * @param parametersData: the data of parameters for your request.
+     *
+     * @retval the answer of your request in JsonType.
      */
-    auto SendRequestAsync(const std::string& method, const json& parametersData);
+    auto SendRequestAsync(const std::string& method, const JsonType& parametersData) -> std::future<JsonType>;
 
 #endif // __CPLUSPLUS_OVER_11
 
@@ -199,36 +212,49 @@ protected:
      * @brief
      *  Checking the data of parameters on validation.
      *  If the following items won't be found the function will add it.
-     * @param  parametersData: the data for checking validation.
-     * @retval the correctly data of parameters in json.
+     *
+     * @param parametersData: the data for checking validation.
+     *
+     * @retval the correctly data of parameters in JsonType.
      */
-    json CheckValidationParameters(const json& parametersData) __OVERRIDE;
+    JsonType CheckValidationParameters(const JsonType& parametersData) _VKAPI_OVERRIDE;
 
     /**
-     * @brief  Get the type of events by string.
-     * @param  typeEvent: the event in str.
+     * @brief Get the type of events by string.
+     *
+     * @param typeEvent: the event in str.
+     *
      * @retval the type of event in enum (EVENTS).
      */
-    __STATIC EVENTS GetTypeEvent(const std::string& typeEvent);
+    _VKAPI_COMPLEXITY_FUNCTION
+    _VKAPI_STATIC EVENTS GetTypeEvent(const std::string& typeEvent);
 
 private:
 
 #ifdef __CPLUSPLUS_OVER_11
     /**
      * @brief The static function of sending any request to the VK server.
-     * @param handle: a pointer to your handle of BotBase.
+     *
+     * @param botHandle: a pointer to your handle of BotBase.
      * @param method: the enum's method.
      * @param parametersData:  the data of parameters for your request.
+     *
+     * @retval the answer of your request in JsonType.
      */
-    __STATIC json SendRequestAsync_(BotBase* handle, METHODS method, const json& parametersData);
+    _VKAPI_STATIC JsonType
+    SendRequestAsyncByMethod_(BotBase* botHandle, METHODS method, const JsonType& parametersData);
 
     /**
      * @brief The static function of sending any request to the VK server.
-     * @param handle: a pointer to your handle of BotBase.
+     *
+     * @param botHandle: a pointer to your handle of BotBase.
      * @param method: your method in str format.
      * @param parametersData:  the data of parameters for your request.
+     *
+     * @retval the answer of your request in JsonType.
      */
-    __STATIC json SendRequestAsync__(BotBase* handle, const std::string& method, const json& parametersData);
+    _VKAPI_STATIC JsonType
+    SendRequestAsyncByStr_(BotBase* botHandle, const std::string& method, const JsonType& parametersData);
 
 #endif // #ifdef __CPLUSPLUS_OVER_11
 
@@ -236,7 +262,7 @@ private:
     const std::string m_groupId;
     std::string m_accessToken;
 
-    json m_previousEvent;
+    JsonType m_previousEvent;
 
     std::string m_secretKey;
     std::string m_serverUrl;
@@ -251,4 +277,4 @@ private:
 
 } // namespace vk
 
-#endif // _BOTBASE_HPP_
+#endif // VKAPI_BOTBASE_HPP

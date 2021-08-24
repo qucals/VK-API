@@ -30,7 +30,10 @@ file(GLOB TARGET_HEADERS "./include/*.hpp")
 if(BUILD_LIBRARY)
     add_library(${PROJECT_NAME} STATIC ${TARGET_SRC} ${TARGET_HEADERS})
 else()
-    set(CMAKE_CXX_FLAGS " -lcurl")
+    if(UNIX)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+    endif()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lcurl")
     add_executable(${PROJECT_NAME} ${TARGET_SRC} ${TARGET_HEADERS})
 endif()
 
@@ -39,10 +42,17 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_INSTALL_INCLUDEDIR})
 # Include json
 target_link_directories(${PROJECT_NAME} PUBLIC ${NLOHMANN_JSON_PATH})
 
-add_definitions(-DCURL_STATICLIB)
+# Link curl
+if(UNIX)
+    find_package(CURL REQUIRED)
+    target_link_directories(${PROJECT_NAME} PUBLIC ${CURL_INCLUDE_DIR})
+else()
+    include(FindPkgConfig)
+    # find_package(CURL REQUIRED)
+    pkg_check_modules(CURL libcurl REQUIRED)
+endif()
 
-find_package(CURL REQUIRED)
-target_link_directories(${PROJECT_NAME} PUBLIC ${CURL_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} PUBLIC CURL::libcurl)
 
 set_target_properties(
     ${PROJECT_NAME} PROPERTIES

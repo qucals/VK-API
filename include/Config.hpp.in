@@ -2,13 +2,11 @@
  * Contains information about the project's version.
  * @file Config.hpp
  * @author qucals
- * @version @VKAPI_MAJOR_VERSION@.@VKAPI_MINOR_VERSION@.@VKAPI_PATCH_VERSION@ 18/08/21
+ * @version @VKAPI_MAJOR_VERSION@.@VKAPI_MINOR_VERSION@.@VKAPI_PATCH_VERSION@ 24/08/21
  */
 
-#pragma once
-
-#ifndef _CONFIG_HPP_IN_
-#define _CONFIG_HPP_IN_
+#ifndef VKAPI_CONFIG_HPP_IN
+#define VKAPI_CONFIG_HPP_IN
 
 namespace vk
 {
@@ -89,4 +87,4 @@ typedef struct __vkapi_version
 
 } // namespace vk
 
-#endif // _CONFIG_HPP_IN_
+#endif // VKAPI_CONFIG_HPP_IN
