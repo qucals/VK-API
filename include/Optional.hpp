@@ -2,7 +2,7 @@
  * Describes optional class.
  * @file Optional.hpp
  * @author qucals
- * @version 0.0.7 24/08/21
+ * @version 0.0.8 24/08/21
  */
 
 #ifndef VKAPI_OPTIONAL_HPP
@@ -11,6 +11,8 @@
 #include <vector>
 
 #include "Defines.hpp"
+#include "Types.hpp"
+
 #include "nlohmann/json.hpp"
 
 namespace vk
@@ -56,7 +58,7 @@ public:
         m_isSet = true;
     }
 
-    const _Type& Get() const& _VKAPI_NOEXCEPT
+    _VKAPI_INLINE const _Type& Get() const& _VKAPI_NOEXCEPT
     { return m_val; }
 
     void Clear()
@@ -93,12 +95,6 @@ class Optional : public BasicOptional<T>
 {};
 
 #endif // defined(__CPLUSPLUS_OVER_17)
-
-typedef long long int IdType;
-typedef unsigned long long UIdType;
-typedef bool IndicatorType;
-
-typedef nlohmann::json JsonType;
 
 typedef Optional<IdType> Opt_IdType;
 typedef Optional<UIdType> Opt_UIdType;

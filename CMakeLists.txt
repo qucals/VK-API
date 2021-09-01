@@ -7,10 +7,8 @@ include(GNUInstallDirs)
 
 set(VKAPI_MAJOR_VERSION 0)
 set(VKAPI_MINOR_VERSION 0)
-set(VKAPI_PATCH_VERSION 5)
+set(VKAPI_PATCH_VERSION 8)
 set(VKAPI_VERSION_STRING "${VKAPI_MAJOR_VERSION}.${VKAPI_MINOR_VERSION}.${VKAPI_PATCH_VERSION}")
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/Config.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/Config.hpp @ONLY)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -18,14 +16,18 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(MACOSX TRUE)
 endif()
 
-set(NLOHMANN_JSON_PATH "${PROJECT_SOURCE_DIR}/include")
+# set(NLOHMANN_JSON_PATH "${PROJECT_SOURCE_DIR}/include")
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
 
 option(BUILD_LIBRARY "Determines that, as a result, we get" ON)
 option(BUILD_EXAMPLES "Determines whether examples should be performed" ON)
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/Config.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/Config.hpp @ONLY)
+
 file(GLOB TARGET_SRC "./src/*.cpp")
 file(GLOB TARGET_HEADERS "./include/*.hpp")
+
+include(submodules/install.cmake)
 
 if(BUILD_LIBRARY)
     add_library(${PROJECT_NAME} STATIC ${TARGET_SRC} ${TARGET_HEADERS})
@@ -37,10 +39,11 @@ else()
     add_executable(${PROJECT_NAME} ${TARGET_SRC} ${TARGET_HEADERS})
 endif()
 
+# Include headers
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_INSTALL_INCLUDEDIR})
 
-# Include json
-target_link_directories(${PROJECT_NAME} PUBLIC ${NLOHMANN_JSON_PATH})
+# Link nlohmann_json
+target_link_libraries(${PROJECT_NAME} PUBLIC nlohmann_json)
 
 # Link curl
 if(UNIX)
@@ -48,7 +51,6 @@ if(UNIX)
     target_link_directories(${PROJECT_NAME} PUBLIC ${CURL_INCLUDE_DIR})
 else()
     include(FindPkgConfig)
-    # find_package(CURL REQUIRED)
     pkg_check_modules(CURL libcurl REQUIRED)
 endif()
 

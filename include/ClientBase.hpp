@@ -2,7 +2,7 @@
  * Contains general objects for working with VK API.
  * @file ClientBase.hpp
  * @author qucals
- * @version 0.0.7 24/08/21
+ * @version 0.0.8 24/08/21
  */
 
 #ifndef VKAPI_CLIENTBASE_HPP
@@ -14,6 +14,7 @@
 #include "Utilities.hpp" // ConvertStrToUrlCode
 #include "Exceptions.hpp" // already_connected, not_connected, empty_argument
 #include "Defines.hpp"
+#include "Types.hpp"
 
 #ifdef __VKAPI_VERSION_ADDED_OPTIONAL
 #if __VKAPI_COMPILED_VERSION >= __VKAPI_VERSION_ADDED_OPTIONAL
@@ -39,22 +40,14 @@ namespace vk
 namespace base
 {
 
-#ifndef VKAPI_OPTIONAL_HPP
-typedef nlohmann::json JsonType;
-
-typedef long long int IdType;
-typedef unsigned long long UIdType;
-typedef bool IndicatorType;
-#endif // VKAPI_OPTIONAL_HPP
-
 #define VKAPI_INVALID_REQUEST "invalid_request"
 #define VKAPI_NEED_CAPTCHA "need_captcha"
 
-constexpr const char* VKAPI_API_URL = "https://api.vk.com/method/";
-constexpr const char* VKAPI_AUTH_URL = "https://oauth.vk.com/token?";
-constexpr const char* VKAPI_OAUTH_URL = "https://oauth.vk.com/authorize?";
-constexpr const char* VKAPI_OAUTH_URL_SECOND = "https://oauth.vk.com/access_token?";
-constexpr const char* VKAPI_API_VERSION = "5.120";
+_VKAPI_CONSTEXPR const char* VKAPI_API_URL = "https://api.vk.com/method/";
+_VKAPI_CONSTEXPR const char* VKAPI_AUTH_URL = "https://oauth.vk.com/token?";
+_VKAPI_CONSTEXPR const char* VKAPI_OAUTH_URL = "https://oauth.vk.com/authorize?";
+_VKAPI_CONSTEXPR const char* VKAPI_OAUTH_URL_SECOND = "https://oauth.vk.com/access_token?";
+_VKAPI_CONSTEXPR const char* VKAPI_API_VERSION = "5.120";
 
 // The types of error which the VK server can return.
 // You can see the description of these on https://vk.com/dev/errors

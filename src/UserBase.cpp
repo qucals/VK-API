@@ -2,7 +2,7 @@
  * Describes the class for working with VK account.
  * @file UserBase.hpp
  * @author qucals
- * @version 0.0.7 24/08/21
+ * @version 0.0.8 24/08/21
  */
 
 #include "UserBase.hpp"
@@ -70,9 +70,7 @@ bool UserBase::Auth(std::string& login, std::string& password)
                 std::cin >> captchaKey;
 
                 parametersData.push_back({ "captcha_key", captchaKey });
-                std::string answer = Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData));
-
-                // TODO (#11): Add further processing
+                response = Request::Send(VKAPI_AUTH_URL, ConvertParametersDataToURL(parametersData));
             }
 
             VALIDATION_TYPES validationType = GetValidationType(response.at("validation_type"));
@@ -218,7 +216,6 @@ JsonType UserBase::SendRequest(const std::string& method, const JsonType& parame
     return response;
 }
 
-_VKAPI_COMPLEXITY_FUNCTION
 std::string UserBase::MethodToString(METHODS method)
 {
     switch (method) {

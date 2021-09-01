@@ -2,7 +2,7 @@
  * Contains the class for working with vkbot.
  * @file BotBase.cpp
  * @author qucals
- * @version 0.0.7 24/08/21
+ * @version 0.0.8 24/08/21
  */
 
 #include "BotBase.hpp"
@@ -39,8 +39,7 @@ bool BotBase::Auth(const std::string& accessToken)
     JsonType response = JsonType::parse(Request::Send(url, ConvertParametersDataToURL(parametersData)));
 
     if (response.find("error") != response.end()) {
-        throw ex::RequestError();
-        // TODO (#12): Add error handling when BotBase::Auth failed
+        throw ex::AuthFailed();
     } else {
         JsonType answerDataStr = response["response"];
 
@@ -74,10 +73,9 @@ BotBase::Event BotBase::WaitForEvent()
     JsonType updates = response.at("updates")[0];
     std::string eventStr = updates.at("type").get<std::string>();
 
-    return Event(GetTypeEvent(eventStr), updates);
+    return Event(GetTypeEvent(eventStr), updates); // NOLINT(modernize-return-braced-init-list)
 }
 
-_VKAPI_COMPLEXITY_FUNCTION 
 std::string BotBase::MethodToString(const METHODS method)
 {
     switch (method) {
@@ -247,7 +245,6 @@ JsonType BotBase::CheckValidationParameters(const JsonType& parametersData)
     return cParametersData;
 }
 
-_VKAPI_COMPLEXITY_FUNCTION
 BotBase::EVENTS BotBase::GetTypeEvent(const std::string& typeEvent)
 {
     if (typeEvent == "message_new") {

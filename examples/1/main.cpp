@@ -15,7 +15,7 @@ int main(int argc, const char** argv)
         } else {
             std::cout << "Auth is failed!" << std::endl;
         }
-    } catch (std::exception ex) {
+    } catch (std::exception& ex) {
         std::cout << ex.what() << std::endl;
     }
 

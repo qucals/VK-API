@@ -2,8 +2,10 @@
  * Contains exceptions and information about them of this library.
  * @file Exceptions.hpp
  * @author qucals
- * @version 0.0.7 24/08/21
+ * @version 0.0.8 24/08/21
  */
+
+// TODO (#17): Add comments about exceptions
 
 #ifndef VKAPI_EXCEPTIONS_HPP
 #define VKAPI_EXCEPTIONS_HPP
@@ -40,7 +42,7 @@ public:
 class AlreadyConnectedException : _VKAPI_VIRTUAL public BaseException
 {
 public:
-    explicit AlreadyConnectedException()
+    _VKAPI_EXPLICIT AlreadyConnectedException()
         : BaseException("The client is already connected to Long Poll Server!")
     {}
 };
@@ -48,7 +50,7 @@ public:
 class NotConnectedException : _VKAPI_VIRTUAL public BaseException
 {
 public:
-    explicit NotConnectedException()
+    _VKAPI_EXPLICIT NotConnectedException()
         : BaseException("The client is not already connected to Long Poll Server!")
     {}
 };
@@ -56,7 +58,7 @@ public:
 class EmptyArgumentException : _VKAPI_VIRTUAL public BaseException
 {
 public:
-    explicit EmptyArgumentException()
+    _VKAPI_EXPLICIT EmptyArgumentException()
         : BaseException("The size of argument's symbols cannot equal zero!")
     {}
 };
@@ -64,8 +66,16 @@ public:
 class RequestError : _VKAPI_VIRTUAL public BaseException
 {
 public:
-    explicit RequestError()
+    _VKAPI_EXPLICIT RequestError()
         : BaseException("Request returned unknown errors!")
+    {}
+};
+
+class AuthFailed : _VKAPI_VIRTUAL public BaseException
+{
+public:
+    _VKAPI_EXPLICIT AuthFailed()
+        : BaseException("Authorization completed with an error!")
     {}
 };
 

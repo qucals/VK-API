@@ -23,7 +23,7 @@ int main(int argc, const char** argv)
         } else {
             // The further behaviour
         }
-    } catch (std::exception ex) {
+    } catch (std::exception& ex) {
         std::cout << ex.what() << std::endl;
     }
 

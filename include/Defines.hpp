@@ -2,7 +2,7 @@
  * Contains general defines about the language.
  * @file Defines.hpp
  * @author qucals
- * @version 0.0.7 24/08/21
+ * @version 0.0.8 24/08/21
  */
 
 #ifndef VKAPI_DEFINES_HPP
@@ -35,65 +35,37 @@
 #endif // (__cplusplus >= 202002L)
 
 #ifdef __CPLUSPLUS_OVER_11
-#ifndef _VKAPI_OVERRIDE
-#define _VKAPI_OVERRIDE override
-#endif // _VKAPI_OVERRIDE
+#define _VKAPI_OVERRIDE     override
+#define _VKAPI_FINAL        final
+#define _VKAPI_NOEXCEPT     noexcept
+#define _VKAPI_EXPLICIT     explicit
+#define _VKAPI_CONSTEXPR    constexpr
 
-#ifndef _VKAPI_FINAL
-#define _VKAPI_FINAL final
-#endif // _VKAPI_FINAL
-
-#ifndef _VKAPI_NOEXCEPT
-#define _VKAPI_NOEXCEPT noexcept
-#endif // _VKAPI_NOEXCEPT
-
-#ifndef _VKAPI_EXPLICIT
-#define _VKAPI_EXPLICIT explicit
-#endif // _VKAPI_EXPLICIT
-
-#ifndef _VKAPI_MOVE
 #include <utility>
-#define _VKAPI_MOVE(x) std::move(x)
-#endif // _VKAPI_MOVE(x)
+#define _VKAPI_MOVE(x)      std::move(x)
 #else
-#ifndef _VKAPI_OVERRIDE
 #define _VKAPI_OVERRIDE
-#endif // _VKAPI_OVERRIDE
-
-#ifndef _VKAPI_FINAL
 #define _VKAPI_FINAL
-#endif // _VKAPI_FINAL
-
-#ifndef _VKAPI_NOEXCEPT
 #define _VKAPI_NOEXCEPT
-#endif // _VKAPI_NOEXCEPT
-
-#ifndef _VKAPI_EXPLICIT
 #define _VKAPI_EXPLICIT
-#endif // _VKAPI_EXPLICIT
-
-#ifndef _VKAPI_MOVE
-#define _VKAPI_MOVE(x) x
-#endif // _VKAPI_MOVE
+#define _VKAPI_CONSTEXPR
+#define _VKAPI_MOVE(x)      x
 #endif
 
-#ifndef _VKAPI_VIRTUAL
-#define _VKAPI_VIRTUAL virtual
-#endif // _VKAPI_VIRTUAL
+#define _VKAPI_VIRTUAL      virtual
+#define _VKAPI_INLINE       inline
 
-#ifndef _VKAPI_INLINE
-#define _VKAPI_INLINE inline
-#endif // _VKAPI_INLINE
-
-#ifndef _VKAPI_UNUSED
 #define _VKAPI_UNUSED(x) (void)(x)
-#endif // _VKAPI_UNUSED
 
 #if defined(_MSC_VER)
+#define _VKAPI_MSVC 1
+
 #define __DISABLE_WARNING_PUSH           __pragma(warning(push))
 #define __DISABLE_WARNING_POP            __pragma(warning(pop))
 #define __DISABLE_WARNING(warningNumber) __pragma(warning(disable : warningNumber))
 #elif defined(__GNUC__) || defined(__clang__)
+#define _VKAPI_CLANG 1
+
 #define __DO_PRAGMA(X)                   _Pragma(#X)
 #define __DISABLE_WARNING_PUSH           __DO_PRAGMA("GCC diagnostic push")
 #define __DISABLE_WARNING_POP            __DO_PRAGMA("GCC diagnostic pop")
@@ -104,11 +76,32 @@
 #define __DISABLE_WARNING
 #endif
 
+#ifndef _VKAPI_MSVC
+#define _VKAPI_MSVC 0
+#endif // _VKAPI_MSVC
+
+#ifndef _VKAPI_CLANG
+#define _VKAPI_CLANG 0
+#endif // _VKAPI_CLANG
+
+#if _VKAPI_MSVC
+#define _VKAPI_UNUSED_FOR_ANALYZER
+#elif _VKAPI_CLANG
+#define _VKAPI_UNUSED_FOR_ANALYZER __attribute__((unused))
+#endif
+
+#ifndef _VKAPI_DEBUG_PRINT
+#if __DEBUG__
+#define _VKAPI_DEBUG_STDCERR(x) (std::cerr << (x))
+#define _VKAPI_DEBUG_STDCOUT(x) (std::cout << (x))
+#else
+#define _VKAPI_DEBUG_STDCERR(x)
+#define _VKAPI_DEBUG_STDCOUT(x)
+#endif // __DEBUG__
+#endif // _VKAPI_DEBUG_PRINT
+
 #ifndef __VKAPI_VERSION_ADDED_OPTIONAL
 #define __VKAPI_VERSION_ADDED_OPTIONAL __VKAPI_VERSION_NUM(0, 0, 7)
 #endif // __VKAPI_VERSION_ADDED_OPTIONAL
-
-// TODO(#14): Write defines for disable complexity warnings
-#define _VKAPI_COMPLEXITY_FUNCTION
 
 #endif //VKAPI_DEFINES_HPP

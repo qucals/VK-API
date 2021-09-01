@@ -2,7 +2,7 @@
  * Describes the class for working with CURL.
  * @file Request.hpp
  * @author qucals
- * @version 0.0.7 24/08/21
+ * @version 0.0.8 24/08/21
  */
 
 #ifndef VKAPI_REQUEST_HPP
@@ -20,10 +20,10 @@ namespace vk
 namespace base
 {
 
-constexpr long APPLY_CURLOPT = 1L;
-constexpr long NO_APPLY_CURLOPT = 0L;
-constexpr long MAXREGIDS = 50L;
-constexpr const char* USERAGENT = "VKAPI Client";
+_VKAPI_UNUSED_FOR_ANALYZER _VKAPI_CONSTEXPR long APPLY_CURLOPT = 1L;
+_VKAPI_CONSTEXPR long NO_APPLY_CURLOPT = 0L;
+_VKAPI_CONSTEXPR long MAXREGIDS = 50L;
+_VKAPI_CONSTEXPR const char* USERAGENT = "VKAPI Client";
 
 /**
  * @brief The class for working with request.

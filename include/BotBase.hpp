@@ -2,7 +2,7 @@
  * Contains the class for working with vkbot.
  * @file BotBase.hpp
  * @author qucals
- * @version 0.0.7 24/08/21
+ * @version 0.0.8 24/08/21
  */
 
 #ifndef VKAPI_BOTBASE_HPP
@@ -19,7 +19,7 @@ namespace base
 namespace bot
 {
 
-constexpr const char* DEFAULT_TIME_WAIT = "25";
+_VKAPI_CONSTEXPR const char* DEFAULT_TIME_WAIT = "25";
 
 /**
  * @brief The class for working from bots by Long Poll Server.
@@ -160,7 +160,6 @@ public:
      *
      * @retval a string (URL) of this method.
      */
-    _VKAPI_COMPLEXITY_FUNCTION
     _VKAPI_STATIC std::string MethodToString(METHODS method);
 
     /**
@@ -226,7 +225,6 @@ protected:
      *
      * @retval the type of event in enum (EVENTS).
      */
-    _VKAPI_COMPLEXITY_FUNCTION
     _VKAPI_STATIC EVENTS GetTypeEvent(const std::string& typeEvent);
 
 private:
@@ -269,6 +267,8 @@ private:
     std::string m_timeStamp;
 
     std::string m_timeWait;
+
+    
 };
 
 } // namespace bot

@@ -2,7 +2,7 @@
  * Contains general objects for working with VK API.
  * @file ClientBase.hpp
  * @author qucals
- * @version 0.0.7 24/08/21
+ * @version 0.0.8 24/08/21
  */
 
 #include "ClientBase.hpp"
@@ -72,15 +72,19 @@ uint32_t ClientBase::GetRandomId()
 
 VK_REQUEST_ERROR_TYPES ClientBase::GetRequestErrorType(const std::string& errorStr)
 {
-    using VK_ERROR = VK_REQUEST_ERROR_TYPES;
-
-    // TODO (#13): Add all VK_ERRORS
     if (errorStr == VKAPI_INVALID_REQUEST) {
-        return VK_ERROR::INVALID_REQUEST;
+        return VK_REQUEST_ERROR_TYPES::INVALID_REQUEST;
     } else if (errorStr == VKAPI_NEED_CAPTCHA) {
-        return VK_ERROR::NEED_CAPTCHA;
+        return VK_REQUEST_ERROR_TYPES::NEED_CAPTCHA;
     } else {
-        return VK_ERROR::UNKNOWN_ERROR;
+        try {
+            VK_REQUEST_ERROR_TYPES __e = static_cast<VK_REQUEST_ERROR_TYPES>(
+                std::stoi(errorStr));
+            return __e;
+        } catch (std::exception& ex) {
+            _VKAPI_DEBUG_STDCERR(ex.what());
+        }
+        return VK_REQUEST_ERROR_TYPES::UNKNOWN_ERROR;
     }
 }
 
