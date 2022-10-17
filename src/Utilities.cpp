@@ -26,6 +26,9 @@ std::string ConvertStrToUrlCode(const std::string& str)
             curl_free(output);
         }
     }
+
+    curl_easy_cleanup(curl);
+
     return temp;
 }
 
