@@ -1,0 +1,90 @@
+/**
+ * Contains information about the project's version.
+ * @file Config.hpp
+ * @author qucals
+ * @version 0.0.8 24/08/21
+ */
+
+#ifndef VKAPI_CONFIG_HPP_IN
+#define VKAPI_CONFIG_HPP_IN
+
+namespace vk
+{
+
+/**
+ * @brief Information the version of VKAPI in use.
+ * 
+ * Represents the library's version as three levels: major revision
+ * (increments with massive changes, additions, and enhancements),
+ * minor revision (increments with backwards-compatible changes to the
+ * major revision), and patchlevel (increments with fixes to the minor
+ * revision).
+ */
+typedef struct __vkapi_version
+{
+    short major;
+    short minor;
+    short patch;
+} __vkapi_version;
+
+#define __VKAPI_MAJOR_VERSION 0
+#define __VKAPI_MINOR_VERSION 0
+#define __VKAPI_PATCH_VERSION 8
+
+#ifndef __VKAPI_MAJOR_VERSION
+#define __VKAPI_MAJOR_VERSION 0
+#endif // __VKAPI_MAJOR_VERSION
+
+#ifndef __VKAPI_MINOR_VERSION
+#define __VKAPI_MINOR_VERSION 0
+#endif // __VKAPI_MINOR_VERSION
+
+#ifndef __VKAPI_PATCH_VERSION
+#define __VKAPI_PATCH_VERSION 0
+#endif // __VKAPI_PATCH_VERSION
+
+/**
+ *  @brief Macro to determine VKAPI version program was compiled against.
+ *
+ *  This macro fills in a __vkapi_version structure with the version of the
+ *  library you compiled against. This is determined by what header the
+ *  compiler uses. Note that if you dynamically linked the library, you might
+ *  have a slightly newer or older version at runtime. That version can be
+ *  determined with GUCpp_GetVersion(), which, unlike GUCpp_VERSION(),
+ *  is not a macro.
+ *
+ *  @param x A pointer to a __vkapi_version struct to initialize.
+ */
+#define __VKAPI_VERSION(x)                    \
+{                                             \
+        (x)->major = __VKAPI_MAJOR_VERSION;   \
+        (x)->minor = __VKAPI_MINOR_VERSION;   \
+        (x)->patch = __VKAPI_PATCH_VERSION;   \
+}
+
+/**
+ * This macro turns the version numbers into a numeric value:
+ * @verbatim
+   (1,2,3) -> (1203)
+   @endverbatim
+ *
+ * This assumes that there will never be more than 100 patchlevels.
+ */
+#define __VKAPI_VERSION_NUM(X, Y, Z)          \
+        ((X) * 1000 + (Y) * 100 + (Z))
+
+/**
+ * This is the version number macro for the current GUCpp version.
+ */
+#define __VKAPI_COMPILED_VERSION              \
+        __VKAPI_VERSION_NUM(__VKAPI_MAJOR_VERSION, __VKAPI_MINOR_VERSION, __VKAPI_PATCH_VERSION)
+
+/**
+ * This macro will evaluate to true if compiled with VKAPI at least X.Y.Z.
+ */
+#define __VKAPI_VERSION_ATLEAST(X, Y, Z)      \
+        (__VKAPI_COMPILED_VERSION >= __VKAPI_VERSION_NUM(X, Y, Z))
+
+} // namespace vk
+
+#endif // VKAPI_CONFIG_HPP_IN

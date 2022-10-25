@@ -1036,10 +1036,5 @@ dkms.conf
 # CURL
 ./include/curl/*
 
-# JSON
-./include/nlohmann/*
-
 # VKAPI
-include/Config.hpp
-include/nlohmann*
 src/main.cpp
