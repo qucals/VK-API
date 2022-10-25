@@ -21,7 +21,7 @@ typedef unsigned int       uint32_t;
 typedef unsigned long long uint64_t;
 #endif // __CPLUSPLUS_OVER_11
 
-#include "nlohmann/json.hpp" // nlohmann::json
+#include "nlohmann/json.hpp"
 
 namespace vk
 {

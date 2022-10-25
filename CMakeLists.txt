@@ -27,8 +27,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/include/Config.hpp.in ${CMAKE_CURRENT
 file(GLOB TARGET_SRC "./src/*.cpp")
 file(GLOB TARGET_HEADERS "./include/*.hpp")
 
-include(submodules/install.cmake)
-
 if(BUILD_LIBRARY)
     add_library(${PROJECT_NAME} STATIC ${TARGET_SRC} ${TARGET_HEADERS})
 else()
@@ -36,7 +34,7 @@ else()
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
     endif()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lcurl")
-    add_executable(${PROJECT_NAME} ${TARGET_SRC} ${TARGET_HEADERS})
+    add_executable(${PROJECT_NAME}_EXE ${TARGET_SRC} ${TARGET_HEADERS})
 endif()
 
 # Include headers
